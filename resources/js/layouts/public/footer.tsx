@@ -1,9 +1,10 @@
 import { Link } from '@inertiajs/react'
 
+
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/container'
 import { Input } from "@/components/ui/input"
-// import { Logomark } from '@/components/Logo'
+import Logo from '@/images/logo.svg'
 import { NavLink } from '@/components/navlink'
 import qrCode from '@/images/qr-code.svg'
 
@@ -26,11 +27,14 @@ export default function Footer() {
                 <div className="flex flex-col items-start justify-between gap-y-12 pb-6 pt-16 lg:flex-row lg:items-center lg:py-16">
                     <div>
                         <div className="flex items-center text-gray-900">
+                            <Link href="#" className="relative w-20 h-20" aria-label="Home">
+                                <img src={Logo} alt={"123myvpn logo"} className="absolute inset-0 w-full h-full object-cover object-center" />
+                            </Link>
                             {/* <Logomark className="h-10 w-10 flex-none fill-cyan-500" /> */}
-                            <div className="ml-4">
-                                <p className="text-base font-semibold">Pocket</p>
-                                <p className="mt-1 text-sm">Invest at the perfect time.</p>
-                            </div>
+                        </div>
+                        <div className="mt-4">
+                            <p className="text-base font-semibold">123myvpn</p>
+                            <p className="mt-1 text-sm">Invest at the perfect time.</p>
                         </div>
                         {/* <nav className="mt-11 flex gap-8">
                             <NavLink />

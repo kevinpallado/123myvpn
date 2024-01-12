@@ -23,7 +23,7 @@ export default function Header({ headerTitle }: HeaderProps) {
             <Container>
                 <nav className="relative z-50 flex justify-between">
                     <div className="flex items-center md:gap-x-12">
-                        <Link href="#" className="relative w-40 h-40" aria-label="Home">
+                        <Link href="#" className="relative w-20 h-20" aria-label="Home">
                             <img src={Logo} alt={"123myvpn logo"} className="absolute inset-0 w-full h-full object-cover object-center" />
                         </Link>
                         <div className="hidden md:flex md:gap-x-6">
