@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+// controllers
+use App\Http\Controllers\Admin\LoginController;
 
 use Inertia\Inertia;
 /*
@@ -16,4 +18,7 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('home');
+});
+Route::prefix('admin')->name('admin.')->group(function() {
+    Route::get('login', [LoginController::class, 'index'])->name('login.form');
 });

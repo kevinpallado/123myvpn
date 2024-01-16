@@ -34,7 +34,7 @@ export default function Footer() {
                         </div>
                         <div className="mt-4">
                             <p className="text-base font-semibold">123myvpn</p>
-                            <p className="mt-1 text-sm">Invest at the perfect time.</p>
+                            <p className="mt-1 text-sm">Connect with Confidence, Guard Your Privacy.</p>
                         </div>
                         {/* <nav className="mt-11 flex gap-8">
                             <NavLink />

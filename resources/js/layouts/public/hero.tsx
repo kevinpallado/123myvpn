@@ -15,6 +15,7 @@ import logoForbes from '@/images/logos/forbes.svg'
 import logoHuffpost from '@/images/logos/huffpost.svg'
 import logoTechcrunch from '@/images/logos/techcrunch.svg'
 import logoWired from '@/images/logos/wired.svg'
+import checkIcon from '@/images/check.svg'
 
 function BackgroundIllustration(props: React.ComponentPropsWithoutRef<'div'>) {
     let id = useId()
@@ -100,28 +101,46 @@ function PlayIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 export default function Hero() {
     return (
-        <div className="overflow-hidden py-20 sm:py-32 lg:pb-32 xl:pb-36">
+        <div className="overflow-hidden py-15 sm:py-16 lg:pb-24 xl:pb28">
             <Container>
                 <div className="lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-20">
-                    <div className="relative z-10 mx-auto max-w-2xl lg:col-span-7 lg:max-w-none lg:pt-6 xl:col-span-6">
-                        <h1 className="text-4xl font-medium tracking-tight text-gray-900">
-                            Invest at the perfect time.
+                    <div className="relative z-10 max-w-2xl lg:col-span-7 lg:max-w-none lg:pt-6 xl:col-span-6">
+                        <h1 className="text-5xl font-medium tracking-tight text-gray-900">
+                            Connect with Confidence
                         </h1>
-                        <p className="mt-6 text-lg text-gray-600">
-                            By leveraging insights from our network of industry insiders,
-                            you’ll know exactly when to buy to maximize profit, and exactly
-                            when to sell to avoid painful losses.
-                        </p>
+                        <h1 className="text-5xl mt-4 font-medium tracking-tight text-gray-900">
+                            Guard Your Privacy
+                        </h1>
+                        <ul className="mt-8 space-y-3" role="list">
+                            <li className="flex">
+                                <img src={checkIcon} alt={"Check Icon"} className="h-4 my-auto" />
+                                <span className="ml-4">Double Encryption for Enhanced Security</span>
+                            </li>
+                            <li className="flex">
+                                <img src={checkIcon} alt={"Check Icon"} className="h-4 my-auto" />
+                                <span className="ml-4">Smart Location Switching for Optimal Performance</span>
+                            </li>
+                            <li className="flex">
+                                <img src={checkIcon} alt={"Check Icon"} className="h-4 my-auto" />
+                                <span className="ml-4">Adaptive Kill Switch for Uninterrupted Privacy</span>
+                            </li>
+                        </ul>
                         <div className="mt-8 flex flex-wrap gap-x-6 gap-y-4">
-                            <AppStoreLink />
-                            <Button
+                            {/* <AppStoreLink /> */}
+                            <Button size={"lg"}>
+                                Only Now 50% Off
+                            </Button>
+                            {/* <Button
                                 // href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                                 variant="outline"
                             >
                                 <PlayIcon className="h-6 w-6 flex-none" />
                                 <span className="ml-2.5">Watch the video</span>
-                            </Button>
+                            </Button> */}
                         </div>
+                        <p className="mt-8">
+                            30-day money-back guarantee
+                        </p>
                     </div>
                     <div className="relative mt-10 sm:mt-20 lg:col-span-5 lg:row-span-2 lg:mt-0 xl:col-span-6">
                         <BackgroundIllustration className="absolute left-1/2 top-4 h-[1026px] w-[1026px] -translate-x-1/3 stroke-gray-300/70 [mask-image:linear-gradient(to_bottom,white_20%,transparent_75%)] sm:top-16 sm:-translate-x-1/2 lg:-top-16 lg:ml-12 xl:-top-14 xl:ml-0" />
@@ -131,9 +150,9 @@ export default function Hero() {
                             </PhoneFrame>
                         </div>
                     </div>
-                    <div className="relative -mt-4 lg:col-span-7 lg:mt-0 xl:col-span-6">
+                    {/* <div className="relative -mt-4 lg:col-span-7 lg:mt-0 xl:col-span-6">
                         <p className="text-center text-sm font-semibold text-gray-900 lg:text-left">
-                            As featured in
+                            Trusted by Companies Including
                         </p>
                         <ul
                             role="list"
@@ -154,7 +173,7 @@ export default function Hero() {
                                 </li>
                             ))}
                         </ul>
-                    </div>
+                    </div> */}
                 </div>
             </Container>
         </div>

@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+// controllers
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'v1/subscriber', 'middleware' => 'throttle:subscriber'], function() {
+    // authentication
+    Route::group(['prefix' => 'auth'], function() {
+        Route::post('login', [LoginController::class, 'loginAPI']);
+        Route::post('register', [LoginController::class, 'subscriberRegisterAPI']);
+    });
+
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+        Route::post('logout', [LoginController::class, 'logoutAPI']);
+        // subscriber data
+        Route::apiResource('dashboard', DashboardController::class);
+    });
 });

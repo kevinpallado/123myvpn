@@ -37,23 +37,23 @@ interface CustomAnimationProps {
 
 const features = [
     {
-        name: 'Invite friends for better returns',
+        name: 'Global Server Network',
         description:
-            'For every friend you invite to Pocket, you get insider notifications 5 seconds sooner. And it’s 10 seconds if you invite an insider.',
+            'Access content from around the world and optimize your internet speed with a vast network of servers strategically located globally, allowing you to bypass geo-restrictions and enjoy a seamless, high-speed connection wherever you are.',
         icon: DeviceUserIcon,
         screen: InviteScreen,
     },
     {
-        name: 'Notifications on stock dips',
+        name: 'Strict No-Logs Policy',
         description:
-            'Get a push notification every time we find out something that’s going to lower the share price on your holdings so you can sell before the information hits the public markets.',
+            'Rest easy knowing that your online footprint is completely private with our strict no-logs policy, ensuring that we neither monitor nor store any of your browsing history, providing you with true anonymity and a commitment to respecting your privacy.',
         icon: DeviceNotificationIcon,
         screen: StocksScreen,
     },
     {
-        name: 'Invest what you want',
+        name: 'Multi-Platform Compatibility',
         description:
-            'We hide your stock purchases behind thousands of anonymous trading accounts, so suspicious activity can never be traced back to you.',
+            'Seamlessly integrate our VPN across a variety of platforms and devices, including desktops, laptops, smartphones, and tablets, providing a consistent and secure browsing experience regardless of your preferred device.',
         icon: DeviceTouchIcon,
         screen: InvestScreen,
     },
@@ -578,13 +578,10 @@ export default function PrimaryFeatures() {
             <Container>
                 <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-3xl">
                     <h2 className="text-3xl font-medium tracking-tight text-white">
-                        Every feature you need to win. Try it for yourself.
+                        Secure, Swift, Global, Unrestricted Connectivity.
                     </h2>
                     <p className="mt-2 text-lg text-gray-400">
-                        Pocket was built for investors like you who play by their own rules
-                        and aren’t going to let SEC regulations get in the way of their
-                        dreams. If other investing tools are afraid to build it, Pocket has
-                        it.
+                        Access a global network of servers strategically positioned for optimal performance, enabling you to unlock content from around the world with unparalleled speed and reliability. Our VPN's high-speed connections and global server network empower you to browse, stream, and download without restrictions, ensuring a seamless and unrestricted online experience.
                     </p>
                 </div>
             </Container>
