@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="h-full bg-gray-50" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html class="h-full bg-white" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
@@ -15,6 +15,7 @@
         rel="stylesheet">
 
     <!-- Scripts -->
+    @routes
     @viteReactRefresh
     @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
     @inertiaHead
