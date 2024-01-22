@@ -13,14 +13,14 @@ import {
     XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import { Head, usePage } from '@inertiajs/react'
+import { Head, usePage, Link } from '@inertiajs/react'
 
 const navigation = [
-    { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-    { name: 'Subscribers', href: '#', icon: UsersIcon, current: false },
-    { name: 'Pricing', href: '#', icon: FolderIcon, current: false },
-    { name: 'Servers', href: '#', icon: DocumentDuplicateIcon, current: false },
-    { name: 'Users', href: '#', icon: ChartPieIcon, current: false },
+    { name: 'Dashboard', href: route('admin.dashboard.index'), icon: HomeIcon, pathKey: 'admin.dashboard.*' },
+    { name: 'Subscribers', href: '#', icon: UsersIcon, pathKey: 'admin.subscribers.*' },
+    { name: 'Pricing', href: route('admin.pricing.index'), icon: FolderIcon, pathKey: 'admin.pricing.*' },
+    { name: 'Servers', href: '#', icon: DocumentDuplicateIcon, pathKey: 'admin.servers.*' },
+    { name: 'Users', href: '#', icon: ChartPieIcon, pathKey: 'admin.users.*' },
 ]
 const userNavigation = [
     { name: 'Your profile', href: '#' },
@@ -100,10 +100,10 @@ export default function AdminLayout({ pageTitle, children }: AdminLayoutProps) {
                                                     <ul role="list" className="-mx-2 space-y-1">
                                                         {navigation.map((item) => (
                                                             <li key={item.name}>
-                                                                <a
+                                                                <Link
                                                                     href={item.href}
                                                                     className={classNames(
-                                                                        item.current
+                                                                        route().current(item.pathKey)
                                                                             ? 'bg-gray-800 text-white'
                                                                             : 'text-gray-400 hover:text-white hover:bg-gray-800',
                                                                         'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
@@ -111,7 +111,7 @@ export default function AdminLayout({ pageTitle, children }: AdminLayoutProps) {
                                                                 >
                                                                     <item.icon className="h-6 w-6 shrink-0" aria-hidden="true" />
                                                                     {item.name}
-                                                                </a>
+                                                                </Link>
                                                             </li>
                                                         ))}
                                                     </ul>
@@ -151,10 +151,10 @@ export default function AdminLayout({ pageTitle, children }: AdminLayoutProps) {
                                     <ul role="list" className="-mx-2 space-y-1">
                                         {navigation.map((item) => (
                                             <li key={item.name}>
-                                                <a
+                                                <Link
                                                     href={item.href}
                                                     className={classNames(
-                                                        item.current
+                                                        route().current(item.pathKey)
                                                             ? 'bg-gray-800 text-white'
                                                             : 'text-gray-400 hover:text-white hover:bg-gray-800',
                                                         'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
@@ -162,7 +162,7 @@ export default function AdminLayout({ pageTitle, children }: AdminLayoutProps) {
                                                 >
                                                     <item.icon className="h-6 w-6 shrink-0" aria-hidden="true" />
                                                     {item.name}
-                                                </a>
+                                                </Link>
                                             </li>
                                         ))}
                                     </ul>

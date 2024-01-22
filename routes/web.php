@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 // controllers
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PricingController;
 
 use Inertia\Inertia;
 /*
@@ -28,5 +29,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::middleware('auth:admin')->group(function () {
         Route::get('logout', [LoginController::class, 'logout'])->name('logout.submit');
         Route::resource('dashboard', DashboardController::class)->only('index');
+        Route::resource('pricing', PricingController::class);
     });
 });
