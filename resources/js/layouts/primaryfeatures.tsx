@@ -1,21 +1,15 @@
-'use client'
+'use client';
 
-import { Fragment, useEffect, useId, useRef, useState } from 'react'
-import { Tab } from '@headlessui/react'
-import clsx from 'clsx'
-import {
-    AnimatePresence,
-    type MotionProps,
-    type Variant,
-    type Variants,
-    motion,
-} from 'framer-motion'
-import { useDebouncedCallback } from 'use-debounce'
+import { Fragment, useEffect, useId, useRef, useState } from 'react';
+import { Tab } from '@headlessui/react';
+import clsx from 'clsx';
+import { AnimatePresence, type MotionProps, type Variant, type Variants, motion } from 'framer-motion';
+import { useDebouncedCallback } from 'use-debounce';
 
-import { AppScreen } from '@/components/main/AppScreen'
-import { CircleBackground } from '@/components/main/CircleBackground'
-import { Container } from '@/components/container'
-import PhoneFrame from '@/components/main/PhoneFrame'
+import { AppScreen } from '@/components/main/AppScreen';
+import { CircleBackground } from '@/components/main/CircleBackground';
+import { Container } from '@/components/container';
+import PhoneFrame from '@/components/main/PhoneFrame';
 import {
     DiageoLogo,
     LaravelLogo,
@@ -24,15 +18,15 @@ import {
     StatamicLogo,
     StaticKitLogo,
     TransistorLogo,
-    TupleLogo,
-} from '@/components/stocklogos'
+    TupleLogo
+} from '@/components/stocklogos';
 
-const MotionAppScreenHeader = motion(AppScreen.Header)
-const MotionAppScreenBody = motion(AppScreen.Body)
+const MotionAppScreenHeader = motion(AppScreen.Header);
+const MotionAppScreenBody = motion(AppScreen.Body);
 
 interface CustomAnimationProps {
-    isForwards: boolean
-    changeCount: number
+    isForwards: boolean;
+    changeCount: number;
 }
 
 const features = [
@@ -41,23 +35,23 @@ const features = [
         description:
             'Access content from around the world and optimize your internet speed with a vast network of servers strategically located globally, allowing you to bypass geo-restrictions and enjoy a seamless, high-speed connection wherever you are.',
         icon: DeviceUserIcon,
-        screen: InviteScreen,
+        screen: InviteScreen
     },
     {
         name: 'Strict No-Logs Policy',
         description:
             'Rest easy knowing that your online footprint is completely private with our strict no-logs policy, ensuring that we neither monitor nor store any of your browsing history, providing you with true anonymity and a commitment to respecting your privacy.',
         icon: DeviceNotificationIcon,
-        screen: StocksScreen,
+        screen: StocksScreen
     },
     {
         name: 'Multi-Platform Compatibility',
         description:
             'Seamlessly integrate our VPN across a variety of platforms and devices, including desktops, laptops, smartphones, and tablets, providing a consistent and secure browsing experience regardless of your preferred device.',
         icon: DeviceTouchIcon,
-        screen: InvestScreen,
-    },
-]
+        screen: InvestScreen
+    }
+];
 
 function DeviceUserIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
     return (
@@ -76,7 +70,7 @@ function DeviceUserIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
                 fill="#A3A3A3"
             />
         </svg>
-    )
+    );
 }
 
 function DeviceNotificationIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
@@ -89,28 +83,18 @@ function DeviceNotificationIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
                 d="M9 0a4 4 0 00-4 4v24a4 4 0 004 4h14a4 4 0 004-4V4a4 4 0 00-4-4H9zm0 2a2 2 0 00-2 2v24a2 2 0 002 2h14a2 2 0 002-2V4a2 2 0 00-2-2h-1.382a1 1 0 00-.894.553l-.448.894a1 1 0 01-.894.553h-6.764a1 1 0 01-.894-.553l-.448-.894A1 1 0 0010.382 2H9z"
                 fill="#A3A3A3"
             />
-            <path
-                d="M9 8a2 2 0 012-2h10a2 2 0 012 2v2a2 2 0 01-2 2H11a2 2 0 01-2-2V8z"
-                fill="#737373"
-            />
+            <path d="M9 8a2 2 0 012-2h10a2 2 0 012 2v2a2 2 0 01-2 2H11a2 2 0 01-2-2V8z" fill="#737373" />
         </svg>
-    )
+    );
 }
 
 function DeviceTouchIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-    let id = useId()
+    let id = useId();
 
     return (
         <svg viewBox="0 0 32 32" fill="none" aria-hidden="true" {...props}>
             <defs>
-                <linearGradient
-                    id={`${id}-gradient`}
-                    x1={14}
-                    y1={14.5}
-                    x2={7}
-                    y2={17}
-                    gradientUnits="userSpaceOnUse"
-                >
+                <linearGradient id={`${id}-gradient`} x1={14} y1={14.5} x2={7} y2={17} gradientUnits="userSpaceOnUse">
                     <stop stopColor="#737373" />
                     <stop offset={1} stopColor="#D4D4D4" stopOpacity={0} />
                 </linearGradient>
@@ -134,30 +118,30 @@ function DeviceTouchIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
                 fill="#A3A3A3"
             />
         </svg>
-    )
+    );
 }
 
 const headerAnimation: Variants = {
     initial: { opacity: 0, transition: { duration: 0.3 } },
     animate: { opacity: 1, transition: { duration: 0.3, delay: 0.3 } },
-    exit: { opacity: 0, transition: { duration: 0.3 } },
-}
+    exit: { opacity: 0, transition: { duration: 0.3 } }
+};
 
-const maxZIndex = 2147483647
+const maxZIndex = 2147483647;
 
 const bodyVariantBackwards: Variant = {
     opacity: 0.4,
     scale: 0.8,
     zIndex: 0,
     filter: 'blur(4px)',
-    transition: { duration: 0.4 },
-}
+    transition: { duration: 0.4 }
+};
 
 const bodyVariantForwards: Variant = (custom: CustomAnimationProps) => ({
     y: '100%',
     zIndex: maxZIndex - custom.changeCount,
-    transition: { duration: 0.4 },
-})
+    transition: { duration: 0.4 }
+});
 
 const bodyAnimation: MotionProps = {
     initial: 'initial',
@@ -165,30 +149,26 @@ const bodyAnimation: MotionProps = {
     exit: 'exit',
     variants: {
         initial: (custom: CustomAnimationProps, ...props) =>
-            custom.isForwards
-                ? bodyVariantForwards(custom, ...props)
-                : bodyVariantBackwards,
+            custom.isForwards ? bodyVariantForwards(custom, ...props) : bodyVariantBackwards,
         animate: (custom: CustomAnimationProps) => ({
             y: '0%',
             opacity: 1,
             scale: 1,
             zIndex: maxZIndex / 2 - custom.changeCount,
             filter: 'blur(0px)',
-            transition: { duration: 0.4 },
+            transition: { duration: 0.4 }
         }),
         exit: (custom: CustomAnimationProps, ...props) =>
-            custom.isForwards
-                ? bodyVariantBackwards
-                : bodyVariantForwards(custom, ...props),
-    },
-}
+            custom.isForwards ? bodyVariantBackwards : bodyVariantForwards(custom, ...props)
+    }
+};
 
 type ScreenProps =
     | {
-        animated: true
-        custom: CustomAnimationProps
-    }
-    | { animated?: false }
+          animated: true;
+          custom: CustomAnimationProps;
+      }
+    | { animated?: false };
 
 function InviteScreen(props: ScreenProps) {
     return (
@@ -196,24 +176,19 @@ function InviteScreen(props: ScreenProps) {
             <MotionAppScreenHeader {...(props.animated ? headerAnimation : {})}>
                 <AppScreen.Title>Invite people</AppScreen.Title>
                 <AppScreen.Subtitle>
-                    Get tips <span className="text-white">5s sooner</span> for every
-                    invite.
+                    Get tips <span className="text-white">5s sooner</span> for every invite.
                 </AppScreen.Subtitle>
             </MotionAppScreenHeader>
-            <MotionAppScreenBody
-                {...(props.animated ? { ...bodyAnimation, custom: props.custom } : {})}
-            >
+            <MotionAppScreenBody {...(props.animated ? { ...bodyAnimation, custom: props.custom } : {})}>
                 <div className="px-4 py-6">
                     <div className="space-y-6">
                         {[
                             { label: 'Full name', value: 'Albert H. Wiggin' },
-                            { label: 'Email address', value: 'awiggin@chase.com' },
+                            { label: 'Email address', value: 'awiggin@chase.com' }
                         ].map((field) => (
                             <div key={field.label}>
                                 <div className="text-sm text-gray-500">{field.label}</div>
-                                <div className="mt-2 border-b border-gray-200 pb-2 text-sm text-gray-900">
-                                    {field.value}
-                                </div>
+                                <div className="mt-2 border-b border-gray-200 pb-2 text-sm text-gray-900">{field.value}</div>
                             </div>
                         ))}
                     </div>
@@ -223,7 +198,7 @@ function InviteScreen(props: ScreenProps) {
                 </div>
             </MotionAppScreenBody>
         </AppScreen>
-    )
+    );
 }
 
 function StocksScreen(props: ScreenProps) {
@@ -233,9 +208,7 @@ function StocksScreen(props: ScreenProps) {
                 <AppScreen.Title>Stocks</AppScreen.Title>
                 <AppScreen.Subtitle>March 9, 2022</AppScreen.Subtitle>
             </MotionAppScreenHeader>
-            <MotionAppScreenBody
-                {...(props.animated ? { ...bodyAnimation, custom: props.custom } : {})}
-            >
+            <MotionAppScreenBody {...(props.animated ? { ...bodyAnimation, custom: props.custom } : {})}>
                 <div className="divide-y divide-gray-100">
                     {[
                         {
@@ -243,80 +216,70 @@ function StocksScreen(props: ScreenProps) {
                             price: '4,098.01',
                             change: '+4.98%',
                             color: '#F9322C',
-                            logo: LaravelLogo,
+                            logo: LaravelLogo
                         },
                         {
                             name: 'Tuple',
                             price: '5,451.10',
                             change: '-3.38%',
                             color: '#5A67D8',
-                            logo: TupleLogo,
+                            logo: TupleLogo
                         },
                         {
                             name: 'Transistor',
                             price: '4,098.41',
                             change: '+6.25%',
                             color: '#2A5B94',
-                            logo: TransistorLogo,
+                            logo: TransistorLogo
                         },
                         {
                             name: 'Diageo',
                             price: '250.65',
                             change: '+1.25%',
                             color: '#3320A7',
-                            logo: DiageoLogo,
+                            logo: DiageoLogo
                         },
                         {
                             name: 'StaticKit',
                             price: '250.65',
                             change: '-3.38%',
                             color: '#2A3034',
-                            logo: StaticKitLogo,
+                            logo: StaticKitLogo
                         },
                         {
                             name: 'Statamic',
                             price: '5,040.85',
                             change: '-3.11%',
                             color: '#0EA5E9',
-                            logo: StatamicLogo,
+                            logo: StatamicLogo
                         },
                         {
                             name: 'Mirage',
                             price: '140.44',
                             change: '+9.09%',
                             color: '#16A34A',
-                            logo: MirageLogo,
+                            logo: MirageLogo
                         },
                         {
                             name: 'Reversable',
                             price: '550.60',
                             change: '-1.25%',
                             color: '#8D8D8D',
-                            logo: ReversableLogo,
-                        },
+                            logo: ReversableLogo
+                        }
                     ].map((stock) => (
                         <div key={stock.name} className="flex items-center gap-4 px-4 py-3">
-                            <div
-                                className="flex-none rounded-full"
-                                style={{ backgroundColor: stock.color }}
-                            >
+                            <div className="flex-none rounded-full" style={{ backgroundColor: stock.color }}>
                                 <stock.logo className="h-10 w-10" />
                             </div>
-                            <div className="flex-auto text-sm text-gray-900">
-                                {stock.name}
-                            </div>
+                            <div className="flex-auto text-sm text-gray-900">{stock.name}</div>
                             <div className="flex-none text-right">
-                                <div className="text-sm font-medium text-gray-900">
-                                    {stock.price}
-                                </div>
+                                <div className="text-sm font-medium text-gray-900">{stock.price}</div>
                                 <div
                                     className={clsx(
                                         'text-xs leading-5',
-                                        stock.change.startsWith('+')
-                                            ? 'text-cyan-500'
-                                            : 'text-gray-500',
-                                    )}
-                                >
+                                        stock.change.startsWith('+') ? 'text-cyan-500' : 'text-gray-500'
+                                    )}>
                                     {stock.change}
                                 </div>
                             </div>
@@ -325,7 +288,7 @@ function StocksScreen(props: ScreenProps) {
                 </div>
             </MotionAppScreenBody>
         </AppScreen>
-    )
+    );
 }
 
 function InvestScreen(props: ScreenProps) {
@@ -337,9 +300,7 @@ function InvestScreen(props: ScreenProps) {
                     <span className="text-white">$34.28</span> per share
                 </AppScreen.Subtitle>
             </MotionAppScreenHeader>
-            <MotionAppScreenBody
-                {...(props.animated ? { ...bodyAnimation, custom: props.custom } : {})}
-            >
+            <MotionAppScreenBody {...(props.animated ? { ...bodyAnimation, custom: props.custom } : {})}>
                 <div className="px-4 py-6">
                     <div className="space-y-4">
                         {[
@@ -359,18 +320,13 @@ function InvestScreen(props: ScreenProps) {
                                             />
                                         </svg>
                                     </div>
-                                ),
+                                )
                             },
-                            { label: 'Estimated cost', value: '$3,428.00' },
+                            { label: 'Estimated cost', value: '$3,428.00' }
                         ].map((item) => (
-                            <div
-                                key={item.label}
-                                className="flex justify-between border-b border-gray-100 pb-4"
-                            >
+                            <div key={item.label} className="flex justify-between border-b border-gray-100 pb-4">
                                 <div className="text-sm text-gray-500">{item.label}</div>
-                                <div className="text-sm font-semibold text-gray-900">
-                                    {item.value}
-                                </div>
+                                <div className="text-sm font-semibold text-gray-900">{item.value}</div>
                             </div>
                         ))}
                         <div className="rounded-lg bg-cyan-500 px-3 py-2 text-center text-sm font-semibold text-white">
@@ -380,33 +336,33 @@ function InvestScreen(props: ScreenProps) {
                 </div>
             </MotionAppScreenBody>
         </AppScreen>
-    )
+    );
 }
 
 function usePrevious<T>(value: T) {
-    let ref = useRef<T>()
+    let ref = useRef<T>();
 
     useEffect(() => {
-        ref.current = value
-    }, [value])
+        ref.current = value;
+    }, [value]);
 
-    return ref.current
+    return ref.current;
 }
 
 function FeaturesDesktop() {
-    let [changeCount, setChangeCount] = useState(0)
-    let [selectedIndex, setSelectedIndex] = useState(0)
-    let prevIndex = usePrevious(selectedIndex)
-    let isForwards = prevIndex === undefined ? true : selectedIndex > prevIndex
+    let [changeCount, setChangeCount] = useState(0);
+    let [selectedIndex, setSelectedIndex] = useState(0);
+    let prevIndex = usePrevious(selectedIndex);
+    let isForwards = prevIndex === undefined ? true : selectedIndex > prevIndex;
 
     let onChange = useDebouncedCallback(
         (selectedIndex) => {
-            setSelectedIndex(selectedIndex)
-            setChangeCount((changeCount) => changeCount + 1)
+            setSelectedIndex(selectedIndex);
+            setChangeCount((changeCount) => changeCount + 1);
         },
         100,
-        { leading: true },
-    )
+        { leading: true }
+    );
 
     return (
         <Tab.Group
@@ -414,14 +370,10 @@ function FeaturesDesktop() {
             className="grid grid-cols-12 items-center gap-8 lg:gap-16 xl:gap-24"
             selectedIndex={selectedIndex}
             onChange={onChange}
-            vertical
-        >
+            vertical>
             <Tab.List className="relative z-10 order-last col-span-6 space-y-6">
                 {features.map((feature, featureIndex) => (
-                    <div
-                        key={feature.name}
-                        className="relative rounded-2xl transition-colors hover:bg-gray-800/30"
-                    >
+                    <div key={feature.name} className="relative rounded-2xl transition-colors hover:bg-gray-800/30">
                         {featureIndex === selectedIndex && (
                             <motion.div
                                 layoutId="activeBackground"
@@ -437,9 +389,7 @@ function FeaturesDesktop() {
                                     {feature.name}
                                 </Tab>
                             </h3>
-                            <p className="mt-2 text-sm text-gray-400">
-                                {feature.description}
-                            </p>
+                            <p className="mt-2 text-sm text-gray-400">{feature.description}</p>
                         </div>
                     </div>
                 ))}
@@ -450,94 +400,78 @@ function FeaturesDesktop() {
                 </div>
                 <PhoneFrame className="z-10 mx-auto w-full max-w-[366px]">
                     <Tab.Panels as={Fragment}>
-                        <AnimatePresence
-                            initial={false}
-                            custom={{ isForwards, changeCount }}
-                        >
+                        <AnimatePresence initial={false} custom={{ isForwards, changeCount }}>
                             {features.map((feature, featureIndex) =>
                                 selectedIndex === featureIndex ? (
                                     <Tab.Panel
                                         static
                                         key={feature.name + changeCount}
-                                        className="col-start-1 row-start-1 flex focus:outline-offset-[32px] ui-not-focus-visible:outline-none"
-                                    >
-                                        <feature.screen
-                                            animated
-                                            custom={{ isForwards, changeCount }}
-                                        />
+                                        className="col-start-1 row-start-1 flex focus:outline-offset-[32px] ui-not-focus-visible:outline-none">
+                                        <feature.screen animated custom={{ isForwards, changeCount }} />
                                     </Tab.Panel>
-                                ) : null,
+                                ) : null
                             )}
                         </AnimatePresence>
                     </Tab.Panels>
                 </PhoneFrame>
             </div>
         </Tab.Group>
-    )
+    );
 }
 
 function FeaturesMobile() {
-    let [activeIndex, setActiveIndex] = useState(0)
-    let slideContainerRef = useRef<React.ElementRef<'div'>>(null)
-    let slideRefs = useRef<Array<React.ElementRef<'div'>>>([])
+    let [activeIndex, setActiveIndex] = useState(0);
+    let slideContainerRef = useRef<React.ElementRef<'div'>>(null);
+    let slideRefs = useRef<Array<React.ElementRef<'div'>>>([]);
 
     useEffect(() => {
         let observer = new window.IntersectionObserver(
             (entries) => {
                 for (let entry of entries) {
                     if (entry.isIntersecting && entry.target instanceof HTMLDivElement) {
-                        setActiveIndex(slideRefs.current.indexOf(entry.target))
-                        break
+                        setActiveIndex(slideRefs.current.indexOf(entry.target));
+                        break;
                     }
                 }
             },
             {
                 root: slideContainerRef.current,
-                threshold: 0.6,
-            },
-        )
+                threshold: 0.6
+            }
+        );
 
         for (let slide of slideRefs.current) {
             if (slide) {
-                observer.observe(slide)
+                observer.observe(slide);
             }
         }
 
         return () => {
-            observer.disconnect()
-        }
-    }, [slideContainerRef, slideRefs])
+            observer.disconnect();
+        };
+    }, [slideContainerRef, slideRefs]);
 
     return (
         <>
             <div
                 ref={slideContainerRef}
-                className="-mb-4 flex snap-x snap-mandatory -space-x-4 overflow-x-auto overscroll-x-contain scroll-smooth pb-4 [scrollbar-width:none] sm:-space-x-6 [&::-webkit-scrollbar]:hidden"
-            >
+                className="-mb-4 flex snap-x snap-mandatory -space-x-4 overflow-x-auto overscroll-x-contain scroll-smooth pb-4 [scrollbar-width:none] sm:-space-x-6 [&::-webkit-scrollbar]:hidden">
                 {features.map((feature, featureIndex) => (
                     <div
                         key={featureIndex}
                         ref={(ref) => ref && (slideRefs.current[featureIndex] = ref)}
-                        className="w-full flex-none snap-center px-4 sm:px-6"
-                    >
+                        className="w-full flex-none snap-center px-4 sm:px-6">
                         <div className="relative transform overflow-hidden rounded-2xl bg-gray-800 px-5 py-6">
                             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                                <CircleBackground
-                                    color="#13B5C8"
-                                    className={featureIndex % 2 === 1 ? 'rotate-180' : undefined}
-                                />
+                                <CircleBackground color="#13B5C8" className={featureIndex % 2 === 1 ? 'rotate-180' : undefined} />
                             </div>
                             <PhoneFrame className="relative mx-auto w-full max-w-[366px]">
                                 <feature.screen />
                             </PhoneFrame>
                             <div className="absolute inset-x-0 bottom-0 bg-gray-800/95 p-6 backdrop-blur sm:p-10">
                                 <feature.icon className="h-8 w-8" />
-                                <h3 className="mt-6 text-sm font-semibold text-white sm:text-lg">
-                                    {feature.name}
-                                </h3>
-                                <p className="mt-2 text-sm text-gray-400">
-                                    {feature.description}
-                                </p>
+                                <h3 className="mt-6 text-sm font-semibold text-white sm:text-lg">{feature.name}</h3>
+                                <p className="mt-2 text-sm text-gray-400">{feature.description}</p>
                             </div>
                         </div>
                     </div>
@@ -550,38 +484,36 @@ function FeaturesMobile() {
                         key={featureIndex}
                         className={clsx(
                             'relative h-0.5 w-4 rounded-full',
-                            featureIndex === activeIndex ? 'bg-gray-300' : 'bg-gray-500',
+                            featureIndex === activeIndex ? 'bg-gray-300' : 'bg-gray-500'
                         )}
                         aria-label={`Go to slide ${featureIndex + 1}`}
                         onClick={() => {
                             slideRefs.current[featureIndex].scrollIntoView({
                                 block: 'nearest',
-                                inline: 'nearest',
-                            })
-                        }}
-                    >
+                                inline: 'nearest'
+                            });
+                        }}>
                         <span className="absolute -inset-x-1.5 -inset-y-3" />
                     </button>
                 ))}
             </div>
         </>
-    )
+    );
 }
 
 export default function PrimaryFeatures() {
     return (
-        <section
-            id="features"
-            aria-label="Features for investing all your money"
-            className="bg-gray-900 py-20 sm:py-32"
-        >
+        <section id="features" aria-label="Features for investing all your money" className="bg-gray-900 py-20 sm:py-32">
             <Container>
                 <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-3xl">
                     <h2 className="text-3xl font-medium tracking-tight text-white">
                         Secure, Swift, Global, Unrestricted Connectivity.
                     </h2>
                     <p className="mt-2 text-lg text-gray-400">
-                        Access a global network of servers strategically positioned for optimal performance, enabling you to unlock content from around the world with unparalleled speed and reliability. Our VPN's high-speed connections and global server network empower you to browse, stream, and download without restrictions, ensuring a seamless and unrestricted online experience.
+                        Access a global network of servers strategically positioned for optimal performance, enabling you to
+                        unlock content from around the world with unparalleled speed and reliability. Our VPN's high-speed
+                        connections and global server network empower you to browse, stream, and download without restrictions,
+                        ensuring a seamless and unrestricted online experience.
                     </p>
                 </div>
             </Container>
@@ -592,5 +524,5 @@ export default function PrimaryFeatures() {
                 <FeaturesDesktop />
             </Container>
         </section>
-    )
+    );
 }
