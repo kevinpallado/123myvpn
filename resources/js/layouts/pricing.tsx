@@ -4,57 +4,45 @@ import { Button } from '@/components/ui/button';
 import { Container } from '@/components/container';
 import { RadioGroup } from '@headlessui/react';
 import clsx from 'clsx';
+import { css } from '@emotion/css';
 import { useState } from 'react';
 
 const plans = [
     {
-        name: 'Starter',
+        name: '1-Month Plan',
         featured: false,
         price: { Monthly: '$0', Annually: '$0' },
-        description: 'You’re new to investing but want to do it right. Get started for free.',
+        description: 'per month',
+        discount: 'Save 0%',
         button: {
             label: 'Get started for free',
             href: '/register'
         },
-        features: ['Commission-free trading', 'Multi-layered encryption', 'One tip every day', 'Invest up to $1,500 each month'],
-        logomarkClassName: 'fill-gray-300'
+        bill: '$4.99 billed / month'
     },
     {
-        name: 'Investor',
+        name: '1-Year Plan',
         featured: false,
         price: { Monthly: '$7', Annually: '$70' },
-        description: 'You’ve been investing for a while. Invest more and grow your wealth faster.',
+        description: 'per month',
+        discount: 'Save 30%',
         button: {
             label: 'Subscribe',
             href: '/register'
         },
-        features: [
-            'Commission-free trading',
-            'Multi-layered encryption',
-            'One tip every hour',
-            'Invest up to $15,000 each month',
-            'Basic transaction anonymization'
-        ],
-        logomarkClassName: 'fill-gray-500'
+        bill: '$36 billed / year'
     },
     {
-        name: 'VIP',
+        name: '2-Year Plan',
         featured: true,
         price: { Monthly: '$199', Annually: '$1,990' },
-        description: 'You’ve got a huge amount of assets but it’s not enough. To the moon.',
+        description: 'per month',
+        discount: 'Save 50%',
         button: {
             label: 'Subscribe',
             href: '/register'
         },
-        features: [
-            'Commission-free trading',
-            'Multi-layered encryption',
-            'Real-time tip notifications',
-            'No investment limits',
-            'Advanced transaction anonymization',
-            'Automated tax-loss harvesting'
-        ],
-        logomarkClassName: 'fill-cyan-500'
+        bill: '$24 billed / year'
     }
 ];
 
@@ -81,40 +69,43 @@ function CheckIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 
 function Plan({
     name,
+    featured = false,
     price,
     description,
+    discount,
     button,
-    features,
-    activePeriod,
-    logomarkClassName,
-    featured = false
+    bill,
+    activePeriod
 }: {
     name: string;
+    featured: boolean;
     price: {
         Monthly: string;
         Annually: string;
     };
     description: string;
+    discount: string;
     button: {
         label: string;
         href: string;
     };
-    features: Array<string>;
+    bill: string;
     activePeriod: 'Monthly' | 'Annually';
-    logomarkClassName?: string;
-    featured?: boolean;
 }) {
     return (
         <section
             className={clsx(
-                'flex flex-col overflow-hidden rounded-3xl p-6 shadow-lg shadow-gray-900/5',
+                'flex flex-col items-center justify-center overflow-hidden rounded-3xl px-8 py-12 shadow-[0_4px_12px_0_rgba(0,0,0,0.06)]',
                 featured ? 'order-first bg-gray-900 lg:order-none' : 'bg-white'
             )}>
-            <h3 className={clsx('flex items-center text-sm font-semibold', featured ? 'text-white' : 'text-gray-900')}>
-                {/* <Logomark className={clsx('h-6 w-6 flex-none', logomarkClassName)} /> */}
-                <span className="ml-4">{name}</span>
+            <h3 className={clsx('flex items-center text-lg font-semibold mb-6', featured ? 'text-white' : 'text-[#272E36]')}>
+                {name}
             </h3>
-            <p className={clsx('relative mt-5 flex text-3xl tracking-tight', featured ? 'text-white' : 'text-gray-900')}>
+            <p
+                className={clsx(
+                    'relative flex text-[40px] font-semibold tracking-tight leading-none mb-2',
+                    featured ? 'text-white' : 'text-cyan-500'
+                )}>
                 {price.Monthly === price.Annually ? (
                     price.Monthly
                 ) : (
@@ -138,29 +129,53 @@ function Plan({
                     </>
                 )}
             </p>
-            <p className={clsx('mt-3 text-sm', featured ? 'text-gray-300' : 'text-gray-700')}>{description}</p>
-            <div className="order-last mt-6">
-                <ul
-                    role="list"
-                    className={clsx(
-                        '-my-2 divide-y text-sm',
-                        featured ? 'divide-gray-800 text-gray-300' : 'divide-gray-200 text-gray-700'
-                    )}>
-                    {features.map((feature) => (
-                        <li key={feature} className="flex py-2">
-                            <CheckIcon className={clsx('h-6 w-6 flex-none', featured ? 'text-white' : 'text-cyan-500')} />
-                            <span className="ml-4">{feature}</span>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <Button
-                // href={button.href}
-                color={featured ? 'cyan' : 'gray'}
-                className="mt-6"
+            <p className={clsx('mb-8', featured ? 'text-white' : 'text-[#272E36]')}>{description}</p>
+            <span
+                className={clsx(
+                    'flex items-center gap-x-1.5 text-sm font-semibold mb-16',
+                    featured ? 'text-white' : 'text-[#272E36]'
+                )}>
+                {' '}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className="w-3.5 h-3.5">
+                    <path
+                        className="fill-[#61CE70]"
+                        d="M438.6 105.4C451.1 117.9 451.1 138.1 438.6 150.6L182.6 406.6C170.1 419.1 149.9 419.1 137.4 406.6L9.372 278.6C-3.124 266.1-3.124 245.9 9.372 233.4C21.87 220.9 42.13 220.9 54.63 233.4L159.1 338.7L393.4 105.4C405.9 92.88 426.1 92.88 438.6 105.4H438.6z"
+                    />
+                </svg>
+                {discount}
+            </span>
+            <button
+                className={clsx(
+                    featured ? 'cyan' : 'gray',
+                    css`
+                        font-size: 14px;
+                        line-height: 16px;
+                        font-weight: 500;
+
+                        background-color: rgba(0, 0, 0, 0);
+                        color: #16a34a;
+                        padding: 15px 30px 15px 30px;
+                        border-radius: 25px 25px 25px 25px;
+                        border-style: solid;
+                        border-width: 1px 1px 1px 1px;
+                        border-color: #16a34a;
+                        transition: border-color 300ms ease-in-out, background 300ms ease-in-out, box-shadow 300ms ease-in-out;
+
+                        &:hover {
+                            background-color: transparent;
+                            background-image: linear-gradient(107deg, #16a34a 0%, #107636 100%);
+                            color: #fff;
+                            border-style: solid;
+                            border-width: 1px 1px 1px 1px;
+                            border-color: #16a34a;
+                            box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.16);
+                        }
+                    `
+                )}
                 aria-label={`Get started with the ${name} plan for ${price}`}>
                 {button.label}
-            </Button>
+            </button>
+            <span className={clsx('block pt-2', featured ? 'text-white' : 'text-[#272E36]')}>{bill}</span>
         </section>
     );
 }
@@ -169,19 +184,14 @@ export default function Pricing() {
     let [activePeriod, setActivePeriod] = useState<'Monthly' | 'Annually'>('Monthly');
 
     return (
-        <section id="pricing" aria-labelledby="pricing-title" className="border-t border-gray-200 bg-gray-100 py-20 sm:py-32">
-            <Container>
-                <div className="mx-auto max-w-2xl text-center">
-                    <h2 id="pricing-title" className="text-3xl font-medium tracking-tight text-gray-900">
-                        Flat pricing, no management fees.
-                    </h2>
-                    <p className="mt-2 text-lg text-gray-600">
-                        Whether you’re one person trying to get ahead or a big firm trying to take over the world, we’ve got a
-                        plan for you.
-                    </p>
+        <section id="pricing" aria-labelledby="pricing-title" className="py-24">
+            <Container className="text-center">
+                <div className="mb-10">
+                    <h3 className="text-[20px] text-cyan-500 font-bold mb-6">Pricing Plans</h3>
+                    <h2 className="text-[40px] leading-[50px] font-bold text-[#272E36] mb-10">Plans that suits you best</h2>
                 </div>
 
-                <div className="mt-8 flex justify-center">
+                <div className="flex justify-center mb-16">
                     <div className="relative">
                         <RadioGroup value={activePeriod} onChange={setActivePeriod} className="grid grid-cols-2">
                             {['Monthly', 'Annually'].map((period) => (
@@ -218,7 +228,7 @@ export default function Pricing() {
                     </div>
                 </div>
 
-                <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 items-start gap-x-8 gap-y-10 sm:mt-20 lg:max-w-none lg:grid-cols-3">
+                <div className="grid max-w-2xl grid-cols-1 items-start gap-x-5 gap-y-10 sm:mt-20 lg:max-w-none lg:grid-cols-3">
                     {plans.map((plan) => (
                         <Plan key={plan.name} {...plan} activePeriod={activePeriod} />
                     ))}

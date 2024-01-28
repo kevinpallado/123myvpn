@@ -1,12 +1,12 @@
 import About from '@/layouts/about';
 import CallToAction from '@/layouts/calltoaction';
 import Faqs from '@/layouts/faq';
+import Features from '@/layouts/features';
 import Footer from '@/layouts/footer';
 import Header from '@/layouts/header';
 import Hero from '@/layouts/hero';
 import Pricing from '@/layouts/pricing';
-import PrimaryFeatures from '@/layouts/primaryfeatures';
-import SecondaryFeatures from '@/layouts/secondaryfeatures';
+import Servers from '@/layouts/servers';
 import Testimonials from '@/layouts/testimonials';
 
 export default function Home() {
@@ -16,11 +16,11 @@ export default function Home() {
             <main>
                 <Hero />
                 <About />
-                <PrimaryFeatures />
-                <SecondaryFeatures />
+                <Features />
+                <Servers />
+                <Pricing />
                 <CallToAction />
                 <Testimonials />
-                <Pricing />
                 <Faqs />
             </main>
             <Footer />
