@@ -1,12 +1,10 @@
-import { Link } from '@inertiajs/react'
-
-
-import { Button } from '@/components/ui/button'
-import { Container } from '@/components/container'
-import { Input } from "@/components/ui/input"
-import Logo from '@/images/logo.svg'
-import { NavLink } from '@/components/navlink'
-import qrCode from '@/images/qr-code.svg'
+import { Button } from '@/components/ui/button';
+import { Container } from '@/components/container';
+import { Input } from '@/components/ui/input';
+import { Link } from '@inertiajs/react';
+import Logo from '@/images/logo.svg';
+import { NavLink } from '@/components/navlink';
+import qrCode from '@/images/qr-code.svg';
 
 function QrCodeBorder(props: React.ComponentPropsWithoutRef<'svg'>) {
     return (
@@ -17,7 +15,7 @@ function QrCodeBorder(props: React.ComponentPropsWithoutRef<'svg'>) {
                 strokeLinecap="round"
             />
         </svg>
-    )
+    );
 }
 
 export default function Footer() {
@@ -28,7 +26,11 @@ export default function Footer() {
                     <div>
                         <div className="flex items-center text-gray-900">
                             <Link href="#" className="relative w-20 h-20" aria-label="Home">
-                                <img src={Logo} alt={"123myvpn logo"} className="absolute inset-0 w-full h-full object-cover object-center" />
+                                <img
+                                    src={Logo}
+                                    alt={'123myvpn logo'}
+                                    className="absolute inset-0 w-full h-full object-cover object-center"
+                                />
                             </Link>
                             {/* <Logomark className="h-10 w-10 flex-none fill-cyan-500" /> */}
                         </div>
@@ -52,9 +54,7 @@ export default function Footer() {
                                     Download the app
                                 </Link>
                             </p>
-                            <p className="mt-1 text-sm text-gray-700">
-                                Scan the QR code to download the app from the App Store.
-                            </p>
+                            <p className="mt-1 text-sm text-gray-700">Scan the QR code to download the app from the App Store.</p>
                         </div>
                     </div>
                 </div>
@@ -79,5 +79,5 @@ export default function Footer() {
                 </div>
             </Container>
         </footer>
-    )
+    );
 }

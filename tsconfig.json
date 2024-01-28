@@ -11,15 +11,14 @@
         "forceConsistentCasingInFileNames": true,
         "noEmit": true,
         "paths": {
-            "@/*": [
-                "./resources/js/*"
-            ]
-        }
+            "@/*": ["./resources/js/*"]
+        },
+        "types": ["vite/client"]
     },
     "include": [
         "resources/js/**/*.ts",
         "resources/js/**/*.tsx",
         "resources/js/**/*.d.ts",
-        "resources/js/optional.d.ts",
+        "resources/js/optional.d.ts"
     ]
 }
