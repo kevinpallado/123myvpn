@@ -10,13 +10,15 @@ use Illuminate\Http\RedirectResponse;
 // models
 use App\Models\Pricing;
 use Stripe\Plan;
+// resource
+use App\Http\Resources\GeneralResourceCollection;
 
 class PricingController extends Controller
 {
     public function index(Request $request): Response
     {
         return Inertia::render('admin/pricing/index')->with([
-            'pricing' => Pricing::get()
+            'pricing' => GeneralResourceCollection::collection(Pricing::paginate(10))
         ]);
     }
 

@@ -13,7 +13,7 @@ import { Container } from '@/components/container'
 import { Button } from '@/components/ui/button'
 
 interface HeaderProps {
-    headerTitle: string
+    headerTitle?: string
 }
 
 export default function Header({ headerTitle }: HeaderProps) {

@@ -11,7 +11,7 @@ import Testimonials from '@/layouts/public/testimonials'
 export default function Home() {
     return (
         <>
-            <Header headerTitle={'Home'} />
+            <Header/>
             <main>
                 <Hero />
                 <PrimaryFeatures />

@@ -17,7 +17,7 @@ import { Head, usePage, Link } from '@inertiajs/react'
 
 const navigation = [
     { name: 'Dashboard', href: route('admin.dashboard.index'), icon: HomeIcon, pathKey: 'admin.dashboard.*' },
-    { name: 'Subscribers', href: '#', icon: UsersIcon, pathKey: 'admin.subscribers.*' },
+    { name: 'Subscribers', href: route('admin.subscribers.index'), icon: UsersIcon, pathKey: 'admin.subscribers.*' },
     { name: 'Pricing', href: route('admin.pricing.index'), icon: FolderIcon, pathKey: 'admin.pricing.*' },
     { name: 'Servers', href: '#', icon: DocumentDuplicateIcon, pathKey: 'admin.servers.*' },
     { name: 'Users', href: '#', icon: ChartPieIcon, pathKey: 'admin.users.*' },

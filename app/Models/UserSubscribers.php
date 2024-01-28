@@ -23,4 +23,11 @@ class UserSubscribers extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    protected function updatedAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => date('F j, Y g:i a', strtotime($value)),
+        );
+    }
 }

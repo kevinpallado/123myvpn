@@ -1,7 +1,10 @@
 import { Head, useForm } from "@inertiajs/react";
 
+import { ReloadIcon } from "@radix-ui/react-icons"
+// buttons
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button";
 
 export default function Login() {
   const { data, setData, post, processing, errors } = useForm({
@@ -68,12 +71,10 @@ export default function Login() {
               </div>
 
               <div>
-                <button
-                  type="submit"
-                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
+                <Button className="w-full justify-center" type="submit">
+                  {processing && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
                   Sign in
-                </button>
+                </Button>
               </div>
             </form>
 
