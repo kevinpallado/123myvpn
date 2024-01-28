@@ -20,14 +20,14 @@ import { useForm, usePage } from '@inertiajs/react'
 import { useState } from 'react'
 
 export default function SubscriberForm() {
-    const subscriber: any | undefined = usePage().props
+    const { subscriber } = usePage<any>().props
     // constants
     const [cardNumberValue, setCardNumberValue] = useState<string>('');
     const [cardTypeValue, setCardTypeValue] = useState<string>('');
     // form props setup
     const { data, setData, post, put, processing, errors } = useForm({
-        name: subscriber.name,
-        email: subscriber.email,
+        name: subscriber ? subscriber.name : '',
+        email: subscriber ? subscriber.email : '',
         password: '',
     })
 
@@ -42,7 +42,7 @@ export default function SubscriberForm() {
     function submitForm(e: any) {
         e.preventDefault();
 
-        !subscriber ? put(route('admin.subscribers.update', subscriber.id)) : post(route('admin.subscribers.store'))
+        subscriber ? put(route('admin.subscribers.update', subscriber.id)) : post(route('admin.subscribers.store'))
     }
 
     function submitPaymentMethod(e: any) {
@@ -50,7 +50,7 @@ export default function SubscriberForm() {
         cardForm.data.card_number = cardNumberValue
         cardForm.data.card_type = cardTypeValue
         
-        
+        cardForm.put(route('admin.subscribers.update', subscriber.id))
     }
 
 
@@ -131,7 +131,7 @@ export default function SubscriberForm() {
             </div>
 
 
-            {!subscriber && <div className="space-y-10 divide-y divide-gray-900/10 mt-10">
+            {subscriber && <div className="space-y-10 divide-y divide-gray-900/10 mt-10">
                 <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
                     <div className="px-4 sm:px-0">
                         <h2 className="text-base font-semibold leading-7 text-gray-900">Payment Method</h2>

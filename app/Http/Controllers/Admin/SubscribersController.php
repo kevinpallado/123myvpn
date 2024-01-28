@@ -52,16 +52,15 @@ class SubscribersController extends Controller
         ]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, UserSubscribers $subscriber)
     {
         switch($request->action) {
             case 'card-info':
-                \Stripe\Stripe::setApiKey(config('cashier.secret'));
+                $stripeClient = new StripeClient(config('cashier.secret'));
 
                 try {
-                    dd($request->all());
-                    StripeClient::create([
-                        'type' => $request->card_type,
+                    $paymentMethodReference = $stripeClient->paymentMethods->create([
+                        'type' => 'card',
                         'card' => [
                             'number' => $request->card_number,
                             'exp_month' => 8,
@@ -69,11 +68,21 @@ class SubscribersController extends Controller
                             'cvc' => 123
                         ]
                     ]);
+
+                    $stripeClient->paymentMethods->attach(
+                        $paymentMethodReference->id,
+                        ['customer' => $subscriber->stripe_id]
+                    );
+
+                    $subscriber->defaultPaymentMethod();
+                    
                 } catch(\Exception $e) {
                     dd($e->getMessage());
                 }
             default:
-                dd($request->all());
+                $subscriber->name = $request->name;
+                $subscriber->email = $request->email;
+                $subscriber->save();
         }
 
         return redirect()->route('admin.subscribers.index');
