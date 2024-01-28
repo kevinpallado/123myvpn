@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Cashier\Billable;
 
 class UserSubscribers extends Authenticatable
 {
-    use HasApiTokens;
+    use HasApiTokens, Billable;
 
     protected $table = 'user_subscribers';
     protected $fillable = array(
@@ -22,4 +23,11 @@ class UserSubscribers extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    protected function updatedAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => date('F j, Y g:i a', strtotime($value)),
+        );
+    }
 }

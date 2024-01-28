@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 // models
+use App\Models\User;
 use App\Models\UserSubscribers;
 
 class SampleSeeder extends Seeder
@@ -23,8 +24,28 @@ class SampleSeeder extends Seeder
             ]
         ];
 
+        $adminUsers = [
+            [
+                'name' => 'Admin Developer',
+                'email' => 'dev@123myvpn.com',
+                'password' => Hash::make('palls123')
+            ],
+            [
+                'name' => 'Behrouz Borji',
+                'email' => 'bruce@123myvpn.com',
+                'password' => Hash::make('bruce123myvpn')
+            ]
+        ];
+
         foreach($defaultUsers as $users) {
             UserSubscribers::updateOrCreate(
+                ['email' => $users['email']],
+                $users
+            );
+        }
+
+        foreach($adminUsers as $users) {
+            User::updateOrCreate(
                 ['email' => $users['email']],
                 $users
             );

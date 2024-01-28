@@ -15,7 +15,7 @@ import clsx from 'clsx';
 import { css } from '@emotion/css';
 
 interface HeaderProps {
-    headerTitle: string;
+    headerTitle?: string
 }
 
 export default function Header({ headerTitle }: HeaderProps) {
