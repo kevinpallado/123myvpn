@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Stripe\StripeClient;
 // model
+use App\Models\Pricing;
 use App\Models\UserSubscribers;
 // resource
 use App\Http\Resources\GeneralResourceCollection;
@@ -48,7 +49,10 @@ class SubscribersController extends Controller
     public function edit(UserSubscribers $subscriber): Response
     {
         return Inertia::render('admin/subscribers/components/form')->with([
-            'subscriber' => $subscriber
+            'subscriber' => $subscriber,
+            'subscriberPaymentMethods' => $subscriber->paymentMethods(),
+            'intent' => $subscriber->createSetupIntent(),
+            'pricing' => Pricing::select('pricing_id','name','price','currency')->where('billing_method','month')->get()
         ]);
     }
 
@@ -56,33 +60,13 @@ class SubscribersController extends Controller
     {
         switch($request->action) {
             case 'card-info':
-                $stripeClient = new StripeClient(config('cashier.secret'));
-
-                try {
-                    $paymentMethodReference = $stripeClient->paymentMethods->create([
-                        'type' => 'card',
-                        'card' => [
-                            'number' => $request->card_number,
-                            'exp_month' => 8,
-                            'exp_year' => 2024,
-                            'cvc' => 123
-                        ]
-                    ]);
-
-                    $stripeClient->paymentMethods->attach(
-                        $paymentMethodReference->id,
-                        ['customer' => $subscriber->stripe_id]
-                    );
-
-                    $subscriber->defaultPaymentMethod();
-                    
-                } catch(\Exception $e) {
-                    dd($e->getMessage());
-                }
+                $subscriber->newSubscription('default_plan', $request->planSelected)->create($request->setupIntent['payment_method']);
+                break;
             default:
                 $subscriber->name = $request->name;
                 $subscriber->email = $request->email;
                 $subscriber->save();
+                break;
         }
 
         return redirect()->route('admin.subscribers.index');

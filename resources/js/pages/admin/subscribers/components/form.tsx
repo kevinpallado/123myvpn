@@ -16,14 +16,26 @@ import { Input } from '@/components/ui/input'
 // local components
 import PaymentCards from './payment-cards'
 // inertia
+import { Elements } from "@stripe/react-stripe-js"
+import { loadStripe } from "@stripe/stripe-js";
 import { useForm, usePage } from '@inertiajs/react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 export default function SubscriberForm() {
-    const { subscriber } = usePage<any>().props
-    // constants
-    const [cardNumberValue, setCardNumberValue] = useState<string>('');
-    const [cardTypeValue, setCardTypeValue] = useState<string>('');
+    const { pricing, subscriber, intent } = usePage<any>().props
+    const clientSecret = intent.client_secret
+    const appearance = {
+        theme: 'stripe',
+    };
+    const options: any = {
+        clientSecret,
+        appearance,
+    };
+
+    // Make sure to call loadStripe outside of a component’s render to avoid
+    // recreating the Stripe object on every render.
+    // This is your test publishable API key.
+    const stripePromise = loadStripe("pk_test_51MgwfiBCD43sB5df2bt2u49qeVCRxUwhGnf5z6rBaazrq3nMN44Nkqii4EN4Ch3KflRpwL1tvZcMlLKY3xxZyeis00ZilFn3AR");
     // form props setup
     const { data, setData, post, put, processing, errors } = useForm({
         name: subscriber ? subscriber.name : '',
@@ -31,26 +43,10 @@ export default function SubscriberForm() {
         password: '',
     })
 
-    const cardForm = useForm({
-        card_number: '',
-        card_type: '',
-        card_expiry: '',
-        card_cvc: '',
-        action: "card-info"
-    });
-
     function submitForm(e: any) {
         e.preventDefault();
 
         subscriber ? put(route('admin.subscribers.update', subscriber.id)) : post(route('admin.subscribers.store'))
-    }
-
-    function submitPaymentMethod(e: any) {
-        e.preventDefault();
-        cardForm.data.card_number = cardNumberValue
-        cardForm.data.card_type = cardTypeValue
-        
-        cardForm.put(route('admin.subscribers.update', subscriber.id))
     }
 
 
@@ -140,27 +136,21 @@ export default function SubscriberForm() {
                         </p>
                     </div>
 
-                    <form onSubmit={submitPaymentMethod} className="shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
+                    <div className="shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
                         <Card>
                             <CardHeader>
                                 <CardTitle>Subscribers Form</CardTitle>
                                 <CardDescription>User personal information.</CardDescription>
                             </CardHeader>
                             <CardContent>
-                                <PaymentCards formHandler={cardForm} 
-                                    cardNumberValue={cardNumberValue} 
-                                    setCardNumberValue={setCardNumberValue} 
-                                    setCardTypeValue={setCardTypeValue}
-                                />
+                                {clientSecret && (
+                                    <Elements options={useMemo(() => options, [])} stripe={stripePromise}>
+                                        <PaymentCards clientId={subscriber.id} offerPlan={pricing} />
+                                    </Elements>
+                                )}
                             </CardContent>
-                            <CardFooter className="flex justify-end">
-                                <Button type="submit" disabled={cardForm.processing}>
-                                    {cardForm.processing && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
-                                    Save
-                                </Button>
-                            </CardFooter>
                         </Card>
-                    </form>
+                    </div>
                 </div>
             </div>}
         </AdminLayout>

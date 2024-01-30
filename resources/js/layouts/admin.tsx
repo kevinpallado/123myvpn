@@ -13,6 +13,9 @@ import {
     XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+// global components
+import Logo from '@/images/logo.svg';
+// react
 import { Head, usePage, Link } from '@inertiajs/react'
 
 const navigation = [
@@ -89,9 +92,9 @@ export default function AdminLayout({ pageTitle, children }: AdminLayoutProps) {
                                     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 ring-1 ring-white/10">
                                         <div className="flex h-16 shrink-0 items-center">
                                             <img
-                                                className="h-8 w-auto"
-                                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                                                alt="Your Company"
+                                                src={Logo}
+                                                alt={'123myvpn logo'}
+                                                className="h-10 w-10"
                                             />
                                         </div>
                                         <nav className="flex flex-1 flex-col">
@@ -140,10 +143,10 @@ export default function AdminLayout({ pageTitle, children }: AdminLayoutProps) {
                     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4">
                         <div className="flex h-16 shrink-0 items-center">
                             <img
-                                className="h-8 w-auto"
-                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                                alt="Your Company"
-                            />
+                                src={Logo}
+                                alt={'123myvpn logo'}
+                                className="h-20 w-20"
+                            /> <span className="text-md text-white font-semibold">Admin Panel</span>
                         </div>
                         <nav className="flex flex-1 flex-col">
                             <ul role="list" className="flex flex-1 flex-col gap-y-7">

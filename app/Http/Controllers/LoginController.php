@@ -44,6 +44,8 @@ class LoginController extends Controller
         $subscriber->email = $request->email;
         $subscriber->save();
 
+        $subscriber->createAsStripeCustomer();
+
         return response()->json(['message' => 'Successfully registered. You can now login'], 200);
     }
 }
