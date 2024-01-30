@@ -93,10 +93,13 @@ function Plan({
     activePeriod: 'Monthly' | 'Annually';
 }) {
     return (
-        <section
+        <div
             className={clsx(
-                'flex flex-col items-center justify-center overflow-hidden rounded-3xl px-8 py-12 shadow-[0_4px_12px_0_rgba(0,0,0,0.06)]',
-                featured ? 'order-first bg-gray-900 lg:order-none' : 'bg-white'
+                'flex flex-col items-center justify-center overflow-hidden rounded-3xl px-8 py-12 shadow-[0_4px_12px_0_rgba(0,0,0,0.06)] hover:shadow-[0_4px_16px_0_rgba(0,0,0,0.16)]',
+                featured ? 'order-first bg-gray-900 lg:order-none' : 'bg-white',
+                css`
+                    transition: box-shadow 0.3s;
+                `
             )}>
             <h3 className={clsx('flex items-center text-lg font-semibold mb-6', featured ? 'text-white' : 'text-[#272E36]')}>
                 {name}
@@ -146,6 +149,7 @@ function Plan({
             </span>
             <button
                 className={clsx(
+                    'btn-gradient',
                     featured ? 'cyan' : 'gray',
                     css`
                         font-size: 14px;
@@ -155,28 +159,22 @@ function Plan({
                         background-color: rgba(0, 0, 0, 0);
                         color: #16a34a;
                         padding: 15px 30px 15px 30px;
-                        border-radius: 25px 25px 25px 25px;
-                        border-style: solid;
-                        border-width: 1px 1px 1px 1px;
-                        border-color: #16a34a;
+                        border-radius: 25px;
+                        border: 1px solid #16a34a;
                         transition: border-color 300ms ease-in-out, background 300ms ease-in-out, box-shadow 300ms ease-in-out;
 
                         &:hover {
-                            background-color: transparent;
-                            background-image: linear-gradient(107deg, #16a34a 0%, #107636 100%);
                             color: #fff;
-                            border-style: solid;
-                            border-width: 1px 1px 1px 1px;
-                            border-color: #16a34a;
-                            box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.16);
+                            box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.16);
                         }
                     `
                 )}
                 aria-label={`Get started with the ${name} plan for ${price}`}>
-                {button.label}
+                <div className="btn-gradient-overlay"></div>
+                <span className="btn-gradient-text">{button.label}</span>
             </button>
             <span className={clsx('block pt-2', featured ? 'text-white' : 'text-[#272E36]')}>{bill}</span>
-        </section>
+        </div>
     );
 }
 

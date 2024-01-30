@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, useEffect, useId, useRef, useState } from 'react';
+import { Fragment, Key, useEffect, useId, useRef, useState } from 'react';
 import { Tab } from '@headlessui/react';
 import clsx from 'clsx';
 import { AnimatePresence, type MotionProps, type Variant, type Variants, motion } from 'framer-motion';
@@ -478,7 +478,7 @@ function FeaturesMobile() {
                 ))}
             </div>
             <div className="mt-6 flex justify-center gap-3">
-                {features.map((_, featureIndex) => (
+                {features.map((_: any, featureIndex: any) => (
                     <button
                         type="button"
                         key={featureIndex}
@@ -488,7 +488,7 @@ function FeaturesMobile() {
                         )}
                         aria-label={`Go to slide ${featureIndex + 1}`}
                         onClick={() => {
-                            slideRefs.current[featureIndex].scrollIntoView({
+                            slideRefs.current[featureIndex as number]?.scrollIntoView({
                                 block: 'nearest',
                                 inline: 'nearest'
                             });

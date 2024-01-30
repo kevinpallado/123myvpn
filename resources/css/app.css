@@ -101,3 +101,80 @@
     }
 }
 
+@keyframes animation-buzz-out {
+    10% {
+        transform: translateX(3px) rotate(2deg);
+    }
+
+    20% {
+        transform: translateX(-3px) rotate(-2deg);
+    }
+    30% {
+        transform: translateX(3px) rotate(2deg);
+    }
+    40% {
+        transform: translateX(-3px) rotate(-2deg);
+    }
+    50% {
+        transform: translateX(2px) rotate(1deg);
+    }
+    60% {
+        transform: translateX(-2px) rotate(-1deg);
+    }
+    70% {
+        transform: translateX(2px) rotate(1deg);
+    }
+    80% {
+        transform: translateX(-2px) rotate(-1deg);
+    }
+    90% {
+        transform: translateX(1px) rotate(0);
+    }
+    100% {
+        transform: translateX(-1px) rotate(0);
+    }
+}
+
+.animation-buzz-out:active,
+.animation-buzz-out:focus,
+.animation-buzz-out:hover {
+    animation-name: animation-buzz-out;
+    animation-duration: 750ms;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+}
+
+.btn-gradient {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-gradient:hover .btn-gradient-overlay::before {
+    opacity: 1;
+}
+
+.btn-gradient-overlay {
+    position: absolute;
+    transition: all 200ms;
+    inset: 0;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    border-radius: inherit;
+}
+
+.btn-gradient-overlay::before {
+    content: '';
+    opacity: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: all 200ms;
+
+    background-color: #16a34a;
+    background-image: linear-gradient(107deg, #16a34a 0%, #107636 100%);
+}
+
+.btn-gradient-text {
+    position: relative;
+    z-index: 99;
+}
