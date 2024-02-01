@@ -44,19 +44,10 @@ export default function Hero() {
                             <Button
                                 size="lg"
                                 className={clsx(
-                                    'uppercase',
+                                    'btn-cta',
                                     css`
                                         width: 200px;
                                         height: 50px;
-                                        padding: 12px 24px;
-                                        border-radius: 25px;
-                                        background-color: #16a34a;
-                                        background-image: linear-gradient(107deg, #16a34a 0%, #107636 100%);
-                                        transition: box-shadow 200ms linear;
-
-                                        &:hover {
-                                            box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.16);
-                                        }
                                     `
                                 )}>
                                 Only Now 50% Off

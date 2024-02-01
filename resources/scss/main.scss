@@ -1,0 +1,35 @@
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+
+    @apply text-cyan-500 mb-6;
+}
+
+.section-description {
+    font-size: 40px;
+    line-height: 50px;
+    color: #272e36;
+    font-weight: 700;
+}
+
+.swiper-pagination-bullet {
+    --swiper-pagination-bullet-width: 12px;
+    --swiper-pagination-bullet-height: 12px;
+
+    &-active {
+        --swiper-pagination-color: #06b6d4;
+    }
+}
+
+.btn-cta {
+    text-transform: uppercase;
+    padding: 12px 24px;
+    border-radius: 25px;
+    background-color: #16a34a;
+    background-image: linear-gradient(107deg, #16a34a 0%, #107636 100%);
+    transition: box-shadow 200ms linear;
+
+    &:hover {
+        box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.16);
+    }
+}

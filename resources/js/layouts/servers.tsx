@@ -19,10 +19,8 @@ export default function Servers() {
             <Container>
                 <div className="flex gap-x-8 gap-y-4">
                     <div className="flex flex-col w-2/5 ml-auto">
-                        <h3 className="text-[20px] text-cyan-500 font-bold mb-5">Servers</h3>
-                        <h2 className="text-[40px] leading-[50px] font-bold text-[#272E36] mb-10">
-                            Huge global network of fast VPN servers
-                        </h2>
+                        <h3 className="section-title">Servers</h3>
+                        <h2 className="section-description">Huge global network of fast VPN servers</h2>
                         <p className="text-[#7A7A7A] font-regular mb-14">
                             Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
                             totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae.

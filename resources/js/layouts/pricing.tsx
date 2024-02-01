@@ -182,11 +182,11 @@ export default function Pricing() {
     let [activePeriod, setActivePeriod] = useState<'Monthly' | 'Annually'>('Monthly');
 
     return (
-        <section id="pricing" aria-labelledby="pricing-title" className="py-24">
+        <section id="pricing" aria-labelledby="pricing-title" className="py-24 bg-[#f8faff]">
             <Container className="text-center">
-                <div className="mb-10">
-                    <h3 className="text-[20px] text-cyan-500 font-bold mb-6">Pricing Plans</h3>
-                    <h2 className="text-[40px] leading-[50px] font-bold text-[#272E36] mb-10">Plans that suits you best</h2>
+                <div className="mb-28">
+                    <h3 className="section-title">Pricing Plans</h3>
+                    <h2 className="section-description">Plans that suits you best</h2>
                 </div>
 
                 <div className="flex justify-center mb-16">
