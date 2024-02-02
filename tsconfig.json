@@ -15,10 +15,5 @@
         },
         "types": ["vite/client"]
     },
-    "include": [
-        "resources/js/**/*.ts",
-        "resources/js/**/*.tsx",
-        "resources/js/**/*.d.ts",
-        "resources/js/optional.d.ts"
-    ]
+    "include": ["resources/js/**/*.ts", "resources/js/**/*.tsx", "resources/js/**/*.d.ts", "resources/js/optional.d.ts"]
 }

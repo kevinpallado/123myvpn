@@ -49,9 +49,9 @@ export default function Features() {
     return (
         <section id="features" className="py-20 bg-[#f8faff]">
             <Container className="text-center">
-                <div className="mb-20">
-                    <h3 className="text-[20px] text-cyan-500 font-bold mb-6">Features</h3>
-                    <h2 className="text-[40px] leading-[50px] font-bold text-[#272E36] mb-10">Why 123my VPN?</h2>
+                <div className="mb-28">
+                    <h3 className="section-title">Features</h3>
+                    <h2 className="section-description">Why 123my VPN?</h2>
                 </div>
 
                 <div className="grid grid-cols-3 gap-x-5 gap-y-8">

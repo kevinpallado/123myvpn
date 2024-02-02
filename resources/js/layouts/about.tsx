@@ -9,8 +9,8 @@ export default function About() {
             <Container>
                 <div className="flex gap-x-8 gap-y-4">
                     <div className="flex flex-col w-2/5">
-                        <h3 className="text-[20px] text-cyan-500 font-bold mb-5">Apps</h3>
-                        <h2 className="text-[40px] leading-[50px] font-bold text-[#272E36] mb-10">Protect all your Devices</h2>
+                        <h3 className="section-title">Apps</h3>
+                        <h2 className="section-description mb-10">Protect all your Devices</h2>
                         <p className="text-[#7A7A7A] font-regular">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam ipsa voluptas pariatur facilis porro?
                             Architecto repudiandae facere explicabo voluptatem officiis.
