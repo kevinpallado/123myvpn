@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/container';
+import TestimonialBg from '@/images/testimonial-bg.png';
 import clsx from 'clsx';
 import { css } from '@emotion/css';
 
@@ -23,8 +24,15 @@ const steps = [
 
 export default function Mechanism() {
     return (
-        <section id="mechanism" aria-labelledby="mechanisms-title" className="py-20 bg-[#f8faff]">
-            <Container className="text-center">
+        <section id="mechanism" aria-labelledby="mechanisms-title" className="py-20">
+            <Container className={clsx(
+                'text-center',
+                css`
+                        background-image: url(${TestimonialBg});
+                        background-position: 12% 5%;
+                        background-repeat: no-repeat;
+                    `
+            )}>
                 <div className="mb-28">
                     <h3 className="section-title">How it works</h3>
                     <h2 className="section-description">Fell the simplicity</h2>
