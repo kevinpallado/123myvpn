@@ -22,8 +22,7 @@ export default function Servers() {
                         <h3 className="section-title">Servers</h3>
                         <h2 className="section-description">Huge global network of fast VPN servers</h2>
                         <p className="text-[#7A7A7A] font-regular mb-14">
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                            totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae.
+                            <br />Access NextGen Servers in 91 Countries and <br />Connect to our global server network.
                         </p>
 
                         <div className="grid grid-cols-2">

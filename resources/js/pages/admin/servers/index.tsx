@@ -6,16 +6,16 @@ import { DataTable } from '@/components/datatable/datatable';
 import { columns } from './columns';
 import { router, usePage } from '@inertiajs/react';
 
-export default function Pricing() {
-    const { pricing } = usePage<any>().props;
+export default function Servers() {
+    const { servers } = usePage<any>().props;
 
     return (
-        <AdminLayout pageTitle="Pricing">
+        <AdminLayout pageTitle="Server">
             <div className="container mx-auto py-10">
                 <div className="mb-3 flex justify-end">
-                    <Button onClick={(e) => router.get(route('admin.pricing.create'))}>Add New Pricing</Button>
+                    <Button onClick={(e) => router.get(route('admin.servers.create'))}>Add New Server</Button>
                 </div>
-                <DataTable columns={columns} links={pricing.links} meta={pricing.meta} data={pricing.data} />
+                <DataTable columns={columns} links={servers.links} meta={servers.meta} data={servers.data} />
             </div>
         </AdminLayout>
     );
