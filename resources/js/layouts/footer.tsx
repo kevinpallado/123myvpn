@@ -26,10 +26,6 @@ const footerLinks = [
                 href: '/'
             },
             {
-                name: 'Blog',
-                href: '/'
-            },
-            {
                 name: 'Support',
                 href: '/'
             }
@@ -53,10 +49,6 @@ const footerLinks = [
             {
                 name: 'VPN for Windows',
                 href: '/'
-            },
-            {
-                name: 'VPN for Linux',
-                href: '/'
             }
         ]
     },
@@ -77,10 +69,6 @@ const footerLinks = [
             },
             {
                 name: 'Contact Us',
-                href: '/'
-            },
-            {
-                name: 'Guarantee',
                 href: '/'
             }
         ]

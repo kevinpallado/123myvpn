@@ -6,18 +6,18 @@ import { css } from '@emotion/css';
 
 const steps = [
     {
-        title: 'Download',
-        description: 'Sed ut perspiciatis unde omnis iste natus',
+        title: 'Purchase your plan',
+        description: 'pick the plan that suits you',
         bgGradient: 'linear-gradient(135deg, #febb97 0%, #f73e6e 100%)'
     },
     {
-        title: 'Connect',
-        description: 'Sed ut perspiciatis unde omnis iste natus',
+        title: 'Download the app',
+        description: 'choose the right app for your device',
         bgGradient: 'linear-gradient(315deg, #2058ba 0%, #41d9f2 100%)'
     },
     {
-        title: 'Enjoy',
-        description: 'Sed ut perspiciatis unde omnis iste natus',
+        title: 'Connect',
+        description: 'turn on the VPN and enjoy',
         bgGradient: 'linear-gradient(135deg, #3fdbb1 0%, #26b6cb 100%)'
     }
 ];
@@ -62,7 +62,7 @@ export default function Mechanism() {
                 </div>
                 <div className="flex items-center rounded-3xl shadow-[0_4px_12px_0_rgba(0,0,0,0.06)] pt-10 pb-14 px-14">
                     <div className="flex-1 min-w-0 text-left">
-                        <h2 className="text-[40px] leading-[50px] text-[#272e36] font-bold mb-5">Get JupiterX VPN</h2>
+                        <h2 className="text-[40px] leading-[50px] text-[#272e36] font-bold mb-5">Get 123MyVPN</h2>
                         <h5 className="text-xl">Download to get private & secure Internet</h5>
                     </div>
                     <div>
