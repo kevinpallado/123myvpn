@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PricingController;
 use App\Http\Controllers\Admin\SubscribersController;
+use App\Http\Controllers\Admin\ServersController;
+use App\Http\Controllers\Admin\UsersController;
 
 use Inertia\Inertia;
 /*
@@ -32,5 +34,7 @@ Route::prefix('admin')->name('admin.')->group(function() {
         Route::resource('dashboard', DashboardController::class)->only('index');
         Route::resource('subscribers', SubscribersController::class);
         Route::resource('pricing', PricingController::class);
+        Route::resource('servers', ServersController::class);
+        Route::resource('users', UsersController::class);
     });
 });
