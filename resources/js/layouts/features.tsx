@@ -47,26 +47,26 @@ const featureList = [
 
 export default function Features() {
     return (
-        <section id="features" className="py-20 bg-[#f8faff]">
+        <section id="features" className="py-14 lg:py-20 bg-[#f8faff]">
             <Container className="text-center">
-                <div className="mb-28">
+                <div className="mb-16 md:20 lg:mb-28">
                     <h3 className="section-title">Features</h3>
                     <h2 className="section-description">Why 123my VPN?</h2>
                 </div>
 
-                <div className="grid grid-cols-3 gap-x-5 gap-y-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-8 max-w-sm sm:max-w-full w-full mx-auto">
                     {featureList.map((item) => {
                         return (
                             <div
                                 className="relative shadow-[0_4px_2px_0_rgba(0,0,0,0.06)] rounded-3xl"
                                 style={{ backgroundImage: item.overlay }}
                                 key={item.title}>
-                                <div className="relative p-10">
-                                    <div className="mb-11">
-                                        <img src={item.icon} alt={item.title} className="mx-auto mb-6" />
+                                <div className="relative p-6 xl:p-10">
+                                    <div className="mb-6 md:mb-8 lg:mb-11">
+                                        <img src={item.icon} alt={item.title} className="mx-auto" />
                                     </div>
-                                    <h4 className="text-2xl font-bold text-white mb-9">{item.title}</h4>
-                                    <p className="text-white">{item.description}</p>
+                                    <h4 className="text-lg lg:text-2xl font-bold text-white mb-4 lg:mb-9">{item.title}</h4>
+                                    <p className="text-sm md:text-base text-white">{item.description}</p>
                                 </div>
                             </div>
                         );

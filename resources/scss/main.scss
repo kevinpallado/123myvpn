@@ -2,14 +2,23 @@
     font-size: 20px;
     font-weight: 700;
 
-    @apply text-cyan-500 mb-6;
+    @apply text-lg text-cyan-500 mb-4 lg:mb-6;
+
+    @screen lg {
+        font-size: 20px;
+    }
 }
 
 .section-description {
-    font-size: 40px;
-    line-height: 50px;
     color: #272e36;
     font-weight: 700;
+
+    @apply text-4xl leading-tight;
+
+    @screen lg {
+        font-size: 40px;
+        line-height: 50px;
+    }
 }
 
 .swiper-pagination-bullet {

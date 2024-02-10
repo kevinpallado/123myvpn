@@ -95,7 +95,7 @@ function Plan({
     return (
         <div
             className={clsx(
-                'flex flex-col items-center justify-center overflow-hidden rounded-3xl px-8 py-12 shadow-[0_4px_12px_0_rgba(0,0,0,0.06)] hover:shadow-[0_4px_16px_0_rgba(0,0,0,0.16)]',
+                'flex flex-col items-center justify-center overflow-hidden rounded-3xl px-6 md:px-8 py-8 md:py-12 shadow-[0_4px_12px_0_rgba(0,0,0,0.06)] hover:shadow-[0_4px_16px_0_rgba(0,0,0,0.16)]',
                 featured ? 'order-first bg-gray-900 lg:order-none' : 'bg-white',
                 css`
                     transition: box-shadow 0.3s;
@@ -132,10 +132,10 @@ function Plan({
                     </>
                 )}
             </p>
-            <p className={clsx('mb-8', featured ? 'text-white' : 'text-[#272E36]')}>{description}</p>
+            <p className={clsx('mb-6 md:mb-8', featured ? 'text-white' : 'text-[#272E36]')}>{description}</p>
             <span
                 className={clsx(
-                    'flex items-center gap-x-1.5 text-sm font-semibold mb-16',
+                    'flex items-center gap-x-1.5 text-sm font-semibold mb-10 md:mb-16',
                     featured ? 'text-white' : 'text-[#272E36]'
                 )}>
                 {' '}
@@ -182,9 +182,9 @@ export default function Pricing() {
     let [activePeriod, setActivePeriod] = useState<'Monthly' | 'Annually'>('Monthly');
 
     return (
-        <section id="pricing" aria-labelledby="pricing-title" className="py-24 bg-[#f8faff]">
+        <section id="pricing" aria-labelledby="pricing-title" className="py-14 lg:py-20 bg-[#f8faff]">
             <Container className="text-center">
-                <div className="mb-28">
+                <div className="mb-16 md:20 lg:mb-28">
                     <h3 className="section-title">Pricing Plans</h3>
                     <h2 className="section-description">Plans that suits you best</h2>
                 </div>
@@ -226,7 +226,7 @@ export default function Pricing() {
                     </div>
                 </div>
 
-                <div className="grid max-w-2xl grid-cols-1 items-start gap-x-5 gap-y-10 sm:mt-20 lg:max-w-none lg:grid-cols-3">
+                <div className="grid max-w-sm mx-auto grid-cols-1 items-start gap-x-5 gap-y-6 lg:gap-y-10 sm:mt-20 lg:max-w-none lg:grid-cols-3">
                     {plans.map((plan) => (
                         <Plan key={plan.name} {...plan} activePeriod={activePeriod} />
                     ))}

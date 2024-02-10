@@ -40,7 +40,7 @@ const slides = [
 
 export default function Testimonials() {
     return (
-        <section id="testimonials" aria-labelledby="testimonials-title" className="py-24">
+        <section id="testimonials" aria-labelledby="testimonials-title" className="py-14 lg:py-20">
             <Container
                 className={clsx(
                     'text-center',
@@ -50,7 +50,7 @@ export default function Testimonials() {
                         background-repeat: no-repeat;
                     `
                 )}>
-                <div className="mb-28">
+                <div className="mb-16 md:20 lg:mb-28">
                     <h3 className="section-title">Testimonials</h3>
                     <h2 className="section-description">What people are saying</h2>
                 </div>
@@ -71,8 +71,8 @@ export default function Testimonials() {
                                     <img src={slide.image} className="absolute inset-0 w-full h-full object-cover rounded-full" />
                                 </div>
                                 <h2 className="text-2xl font-bold mb-5">{slide.title}</h2>
-                                <div className="w-[945px] mb-6">
-                                    <p className="text-base text-[#272e36] font-normal">{slide.description}</p>
+                                <div className="max-w-[945px] w-full mb-6">
+                                    <p className="text-base text-[#272e36] font-normal line-clamp-3">{slide.description}</p>
                                 </div>
                                 <div>
                                     <h6 className="font-bold uppercase text-cyan-500 mb-1">{slide.user}</h6>

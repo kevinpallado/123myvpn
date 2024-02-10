@@ -115,10 +115,10 @@ export default function Footer() {
         <footer className="pt-16 pb-10 bg-gray-900">
             <Container>
                 <div className="text-center font-bold mb-20">
-                    <h1 className="text-[40px] text-white mb-6">Get our mobile app</h1>
+                    <h1 className="text-3xl md:text-[40px] text-white mb-6">Get our mobile app</h1>
                     <h3 className="text-lg text-gray-400">Available for both iOS and Android</h3>
                 </div>
-                <div className="flex items-center justify-center gap-x-5 mb-20">
+                <div className="flex flex-col md:flex-row items-center justify-center gap-x-5 gap-y-5 mb-20">
                     <a href="/" className="block transition-shadow hover:shadow-xl">
                         <img src={appStore} alt="apple store logo" />
                     </a>
@@ -126,10 +126,10 @@ export default function Footer() {
                         <img src={playStore} alt="android play store logo" />
                     </a>
                 </div>
-                <div className="grid grid-cols-4 gap-x-5 mb-20">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-x-5 gap-y-10 mb-20 text-center md:text-left">
                     {footerLinks.map((item, i) => (
                         <div key={i}>
-                            <h3 className="text-lg font-bold text-gray-400 mb-10">{item.title}</h3>
+                            <h3 className="text-lg font-bold text-gray-400 mb-4 md:mb-10">{item.title}</h3>
                             <ul className="flex flex-col gap-y-1 list-none font-medium">
                                 {item.items.map((item, i) => (
                                     <li key={i}>
@@ -143,8 +143,8 @@ export default function Footer() {
                     ))}
                     <div>
                         <div className="mb-8">
-                            <h3 className="text-lg font-bold text-gray-400 mb-10">Follow Us</h3>
-                            <div className="flex items-center  gap-x-4">
+                            <h3 className="text-lg font-bold text-gray-400 mb-4 md:mb-10">Follow Us</h3>
+                            <div className="flex items-center justify-center md:justify-start gap-x-4">
                                 <Link href="/">
                                     <div className={socialLinkClass}>
                                         <svg
@@ -187,7 +187,7 @@ export default function Footer() {
                             </div>
                         </div>
                         <div>
-                            <h3 className="text-lg font-bold text-gray-400 mb-10">Live Chat</h3>
+                            <h3 className="text-lg font-bold text-gray-400 mb-4 md:mb-10">Live Chat</h3>
                             <button
                                 className={clsx(
                                     'btn-gradient animation-buzz-out bg-gray-800 font-medium text-white',
@@ -205,7 +205,7 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
-                <p className="mt-6 text-sm text-gray-500 md:mt-0">
+                <p className="text-sm text-center md:text-left text-gray-500 md:mt-0">
                     &copy; Copyright {new Date().getFullYear()}. All rights reserved.
                 </p>
             </Container>

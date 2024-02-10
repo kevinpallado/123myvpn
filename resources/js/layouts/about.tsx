@@ -5,13 +5,13 @@ import { css } from '@emotion/css';
 
 export default function About() {
     return (
-        <section id="about" className="py-20 bg-white">
+        <section id="about" className="py-14 lg:py-20 bg-white">
             <Container>
-                <div className="flex gap-x-8 gap-y-4">
-                    <div className="flex flex-col w-2/5">
+                <div className="flex flex-col lg:flex-row lg:gap-x-10 gap-y-10 sm:gap-y-20">
+                    <div className="lg:w-3/6 xl:w-2/5 text-center lg:text-left">
                         <h3 className="section-title">Apps</h3>
-                        <h2 className="section-description mb-10">Protect all your Devices</h2>
-                        <p className="text-[#7A7A7A] font-regular">
+                        <h2 className="section-description mb-4 lg:mb-10">Protect all your Devices</h2>
+                        <p className="text-[#7A7A7A] font-regular mb-6 lg:mb-0">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam ipsa voluptas pariatur facilis porro?
                             Architecto repudiandae facere explicabo voluptatem officiis.
                         </p>
@@ -70,7 +70,7 @@ export default function About() {
                             </svg>
                         </div>
                     </div>
-                    <div className="w-3/5">
+                    <div className="lg:w-3/6 xl:w-3/5">
                         <div
                             className={clsx(
                                 'relative',
@@ -85,7 +85,7 @@ export default function About() {
                             <img
                                 src={Device}
                                 className={clsx(
-                                    'aspect-ratio w-full',
+                                    'aspect-ratio w-full max-w-lg mx-auto lg:max-w-full',
                                     css`
                                         transition-duration: 500ms;
 

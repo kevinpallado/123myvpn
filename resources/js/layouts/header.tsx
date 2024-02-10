@@ -42,7 +42,7 @@ export default function Header({ headerTitle }: HeaderProps) {
                     <div className="flex items-center gap-x-5 md:gap-x-8">
                         <Button
                             className={clsx(
-                                'hidden lg:block uppercase',
+                                'hidden md:block uppercase',
                                 css`
                                     width: 160px;
                                     height: 50px;
