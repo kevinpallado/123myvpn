@@ -15,8 +15,8 @@ const featureList = [
     },
     {
         icon: IconWorldwide,
-        title: '24/7 customer support',
-        description: ['Get customer support via live chat.'],
+        title: '24/7 Customer support',
+        description: 'Get customer support via live chat.',
         overlay: 'linear-gradient(315deg, #2058ba 0%, #41d9f2 100%)'
     },
     {

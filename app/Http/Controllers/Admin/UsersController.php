@@ -28,12 +28,6 @@ class UsersController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => '',
-        ]);
-
         Users::create($request->all());
 
         return redirect()->intended(route('admin.users.index'));
@@ -59,12 +53,6 @@ class UsersController extends Controller
      */
     public function update(Request $request, string $id)
 {
-    $request->validate([
-        'name' => 'required',
-        'email' => 'required|email',
-        'password' => '',
-    ]);
-
     $user = Users::findOrFail($id);
     $user->update($request->except(['password']));
 

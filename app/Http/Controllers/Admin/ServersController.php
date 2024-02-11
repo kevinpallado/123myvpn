@@ -28,13 +28,6 @@ class ServersController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required',
-            'ip_address' => 'required', 
-            'vpn_value' => 'required', 
-            'location' => 'required', 
-        ]);
-
         Server::create($request->all());
 
         return redirect()->intended(route('admin.servers.index'));
@@ -60,22 +53,15 @@ class ServersController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'name' => 'required',
-            'ip_address' => 'nullable', // Assuming IP address can be nullable. Adjust validation as needed.
-            'vpn_value' => 'nullable', // Adjust validation as needed.
-            'location' => 'nullable', // Adjust validation as needed.
-        ]);
-    
+        
         $server = Server::findOrFail($id);
     
         // Assigning request data to the server model's attributes
-        $server->name = $request->input('name');
-        $server->ip_address = $request->input('ip_address');
-        $server->vpn_value = $request->input('vpn_value');
-        $server->location = $request->input('location');
+        $server->name = $request->name;
+        $server->ip_address = $request->ip_address;
+        $server->vpn_value = $request->vpn_value;
+        $server->location = $request->location;
     
-        // Saving the changes to the database
         $server->save();
     
         return redirect()->intended(route('admin.servers.index'));
