@@ -1,8 +1,9 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-
+// global components
 import { Button } from "@/components/ui/button"
+// react
 import { router } from "@inertiajs/react"
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -43,9 +44,6 @@ export const columns: ColumnDef<PricingInterface>[] = [
             return <>
                 <Button className="mr-2" onClick={(e) => router.visit(route('admin.subscribers.edit', row.original.id))}>
                     Edit
-                </Button>
-                <Button variant="destructive" className="mr-2">
-                    Manage Subscription
                 </Button>
             </>
         }

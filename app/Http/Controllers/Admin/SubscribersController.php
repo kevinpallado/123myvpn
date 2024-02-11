@@ -20,7 +20,7 @@ class SubscribersController extends Controller
     public function index(Request $request): Response
     {
         return Inertia::render('admin/subscribers/index')->with([
-            'subscribers' => GeneralResourceCollection::collection(UserSubscribers::paginate(15))
+            'subscribers' => GeneralResourceCollection::collection(UserSubscribers::with('subscriptions')->paginate(15))
         ]);
     }
 
@@ -51,6 +51,8 @@ class SubscribersController extends Controller
         return Inertia::render('admin/subscribers/components/form')->with([
             'subscriber' => $subscriber,
             'subscriberPaymentMethods' => $subscriber->paymentMethods(),
+            'cancelSubscriptionGracePeriod' => $subscriber->subscription('default_plan')->onGracePeriod(),
+            'canceledSubscription' => $subscriber->subscription('default_plan')->canceled(),
             'intent' => $subscriber->createSetupIntent(),
             'pricing' => Pricing::select('pricing_id','name','price','currency')->where('billing_method','month')->get()
         ]);
@@ -61,6 +63,11 @@ class SubscribersController extends Controller
         switch($request->action) {
             case 'card-info':
                 $subscriber->newSubscription('default_plan', $request->planSelected)->create($request->setupIntent['payment_method']);
+                break;
+            case 'cancel-subscription':
+                $subscriber->subscription('default_plan')->cancelAt(
+                    now()->addDays(5)
+                );
                 break;
             default:
                 $subscriber->name = $request->name;
