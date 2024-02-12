@@ -2,6 +2,7 @@ import AdminLayout from '@/layouts/admin'
 // icons
 import { ReloadIcon } from "@radix-ui/react-icons"
 // global components
+import { Badge } from "@/components/ui/badge"
 import { Button } from '@/components/ui/button'
 import {
     Card,
@@ -15,6 +16,7 @@ import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 // local components
 import PaymentCards from './payment-cards'
+import PaymentMethods from './payment-methods'
 // inertia
 import { Elements } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js";
@@ -22,7 +24,7 @@ import { useForm, usePage } from '@inertiajs/react'
 import { useMemo } from 'react'
 
 export default function SubscriberForm() {
-    const { pricing, subscriber, intent } = usePage<any>().props
+    const { pricing, subscriber, subscriberPaymentMethods, cancelSubscriptionGracePeriod, canceledSubscription, intent } = usePage<any>().props
     const clientSecret = intent.client_secret
     const appearance = {
         theme: 'stripe',
@@ -65,10 +67,14 @@ export default function SubscriberForm() {
                         <Card>
                             <CardHeader>
                                 <CardTitle>Subscribers Form</CardTitle>
-                                <CardDescription>User personal information.</CardDescription>
+                                <CardDescription>User personal information.
+                                    <br/>
+                                    {(!cancelSubscriptionGracePeriod && canceledSubscription) && <Badge variant="destructive" className="mr-2">Subscription Canceled</Badge>}
+                                    {(cancelSubscriptionGracePeriod && canceledSubscription) && <Badge variant="destructive" className="mr-2">Subscription Canceled on Grace Period</Badge>}
+                                </CardDescription>
                             </CardHeader>
                             <CardContent>
-                                <div className="grid max-w-4xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                <div className="grid">
                                     <div className="col-span-full">
                                         <Label htmlFor="name">
                                             Full Name
@@ -127,7 +133,7 @@ export default function SubscriberForm() {
             </div>
 
 
-            {subscriber && <div className="space-y-10 divide-y divide-gray-900/10 mt-10">
+            <div className="space-y-10 divide-y divide-gray-900/10 mt-10">
                 <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
                     <div className="px-4 sm:px-0">
                         <h2 className="text-base font-semibold leading-7 text-gray-900">Payment Method</h2>
@@ -136,7 +142,7 @@ export default function SubscriberForm() {
                         </p>
                     </div>
 
-                    <div className="shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
+                    {subscriberPaymentMethods.length == 0 && <div className="shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
                         <Card>
                             <CardHeader>
                                 <CardTitle>Subscribers Form</CardTitle>
@@ -150,9 +156,13 @@ export default function SubscriberForm() {
                                 )}
                             </CardContent>
                         </Card>
+                    </div>}
+
+                    <div className="md:col-span-2">
+                        {subscriberPaymentMethods.map((paymentMethods: any) => <PaymentMethods paymentMethods={paymentMethods} />)}
                     </div>
                 </div>
-            </div>}
+            </div>
         </AdminLayout>
     )
 }
