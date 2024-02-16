@@ -31,25 +31,31 @@ class PricingController extends Controller
     {
         \Stripe\Stripe::setApiKey(config('cashier.secret'));
 
-        try {
-            $plan = Plan::create([
-                'amount' => $request->plan_amount*100,
-                'currency' => $request->currency,
-                'interval' => $request->billing,
-                'product' => [
-                    'name' => $request->plan_name
-                ]
-            ]);
-    
-            Pricing::create([
-                'pricing_id' => $plan->id,
-                'name' => $request->plan_name,
-                'billing_method' => $request->billing,
-                'price' => $plan->amount,
-                'currency' => $plan->currency
-            ]);
-        } catch(\Exception $e) {
-            dd($e->getMessage());
+        if(Pricing::where('status', 'active')->count() >= 3 && Pricing::where('billing_method', 'month')->count() >= 3 || Pricing::where('status', 'active')->count() >= 3 && Pricing::where('billing_method', 'year')->count() >= 3){
+            
+        }else{
+            try {
+                $plan = Plan::create([
+                    'amount' => $request->plan_amount*100,
+                    'currency' => $request->currency,
+                    'interval' => $request->billing,
+                    'product' => [
+                        'name' => $request->plan_name
+                    ]
+                ]);
+        
+                Pricing::create([
+                    'pricing_id' => $plan->id,
+                    'name' => $request->plan_name,
+                    'billing_method' => $request->billing,
+                    'price' => $plan->amount,
+                    'currency' => $plan->currency,
+                    'status' => $request->status,
+                    'features' => 'null'
+                ]);
+            } catch(\Exception $e) {
+                dd($e->getMessage());
+            }
         }
 
         return redirect()->intended(route('admin.pricing.index'));
