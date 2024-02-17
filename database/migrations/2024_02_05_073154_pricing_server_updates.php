@@ -31,7 +31,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('pricing', function(Blueprint $table) {
-            $table->dropColumns(['features']);
+            $table->dropColumn('features');
         });
 
         Schema::dropIfExists('host_server');

@@ -28,6 +28,13 @@ class ServersController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $request->validate([
+            'name' => 'required|max:255',
+            'ip_address' => 'required|ip', 
+            'vpn_value' => 'required|max:656', 
+            'location' => 'required|max:255', 
+        ]);
+        
         Server::create($request->all());
 
         return redirect()->intended(route('admin.servers.index'));
@@ -53,6 +60,13 @@ class ServersController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
+        $request->validate([
+            'name' => 'required|max:255',
+            'ip_address' => 'required|ip', 
+            'vpn_value' => 'required|max:656', 
+            'location' => 'required|max:255', 
+        ]);
         
         $server = Server::findOrFail($id);
     

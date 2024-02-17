@@ -14,7 +14,9 @@ class Pricing extends Model
         'billing_method',
         'interval_count',
         'price',
-        'currency'
+        'currency',
+        'status',
+        'features'
     );
 
     protected function price(): Attribute

@@ -11,6 +11,7 @@ export type PricingInterface = {
     billing_method: string
     price: number
     currency: string
+    status: string
     created_at: string
     updated_at: string
 }
@@ -48,5 +49,11 @@ export const columns: ColumnDef<PricingInterface>[] = [
     {
         accessorKey: "updated_at",
         header: "Time Updated",
+    },
+    {
+        header: "Status",
+        cell: ({ row }) => {
+            return (row.original.status === 'active' ? 'Active' : 'Inactive')
+        }
     },
 ]

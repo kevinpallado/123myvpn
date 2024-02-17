@@ -1,8 +1,11 @@
 import AdminLayout from '@/layouts/admin'
 // icons
 import { ReloadIcon } from "@radix-ui/react-icons"
+import { Switch } from '@/components/ui/switch';
 // global components
 import { Button } from '@/components/ui/button'
+import React from 'react';
+import { useState } from 'react';
 import {
     Card,
     CardContent,
@@ -28,8 +31,11 @@ export default function PricingForm() {
         plan_name: '',
         plan_amount: '',
         currency: 'USD',
-        billing: 'month'
+        billing: 'month',
+        status: 'inactive',
     })
+
+    const [value, setValue] = React.useState(false);
 
     function submitForm(e: any) {
         e.preventDefault();
@@ -104,12 +110,12 @@ export default function PricingForm() {
                                             </div>
                                         </div>
 
-                                        <div className="col-span-full">
-                                            <Label htmlFor="billing_period">
+                                        <div className="col-span-full grid">
+                                            <Label htmlFor="billing_method">
                                                 Billing Period
                                             </Label>
                                             <div className="mt-2">
-                                                <Select name="billing_period" value={data.billing} onValueChange={e => setData('billing', e)}>
+                                                <Select name="billing_method" value={data.billing} onValueChange={e => setData('billing', e)}>
                                                     <SelectTrigger className="w-full">
                                                         <SelectValue placeholder="Billing Period" />
                                                     </SelectTrigger>
@@ -118,9 +124,17 @@ export default function PricingForm() {
                                                         <SelectItem value="year">Yearly Period</SelectItem>
                                                     </SelectContent>
                                                 </Select>
+                                                <Switch
+                                                    className='mt-2'
+                                                    name='status'
+                                                    checked={value}
+                                                    onCheckedChange={(checked) => {
+                                                        setValue(checked);
+                                                        setData('status', checked ? 'active' : 'inactive');
+                                                    }}
+                                                />
                                             </div>
                                         </div>
-
                                     </div>
                             </CardContent>
                             <CardFooter>
