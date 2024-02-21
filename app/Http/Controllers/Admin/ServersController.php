@@ -11,6 +11,9 @@ use Illuminate\Http\RedirectResponse;
 use App\Models\Server;
 // resource
 use App\Http\Resources\GeneralResourceCollection;
+// request
+use App\Http\Requests\Admin\Server\StoreRequest;
+use App\Http\Requests\Admin\Server\UpdateRequest;
 
 class ServersController extends Controller
 {
@@ -23,59 +26,41 @@ class ServersController extends Controller
 
     public function create(Request $request): Response
     {
-        return Inertia::render('admin/servers/components/form');
+        return Inertia::render('admin/servers/components/form')->with([
+            'countryServers' => array_keys(Server::$serverLists)
+        ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreRequest $request): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required|max:255',
-            'ip_address' => 'required|ip', 
-            'vpn_value' => 'required|max:656', 
-            'location' => 'required|max:255', 
-        ]);
-        
-        Server::create($request->all());
+        $server = new Server;
+        $server->name            = $request->name;
+        $server->ip_address      = $request->ip_address;
+        $server->vpn_value       = $request->vpn_value;
+        $server->location        = $request->location;
+        $server->recommended     = $request->recommended;
+        $server->server_location = $request->location;
+        $server->save();
 
         return redirect()->intended(route('admin.servers.index'));
     }
 
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Request $request, $server)
+    public function edit(Request $request, Server $server)
     {
         return Inertia::render('admin/servers/components/form')->with([
-            'servers' => Server::findOrFail($server),
+            'servers' => $server,
+            'countryServers' => array_keys(Server::$serverLists)
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, Server $server)
     {
-
-        $request->validate([
-            'name' => 'required|max:255',
-            'ip_address' => 'required|ip', 
-            'vpn_value' => 'required|max:656', 
-            'location' => 'required|max:255', 
-        ]);
-        
-        $server = Server::findOrFail($id);
-    
-        // Assigning request data to the server model's attributes
-        $server->name = $request->name;
-        $server->ip_address = $request->ip_address;
-        $server->vpn_value = $request->vpn_value;
-        $server->location = $request->location;
-    
+        $server->name            = $request->name;
+        $server->ip_address      = $request->ip_address;
+        $server->vpn_value       = $request->vpn_value;
+        $server->location        = $request->location;
+        $server->recommended     = $request->recommended;
+        $server->server_location = $request->location;
         $server->save();
     
         return redirect()->intended(route('admin.servers.index'));

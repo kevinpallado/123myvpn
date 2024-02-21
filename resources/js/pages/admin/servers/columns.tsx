@@ -15,6 +15,7 @@ export type ServerInterface = {
     ip_address: string;
     location: number;
     vpn_value: string;
+    server_location: string;
 };
 
 export const columns: ColumnDef<ServerInterface>[] = [
@@ -40,13 +41,11 @@ export const columns: ColumnDef<ServerInterface>[] = [
         }
     },
     {
-        header: 'VPN Value',
+        header: 'Server Region',
         cell: ({ row }) => {
-            return (
-                <>
-                    <Badge>1</Badge>
-                </>
-            );
+            return <Badge>
+                {row.original.server_location}
+            </Badge>;
         }
     },
     {

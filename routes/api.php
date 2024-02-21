@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 // controllers
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\VPNServerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,5 +29,6 @@ Route::group(['prefix' => 'v1/subscriber', 'middleware' => 'throttle:subscriber'
         Route::post('logout', [LoginController::class, 'logoutAPI']);
         // subscriber data
         Route::apiResource('dashboard', DashboardController::class);
+        Route::apiResource('vpn-servers', VPNServerController::class)->only('index');
     });
 });
