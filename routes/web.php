@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PricingController;
 use App\Http\Controllers\Admin\SubscribersController;
 use App\Http\Controllers\Admin\ServersController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\HomeController;
 
 use Inertia\Inertia;
 /*
@@ -21,9 +22,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('home');
-});
+Route::resource('/', HomeController::class)->only('index');
 
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::get('login', [LoginController::class, 'loginForm'])->name('login.form');

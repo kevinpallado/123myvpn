@@ -53,7 +53,6 @@ export default function Hero() {
                                 Only Now 50% Off
                             </Button>
                         </div>
-                        <p className="text-sm text-[#272E36]">30-day money-back guarantee</p>
                     </div>
                     <div className="w-3/5">
                         <img
