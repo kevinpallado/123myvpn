@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('location');
             $table->string('ip_address');
-            $table->string('vpn_value');
+            $table->longText('vpn_value');
             $table->timestamps();
         });
     }
