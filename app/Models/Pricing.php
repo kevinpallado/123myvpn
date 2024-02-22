@@ -19,6 +19,10 @@ class Pricing extends Model
         'features'
     );
 
+    protected $casts = [
+        'status' => 'boolean'
+    ];
+
     protected function price(): Attribute
     {
         return Attribute::make(

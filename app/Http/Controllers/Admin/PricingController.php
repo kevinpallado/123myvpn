@@ -13,6 +13,8 @@ use Stripe\Plan;
 // resource
 use App\Http\Resources\GeneralResourceCollection;
 
+use App\Http\Requests\Admin\Pricing\StoreRequest;
+
 class PricingController extends Controller
 {
     public function index(Request $request): Response
@@ -27,32 +29,34 @@ class PricingController extends Controller
         return Inertia::render('admin/pricing/components/form');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreRequest $request): RedirectResponse
     {
         \Stripe\Stripe::setApiKey(config('cashier.secret'));
 
-        if(Pricing::where('status', 'active')->count() >= 3 && Pricing::where('billing_method', 'month')->count() >= 3 || Pricing::where('status', 'active')->count() >= 3 && Pricing::where('billing_method', 'year')->count() >= 3){
-            
-        }else{
+        if($request->status) {
+            if(Pricing::where('status', true)->where('billing_method', $request->billing)->count() == 3) {
+                dd("Active pricing is more than 3 for billing method[".$request->billing."]");
+            }
+        } else {
             try {
                 $plan = Plan::create([
-                    'amount' => $request->plan_amount*100,
-                    'currency' => $request->currency,
-                    'interval' => $request->billing,
-                    'product' => [
-                        'name' => $request->plan_name
+                    'amount'    => $request->plan_amount*100,
+                    'currency'  => $request->currency,
+                    'interval'  => $request->billing,
+                    'product'   => [
+                        'name'  => $request->plan_name
                     ]
                 ]);
         
-                Pricing::create([
-                    'pricing_id' => $plan->id,
-                    'name' => $request->plan_name,
-                    'billing_method' => $request->billing,
-                    'price' => $plan->amount,
-                    'currency' => $plan->currency,
-                    'status' => $request->status,
-                    'features' => 'null'
-                ]);
+                    $price = new Pricing;
+                    $price->pricing_id      = $plan->id;
+                    $price->name            = $request->plan_name;
+                    $price->billing_method  = $request->billing;
+                    $price->price           = $plan->amount;
+                    $price->currency        = $plan->currency;
+                    $price->status          = $request->status;
+                    $price->features        = 'null';
+                
             } catch(\Exception $e) {
                 dd($e->getMessage());
             }
@@ -61,32 +65,4 @@ class PricingController extends Controller
         return redirect()->intended(route('admin.pricing.index'));
     }
 
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

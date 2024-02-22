@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/select"
 // inertia
 import { useForm } from '@inertiajs/react'
+import { Checkbox } from "@/components/ui/checkbox"
 
 export default function PricingForm() {
     const { data, setData, post, processing, errors } = useForm({
@@ -32,17 +33,14 @@ export default function PricingForm() {
         plan_amount: '',
         currency: 'USD',
         billing: 'month',
-        status: 'inactive',
+        status: false,
     })
-
-    const [value, setValue] = React.useState(false);
 
     function submitForm(e: any) {
         e.preventDefault();
 
         post(route('admin.pricing.store'))
     }
-
 
     return (
         <AdminLayout pageTitle='Pricing Form'>
@@ -75,6 +73,7 @@ export default function PricingForm() {
                                                     value={data.plan_name}
                                                     onChange={e => setData('plan_name', e.target.value)}
                                                 />
+                                                {errors.plan_name && <span className='text-sm text-red-500 font-medium leading-none'>{errors.plan_name}</span>}
                                             </div>
                                         </div>
 
@@ -89,7 +88,9 @@ export default function PricingForm() {
                                                     id="plan_amount"
                                                     value={data.plan_amount}
                                                     onChange={e => setData('plan_amount', e.target.value)}
+                                                    required
                                                 />
+                                                {errors.plan_amount && <span className='text-sm text-red-500 font-medium leading-none'>{errors.plan_amount}</span>}
                                             </div>
                                         </div>
 
@@ -124,17 +125,24 @@ export default function PricingForm() {
                                                         <SelectItem value="year">Yearly Period</SelectItem>
                                                     </SelectContent>
                                                 </Select>
-                                                <Switch
-                                                    className='mt-2'
-                                                    name='status'
-                                                    checked={value}
-                                                    onCheckedChange={(checked) => {
-                                                        setValue(checked);
-                                                        setData('status', checked ? 'active' : 'inactive');
-                                                    }}
-                                                />
                                             </div>
                                         </div>
+                                        <div className="col-span-full">
+                                        <div className="items-top flex space-x-2">
+                                            <Checkbox id="recommended_server" checked={data.status} onCheckedChange={e => setData('status',e)} />
+                                            <div className="grid gap-1.5 leading-none">
+                                                <label
+                                                    htmlFor="recommended_server"
+                                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                >
+                                                    Price Status
+                                                </label>
+                                                <p className="text-sm text-muted-foreground">
+                                                    Checking this one will set the price into active state.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
                                     </div>
                             </CardContent>
                             <CardFooter>

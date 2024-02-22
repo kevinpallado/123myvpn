@@ -21,8 +21,8 @@ const featureList = [
     },
     {
         icon: IconDevice,
-        title: 'Up to 6 Devices',
-        description: 'Get simultaneous access to 6 devices with only one subscription',
+        title: 'Up to 5 Devices',
+        description: 'Get simultaneous access to 5 devices with only one subscription',
         overlay: 'linear-gradient(135deg, #3fdbb1 0%, #26b6cb 100%)'
     },
     {

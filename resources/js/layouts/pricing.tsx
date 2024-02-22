@@ -6,43 +6,41 @@ import { RadioGroup } from '@headlessui/react';
 import clsx from 'clsx';
 import { css } from '@emotion/css';
 import { useState } from 'react';
+import { usePage } from '@inertiajs/react';
 
 const plans = [
     {
-        name: '1-Month Plan',
+        name: '1 User',
         featured: false,
-        price: { Monthly: '$0', Annually: '$0' },
+        price: { Monthly: '$0', Quarterly: '$0' },
         description: 'per month',
-        discount: 'Save 0%',
-        button: {
-            label: 'Get started for free',
-            href: '/register'
-        },
-        bill: '$4.99 billed / month'
-    },
-    {
-        name: '1-Year Plan',
-        featured: false,
-        price: { Monthly: '$7', Annually: '$70' },
-        description: 'per month',
-        discount: 'Save 30%',
+        discount: '50 GB',
         button: {
             label: 'Subscribe',
             href: '/register'
-        },
-        bill: '$36 billed / year'
+        }
     },
     {
-        name: '2-Year Plan',
-        featured: true,
-        price: { Monthly: '$199', Annually: '$1,990' },
+        name: '3 Users',
+        featured: false,
+        price: { Monthly: '$7', Quarterly: '$70' },
         description: 'per month',
-        discount: 'Save 50%',
+        discount: '100 GB',
         button: {
             label: 'Subscribe',
             href: '/register'
-        },
-        bill: '$24 billed / year'
+        }
+    },
+    {
+        name: '5 Users',
+        featured: false,
+        price: { Monthly: '$199', Quarterly: '$1,990' },
+        description: 'per month',
+        discount: '200 GB',
+        button: {
+            label: 'Subscribe',
+            href: '/register'
+        }
     }
 ];
 
@@ -74,14 +72,13 @@ function Plan({
     description,
     discount,
     button,
-    bill,
     activePeriod
 }: {
     name: string;
     featured: boolean;
     price: {
         Monthly: string;
-        Annually: string;
+        Quarterly: string;
     };
     description: string;
     discount: string;
@@ -89,8 +86,7 @@ function Plan({
         label: string;
         href: string;
     };
-    bill: string;
-    activePeriod: 'Monthly' | 'Annually';
+    activePeriod: 'Monthly' | 'Quarterly';
 }) {
     return (
         <div
@@ -109,15 +105,15 @@ function Plan({
                     'relative flex text-[40px] font-semibold tracking-tight leading-none mb-2',
                     featured ? 'text-white' : 'text-cyan-500'
                 )}>
-                {price.Monthly === price.Annually ? (
+                {price.Monthly === price.Quarterly ? (
                     price.Monthly
                 ) : (
                     <>
                         <span
-                            aria-hidden={activePeriod === 'Annually'}
+                            aria-hidden={activePeriod === 'Quarterly'}
                             className={clsx(
                                 'transition duration-300',
-                                activePeriod === 'Annually' && 'pointer-events-none translate-x-6 select-none opacity-0'
+                                activePeriod === 'Quarterly' && 'pointer-events-none translate-x-6 select-none opacity-0'
                             )}>
                             {price.Monthly}
                         </span>
@@ -127,7 +123,7 @@ function Plan({
                                 'absolute left-0 top-0 transition duration-300',
                                 activePeriod === 'Monthly' && 'pointer-events-none -translate-x-6 select-none opacity-0'
                             )}>
-                            {price.Annually}
+                            {price.Quarterly}
                         </span>
                     </>
                 )}
@@ -173,13 +169,14 @@ function Plan({
                 <div className="btn-gradient-overlay"></div>
                 <span className="btn-gradient-text">{button.label}</span>
             </button>
-            <span className={clsx('block pt-2', featured ? 'text-white' : 'text-[#272E36]')}>{bill}</span>
         </div>
     );
 }
 
 export default function Pricing() {
-    let [activePeriod, setActivePeriod] = useState<'Monthly' | 'Annually'>('Monthly');
+    const { subscriptionPricing } = usePage()<any>.props
+    console.log(subscriptionPricing)
+    let [activePeriod, setActivePeriod] = useState<'Monthly' | 'Quarterly'>('Monthly');
 
     return (
         <section id="pricing" aria-labelledby="pricing-title" className="py-24 bg-[#f8faff]">
@@ -192,7 +189,7 @@ export default function Pricing() {
                 <div className="flex justify-center mb-16">
                     <div className="relative">
                         <RadioGroup value={activePeriod} onChange={setActivePeriod} className="grid grid-cols-2">
-                            {['Monthly', 'Annually'].map((period) => (
+                            {['Monthly', 'Quarterly'].map((period) => (
                                 <RadioGroup.Option
                                     key={period}
                                     value={period}
@@ -212,12 +209,12 @@ export default function Pricing() {
                                     ? '[clip-path:inset(0_50%_0_0)]'
                                     : '[clip-path:inset(0_0_0_calc(50%-1px))]'
                             )}>
-                            {['Monthly', 'Annually'].map((period) => (
+                            {['Monthly', 'Quarterly'].map((period) => (
                                 <div
                                     key={period}
                                     className={clsx(
                                         'py-2 text-center text-sm font-semibold text-white',
-                                        period === 'Annually' && '-ml-px'
+                                        period === 'Quarterly' && '-ml-px'
                                     )}>
                                     {period}
                                 </div>

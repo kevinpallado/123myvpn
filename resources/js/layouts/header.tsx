@@ -3,7 +3,6 @@
 // inertia
 import { Head, Link } from '@inertiajs/react';
 import { Popover, Transition } from '@headlessui/react';
-
 // shadcn components
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/container';
@@ -35,29 +34,31 @@ export default function Header({ headerTitle }: HeaderProps) {
                     </div>
                     <div className="hidden md:flex md:gap-x-4">
                         <NavLink href="#features">Features</NavLink>
-                        <NavLink href="#testimonials">Testimonials</NavLink>
+                        <NavLink href="#mechanism">How it works</NavLink>
                         <NavLink href="#pricing">Pricing</NavLink>
                         <NavLink href="#faqs">FAQ</NavLink>
                     </div>
                     <div className="flex items-center gap-x-5 md:gap-x-8">
-                        <Button
-                            className={clsx(
-                                'hidden lg:block uppercase',
-                                css`
-                                    width: 160px;
-                                    height: 50px;
-                                    border-radius: 25px;
-                                    background-color: #16a34a;
-                                    background-image: linear-gradient(107deg, #16a34a 0%, #107636 100%);
-                                    transition: box-shadow 200ms linear;
+                        <a href="#pricing">
+                            <Button
+                                className={clsx(
+                                    'hidden lg:block uppercase',
+                                    css`
+                                        width: 160px;
+                                        height: 50px;
+                                        border-radius: 25px;
+                                        background-color: #16a34a;
+                                        background-image: linear-gradient(107deg, #16a34a 0%, #107636 100%);
+                                        transition: box-shadow 200ms linear;
 
-                                    &:hover {
-                                        box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.16);
-                                    }
-                                `
-                            )}>
-                            Get Started
-                        </Button>
+                                        &:hover {
+                                            box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.16);
+                                        }
+                                    `
+                                )}>
+                                Get Started
+                            </Button>
+                        </a>
                         <div className="-mr-1 md:hidden">
                             <MobileNavigation />
                         </div>
