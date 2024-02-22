@@ -67,8 +67,8 @@ export default function SubscriberForm() {
                                                 id="name"
                                                 value={data.name}
                                                 onChange={(e) => setData('name', e.target.value)}
-                                                required
                                             />
+                                            {errors.name && <span className='text-sm text-red-500 font-medium leading-none'>{errors.name}</span>}
                                         </div>
                                     </div>
 
@@ -84,8 +84,8 @@ export default function SubscriberForm() {
                                                 title='Example: 192.168.1.1'
                                                 value={data.ip_address}
                                                 onChange={(e) => setData('ip_address', e.target.value)}
-                                                required
                                             />
+                                            {errors.ip_address && <span className='text-sm text-red-500 font-medium leading-none'>{errors.ip_address}</span>}
                                         </div>
                                     </div>
 
@@ -97,8 +97,8 @@ export default function SubscriberForm() {
                                                 id="vpn_value"
                                                 value={data.vpn_value}
                                                 onChange={(e) => setData('vpn_value', e.target.value)}
-                                                required
                                             />
+                                            {errors.vpn_value && <span className='text-sm text-red-500 font-medium leading-none'>{errors.vpn_value}</span>}
                                         </div>
                                     </div>
 

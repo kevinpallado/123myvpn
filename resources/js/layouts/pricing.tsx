@@ -6,6 +6,7 @@ import { RadioGroup } from '@headlessui/react';
 import clsx from 'clsx';
 import { css } from '@emotion/css';
 import { useState } from 'react';
+import { usePage } from '@inertiajs/react';
 
 const plans = [
     {
@@ -173,6 +174,8 @@ function Plan({
 }
 
 export default function Pricing() {
+    const { subscriptionPricing } = usePage()<any>.props
+    console.log(subscriptionPricing)
     let [activePeriod, setActivePeriod] = useState<'Monthly' | 'Quarterly'>('Monthly');
 
     return (
