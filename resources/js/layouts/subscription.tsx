@@ -184,7 +184,7 @@ export default function Pricing() {
         <section id="pricing" aria-labelledby="pricing-title" className="py-24 bg-[#f8faff]">
             <Container className="text-center">
                 <div className="mb-28">
-                    <h3 className="section-title">Pricing Plans</h3>
+                    {/* <h3 className="section-title">Pricing Plans</h3> */}
                     <h2 className="section-description">Plans that suits you best</h2>
                 </div>
 
