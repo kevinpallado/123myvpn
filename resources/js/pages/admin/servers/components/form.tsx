@@ -125,14 +125,14 @@ export default function SubscriberForm() {
                                             <Select
                                                 name="location"
                                                 value={data.location}
-                                                onValueChange={(e) => setData('location', e)}
-                                                required>
+                                                onValueChange={(e) => setData('location', e)}>
                                                 <SelectTrigger className="w-full">
                                                     <SelectValue placeholder="Server Location" />
                                                 </SelectTrigger>
                                                 <SelectContent>
                                                     {countryServers.map((value:any, key:number) => <SelectItem key={key} value={value}>{value}</SelectItem>)}
                                                 </SelectContent>
+                                                {errors.location && <span className='text-sm text-red-500 font-medium leading-none'>{errors.location}</span>}
                                             </Select>
                                         </div>
                                     </div>
