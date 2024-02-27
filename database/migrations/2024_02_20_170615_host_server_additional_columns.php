@@ -23,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('host_server', function(Blueprint $table) {
-            $table->dropColumn(['recommended','country']);
+            $table->dropColumn('recommended');
         });
+        
     }
 };
