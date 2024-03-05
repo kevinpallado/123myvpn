@@ -6,41 +6,58 @@ import { RadioGroup } from '@headlessui/react';
 import clsx from 'clsx';
 import { css } from '@emotion/css';
 import { useState } from 'react';
-import { usePage } from '@inertiajs/react';
+import { Minus } from '@/components/ui/minus'
+
 
 const plans = [
     {
-        name: '1 User',
+        name: 'Starts from 10 GB',
         featured: false,
-        price: { Monthly: '$0', Quarterly: '$0' },
+        initialPrice: { value: 1 },
         description: 'per month',
-        discount: '50 GB',
         button: {
             label: 'Subscribe',
             href: '/subscription'
-        }
+        },
+        off: true,
+        initialData: { value: 10 }
     },
     {
-        name: '3 Users',
+        name: 'Starts from 40 GB',
         featured: false,
-        price: { Monthly: '$7', Quarterly: '$70' },
+        initialPrice: { value: 4*0.95 },
         description: 'per month',
-        discount: '100 GB',
+        discount: 5,
         button: {
             label: 'Subscribe',
-            href: '/subscription'
-        }
+            href: '/subscription',
+            // onClick: (_e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => (window as any).router.get(route('subscription'))
+        },
+        initialData: { value: 40 }
     },
     {
-        name: '5 Users',
+        name: 'Starts from 80 GB',
         featured: false,
-        price: { Monthly: '$199', Quarterly: '$1,990' },
+        initialPrice: { value: 8*0.90 },
         description: 'per month',
-        discount: '200 GB',
+        discount: 10 ,
         button: {
             label: 'Subscribe',
             href: '/subscription'
-        }
+        },
+        initialData: { value: 80 }
+    },
+    {
+        name: 'Starts from 120 GB',
+        featured: false,
+        initialPrice: { value: 12*0.85 },
+        description: 'per month',
+        discount: 15,
+        button: {
+            label: 'Subscribe',
+            href: '/subscription'
+        },
+        initialData: { value: 120 }
     }
 ];
 
@@ -68,26 +85,132 @@ function CheckIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 function Plan({
     name,
     featured = false,
-    price,
+    initialPrice,
     description,
     discount,
     button,
-    activePeriod
+    initialData,
+    off = false
 }: {
     name: string;
     featured: boolean;
-    price: {
-        Monthly: string;
-        Quarterly: string;
-    };
+    initialPrice: { value: number };
     description: string;
-    discount: string;
+    discount: number;
     button: {
         label: string;
         href: string;
     };
-    activePeriod: 'Monthly' | 'Quarterly';
+    initialData: { value: number };
+    off: boolean;
 }) {
+    
+    const [price, setPrice] = useState(initialPrice.value);
+    const [data, setData] = useState(initialData.value);
+
+    const handleIncrement = () => {
+        if (name === 'Starts from 10 GB') {
+            setPrice((prevPrice) => {
+                const incrementedPrice = prevPrice + 1;
+                const newPrice = incrementedPrice <= 3 ? incrementedPrice : 3;
+                return parseFloat(newPrice.toFixed(2));
+            });
+            setData((prevData) => {
+                const incrementedData = prevData + 10;
+                const newData = incrementedData <= 30 ? incrementedData : 30;
+                return newData;
+            });
+        }
+        if (name === 'Starts from 40 GB') {
+            setPrice((prevPrice) => {
+                const incrementedPrice = prevPrice + 1*0.95;
+                const newPrice = incrementedPrice <= 7*0.95 ? incrementedPrice : 7*0.95;
+                return parseFloat(newPrice.toFixed(2));
+            });
+            setData((prevData) => {
+                const incrementedData = prevData + 10;
+                const newData = incrementedData <= 70 ? incrementedData : 70;
+                return newData;
+            });
+        }
+        if (name === 'Starts from 80 GB') {
+            setPrice((prevPrice) => {
+                const incrementedPrice = prevPrice + 1*0.90;
+                const newPrice = incrementedPrice <= 11*0.90 ? incrementedPrice : 11*0.90;
+                return parseFloat(newPrice.toFixed(2));
+            });
+            setData((prevData) => {
+                const incrementedData = prevData + 10;
+                const newData = incrementedData <= 110 ? incrementedData : 110;
+                return newData;
+            });
+        }
+        if (name === 'Starts from 120 GB') {
+            setPrice((prevPrice) => {
+                const incrementedPrice = prevPrice + 1*0.85;
+                return parseFloat(incrementedPrice.toFixed(2));
+            });
+            setData((prevData) => {
+                const incrementedData = prevData + 10;
+                return incrementedData;
+            });
+        }
+      };
+
+      
+    const handleMinusClick = () => {
+        if (name === 'Starts from 10 GB') {
+            setPrice((prevPrice) => {
+                const decrementedPrice = prevPrice - 1;
+                const newPrice = decrementedPrice >= 1 ? decrementedPrice : 1;
+                return newPrice;
+            });
+            setData((prevData) => {
+                const decrementedData = prevData - 10;
+                const newData = decrementedData >= 10 ? decrementedData : 10;
+                return newData;
+            });
+        }
+        if (name === 'Starts from 40 GB') {
+            setPrice((prevPrice) => {
+                const decrementedPrice = prevPrice - 1*0.95;
+                const newPrice = decrementedPrice >= 4*0.95 ? decrementedPrice : 4*0.95;
+                return parseFloat(newPrice.toFixed(2));
+            });
+            setData((prevData) => {
+                const decrementedData = prevData - 10;
+                const newData = decrementedData >= 40 ? decrementedData : 40;
+                return newData;
+            });
+        }
+        if (name === 'Starts from 80 GB') {
+            setPrice((prevPrice) => {
+                const decrementedPrice = prevPrice - 1*0.95;
+                const newPrice = decrementedPrice >= 8*0.90 ? decrementedPrice : 8*0.90;
+                return parseFloat(newPrice.toFixed(2));
+            });
+            setData((prevData) => {
+                const decrementedData = prevData - 10;
+                const newData = decrementedData >= 80 ? decrementedData : 80;
+                return newData;
+            });
+        }
+        if (name === 'Starts from 120 GB') {
+            setPrice((prevPrice) => {
+                const decrementedPrice = prevPrice - 1*0.90;
+                const newPrice = decrementedPrice >= 12*0.90 ? decrementedPrice : 12*0.90;
+                return parseFloat(newPrice.toFixed(2));
+            });
+            setData((prevData) => {
+                const decrementedData = prevData - 10;
+                const newData = decrementedData >= 120 ? decrementedData : 120;
+                return newData;
+            });
+        }
+      };
+      
+    
+    
     return (
         <div
             className={clsx(
@@ -100,34 +223,10 @@ function Plan({
             <h3 className={clsx('flex items-center text-lg font-semibold mb-6', featured ? 'text-white' : 'text-[#272E36]')}>
                 {name}
             </h3>
-            <p
-                className={clsx(
-                    'relative flex text-[40px] font-semibold tracking-tight leading-none mb-2',
-                    featured ? 'text-white' : 'text-cyan-500'
-                )}>
-                {price.Monthly === price.Quarterly ? (
-                    price.Monthly
-                ) : (
-                    <>
-                        <span
-                            aria-hidden={activePeriod === 'Quarterly'}
-                            className={clsx(
-                                'transition duration-300',
-                                activePeriod === 'Quarterly' && 'pointer-events-none translate-x-6 select-none opacity-0'
-                            )}>
-                            {price.Monthly}
-                        </span>
-                        <span
-                            aria-hidden={activePeriod === 'Monthly'}
-                            className={clsx(
-                                'absolute left-0 top-0 transition duration-300',
-                                activePeriod === 'Monthly' && 'pointer-events-none -translate-x-6 select-none opacity-0'
-                            )}>
-                            {price.Quarterly}
-                        </span>
-                    </>
-                )}
-            </p>
+            <div className={clsx('mb-6', off ? 'order-first text-white' : 'text-red-500' )}>Save {discount}%</div>
+            <Minus className="custom-class" onClick={handleIncrement} >+</Minus>
+            <p className='relative flex text-[40px] font-semibold tracking-tight leading-none mb-2 mt-2 text-cyan-500'>${price}</p>
+            <Minus className="custom-class" onClick={handleMinusClick} >&nbsp;-&nbsp;</Minus>
             <p className={clsx('mb-8', featured ? 'text-white' : 'text-[#272E36]')}>{description}</p>
             <span
                 className={clsx(
@@ -141,9 +240,9 @@ function Plan({
                         d="M438.6 105.4C451.1 117.9 451.1 138.1 438.6 150.6L182.6 406.6C170.1 419.1 149.9 419.1 137.4 406.6L9.372 278.6C-3.124 266.1-3.124 245.9 9.372 233.4C21.87 220.9 42.13 220.9 54.63 233.4L159.1 338.7L393.4 105.4C405.9 92.88 426.1 92.88 438.6 105.4H438.6z"
                     />
                 </svg>
-                {discount}
+                {data} GB
             </span>
-            <a href="/subscription">
+            <a href='/subscription'>
                 <button
                     className={clsx(
                         'btn-gradient',
@@ -176,10 +275,7 @@ function Plan({
 }
 
 export default function Pricing() {
-    const { subscriptionPricing } = usePage<any>().props;
     
-    let [activePeriod, setActivePeriod] = useState<'Monthly' | 'Quarterly'>('Monthly');
-
     return (
         <section id="pricing" aria-labelledby="pricing-title" className="py-24 bg-[#f8faff]">
             <Container className="text-center">
@@ -188,46 +284,9 @@ export default function Pricing() {
                     <h2 className="section-description">Plans that suits you best</h2>
                 </div>
 
-                <div className="flex justify-center mb-16">
-                    <div className="relative">
-                        <RadioGroup value={activePeriod} onChange={setActivePeriod} className="grid grid-cols-2">
-                            {['Monthly', 'Quarterly'].map((period) => (
-                                <RadioGroup.Option
-                                    key={period}
-                                    value={period}
-                                    className={clsx(
-                                        'cursor-pointer border border-gray-300 px-[calc(theme(spacing.3)-1px)] py-[calc(theme(spacing.2)-1px)] text-sm text-gray-700 outline-2 outline-offset-2 transition-colors hover:border-gray-400',
-                                        period === 'Monthly' ? 'rounded-l-lg' : '-ml-px rounded-r-lg'
-                                    )}>
-                                    {period}
-                                </RadioGroup.Option>
-                            ))}
-                        </RadioGroup>
-                        <div
-                            aria-hidden="true"
-                            className={clsx(
-                                'pointer-events-none absolute inset-0 z-10 grid grid-cols-2 overflow-hidden rounded-lg bg-cyan-500 transition-all duration-300',
-                                activePeriod === 'Monthly'
-                                    ? '[clip-path:inset(0_50%_0_0)]'
-                                    : '[clip-path:inset(0_0_0_calc(50%-1px))]'
-                            )}>
-                            {['Monthly', 'Quarterly'].map((period) => (
-                                <div
-                                    key={period}
-                                    className={clsx(
-                                        'py-2 text-center text-sm font-semibold text-white',
-                                        period === 'Quarterly' && '-ml-px'
-                                    )}>
-                                    {period}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-
-                <div className="grid max-w-2xl grid-cols-1 items-start gap-x-5 gap-y-10 sm:mt-20 lg:max-w-none lg:grid-cols-3">
+                <div className="grid max-w-2xl grid-cols-1 items-start gap-x-5 gap-y-10 sm:mt-20 lg:max-w-none lg:grid-cols-4">
                     {plans.map((plan) => (
-                        <Plan key={plan.name} {...plan} activePeriod={activePeriod} />
+                        <Plan key={plan.name} {...plan} />
                     ))}
                 </div>
             </Container>

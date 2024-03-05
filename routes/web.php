@@ -8,8 +8,8 @@ use App\Http\Controllers\Admin\PricingController;
 use App\Http\Controllers\Admin\SubscribersController;
 use App\Http\Controllers\Admin\ServersController;
 use App\Http\Controllers\Admin\UsersController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\HomeController;
 
 use Inertia\Inertia;
 /*
