@@ -16,7 +16,7 @@ class HomeController extends Controller
     public function index(Request $request): Response
     {
         return Inertia::render('home')->with([
-            'Home' => GeneralResourceCollection::collection(Pricing::all())
+            'subscriptionPricing' => GeneralResourceCollection::collection(Pricing::where('status', true)->get())
         ]);
     }
 }

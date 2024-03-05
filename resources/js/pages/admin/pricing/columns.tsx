@@ -53,7 +53,7 @@ export const columns: ColumnDef<PricingInterface>[] = [
     {
         header: "Status",
         cell: ({ row }) => {
-            return (row.original.status === 'active' ? 'Active' : 'Inactive')
+            return (row.original.status ? 'Active' : 'Inactive')
         }
     },
 ]
