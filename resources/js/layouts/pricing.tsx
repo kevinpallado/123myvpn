@@ -211,7 +211,6 @@ function Plan({
       };
       
     
-    
     return (
         <div
             className={clsx(
@@ -227,7 +226,7 @@ function Plan({
             <div className={clsx('mb-6', off ? 'order-first text-white lg:order-none' : 'text-red-500' )}>Save {discount}%</div>
             <span
                 className={clsx(
-                    'flex items-center gap-x-1.5 text-sm font-semibold mb-4',
+                    'flex items-center gap-x-1.5 font-bold text-[25px] mb-4',
                     featured ? 'text-white' : 'text-[#272E36]'
                 )}>
                 {' '}
