@@ -14,7 +14,8 @@ const plans = [
         name: 'Starts from 10 GB',
         featured: false,
         initialPrice: { value: 1 },
-        description: 'per month',
+        description: null,
+        discount: '',
         button: {
             label: 'Subscribe',
             href: '/subscription'
@@ -26,7 +27,7 @@ const plans = [
         name: 'Starts from 40 GB',
         featured: false,
         initialPrice: { value: 4*0.95 },
-        description: 'per month',
+        description: null,
         discount: 5,
         button: {
             label: 'Subscribe',
@@ -39,7 +40,7 @@ const plans = [
         name: 'Starts from 80 GB',
         featured: false,
         initialPrice: { value: 8*0.90 },
-        description: 'per month',
+        description: null,
         discount: 10 ,
         button: {
             label: 'Subscribe',
@@ -51,7 +52,7 @@ const plans = [
         name: 'Starts from 120 GB',
         featured: false,
         initialPrice: { value: 12*0.85 },
-        description: 'per month',
+        description: null,
         discount: 15,
         button: {
             label: 'Subscribe',
@@ -223,14 +224,10 @@ function Plan({
             <h3 className={clsx('flex items-center text-lg font-semibold mb-6', featured ? 'text-white' : 'text-[#272E36]')}>
                 {name}
             </h3>
-            <div className={clsx('mb-6', off ? 'order-first text-white' : 'text-red-500' )}>Save {discount}%</div>
-            <Minus className="custom-class" onClick={handleIncrement} >+</Minus>
-            <p className='relative flex text-[40px] font-semibold tracking-tight leading-none mb-2 mt-2 text-cyan-500'>${price}</p>
-            <Minus className="custom-class" onClick={handleMinusClick} >&nbsp;-&nbsp;</Minus>
-            <p className={clsx('mb-8', featured ? 'text-white' : 'text-[#272E36]')}>{description}</p>
+            <div className={clsx('mb-6', off ? 'order-first text-white lg:order-none' : 'text-red-500' )}>Save {discount}%</div>
             <span
                 className={clsx(
-                    'flex items-center gap-x-1.5 text-sm font-semibold mb-16',
+                    'flex items-center gap-x-1.5 text-sm font-semibold mb-4',
                     featured ? 'text-white' : 'text-[#272E36]'
                 )}>
                 {' '}
@@ -241,7 +238,17 @@ function Plan({
                     />
                 </svg>
                 {data} GB
+                <span className='ml-4'>
+                    <Minus className="custom-class" onClick={handleIncrement} >+</Minus>
+                    <div>&nbsp;</div>
+                    <Minus className="custom-class" onClick={handleMinusClick} >-</Minus>
+                </span>
             </span>
+            
+            <p className='relative flex text-[40px] font-semibold tracking-tight leading-none mb-2 mt-2 text-cyan-500'>${price}</p>
+            
+            <p className={clsx('mb-8', featured ? 'text-white' : 'text-[#272E36]')}>{description}</p>
+            
             <a href='/subscription'>
                 <button
                     className={clsx(
