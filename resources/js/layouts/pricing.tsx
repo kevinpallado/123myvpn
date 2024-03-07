@@ -174,8 +174,8 @@ function Plan({
 }
 
 export default function Pricing() {
-    const { subscriptionPricing } = usePage()<any>.props
-    console.log(subscriptionPricing)
+    const { subscriptionPricing } = usePage<any>().props
+
     let [activePeriod, setActivePeriod] = useState<'Monthly' | 'Quarterly'>('Monthly');
 
     return (

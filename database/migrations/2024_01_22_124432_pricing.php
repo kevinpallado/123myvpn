@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('interval_count')->nullable();
             $table->double('price');
             $table->string('currency');
-            $table->string('status');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }
