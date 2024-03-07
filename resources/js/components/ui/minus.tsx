@@ -20,7 +20,7 @@ const Minus = ({
   
     return (
       <button
-        className={cn("text-[30px] mt-1 border-t-2 border-s-black cursor-pointer", className)}
+        className={cn("text-[30px] cursor-pointer", className)}
         onClick={handleClick}
         {...props}
       >
