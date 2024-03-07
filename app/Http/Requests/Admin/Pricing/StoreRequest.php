@@ -23,9 +23,9 @@ class StoreRequest extends FormRequest
     {
         return [
             'plan_name' => 'required|max:255',
-            'plan_amount' => 'required|max:255', 
-            'currency' => 'required|max:255', 
-            'billing_method' => 'required|max:255',
+            'plan_amount' => 'required|max:255',
+            'currency' => 'required|max:255',
+            'billing' => 'required|max:255',
         ];
     }
 }

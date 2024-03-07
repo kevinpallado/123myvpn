@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('host_server', function(Blueprint $table) {
-            $table->boolean('recommended')->default(false);
-            $table->string('server_location');
+        Schema::create('pricing_feature_lists', function(Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->boolean('status')->default(0);
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -22,9 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('host_server', function(Blueprint $table) {
-            $table->dropColumn('recommended');
-        });
-        
+        Schema::dropIfExists('pricing_feature_lists');
     }
 };

@@ -24,16 +24,18 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 // inertia
-import { useForm } from '@inertiajs/react'
-import { Checkbox } from "@/components/ui/checkbox"
+import { useForm, usePage } from '@inertiajs/react'
+import { Checkbox } from '@/components/ui/checkbox'
 
 export default function PricingForm() {
+    const { pricing, period, currencyList } = usePage<any>().props
+
     const { data, setData, post, processing, errors } = useForm({
-        plan_name: '',
-        plan_amount: '',
-        currency: 'USD',
-        billing: 'month',
-        status: false,
+        plan_name: pricing ? pricing.plan_name: '',
+        plan_amount: pricing ? pricing.plan_amount: '',
+        currency: pricing ? pricing.currency: '',
+        billing: pricing ? pricing.billing: '',
+        status: pricing ? pricing.status: false
     })
 
     function submitForm(e: any) {
@@ -88,7 +90,6 @@ export default function PricingForm() {
                                                     id="plan_amount"
                                                     value={data.plan_amount}
                                                     onChange={e => setData('plan_amount', e.target.value)}
-                                                    required
                                                 />
                                                 {errors.plan_amount && <span className='text-sm text-red-500 font-medium leading-none'>{errors.plan_amount}</span>}
                                             </div>
@@ -104,10 +105,10 @@ export default function PricingForm() {
                                                         <SelectValue placeholder="Currency" />
                                                     </SelectTrigger>
                                                     <SelectContent>
-                                                        <SelectItem value="USD">US Dollar</SelectItem>
-                                                        <SelectItem value="CAD">Canadian Dollar</SelectItem>
+                                                        {currencyList.map((value:any, key:number) => <SelectItem key={key} value={value}>{value}</SelectItem>)}
                                                     </SelectContent>
                                                 </Select>
+                                                {errors.currency && <span className='text-sm text-red-500 font-medium leading-none'>{errors.currency}</span>}
                                             </div>
                                         </div>
 
@@ -116,33 +117,35 @@ export default function PricingForm() {
                                                 Billing Period
                                             </Label>
                                             <div className="mt-2">
-                                                <Select name="billing_method" value={data.billing} onValueChange={e => setData('billing', e)}>
+                                                <Select name="billing_method"
+                                                    value={data.billing}
+                                                    onValueChange={(e) => setData('billing', e)}>
                                                     <SelectTrigger className="w-full">
                                                         <SelectValue placeholder="Billing Period" />
                                                     </SelectTrigger>
                                                     <SelectContent>
-                                                        <SelectItem value="month">Monthly Period</SelectItem>
-                                                        <SelectItem value="year">Yearly Period</SelectItem>
+                                                        {period.map((value:any, key:number) => <SelectItem key={key} value={value}>{value}</SelectItem>)}
                                                     </SelectContent>
                                                 </Select>
+                                                {errors.billing && <span className='text-sm text-red-500 font-medium leading-none'>{errors.billing}</span>}
                                             </div>
                                         </div>
                                         <div className="col-span-full">
-                                        <div className="items-top flex space-x-2">
-                                            <Checkbox id="recommended_server" checked={data.status} onCheckedChange={e => setData('status',e)} />
-                                            <div className="grid gap-1.5 leading-none">
-                                                <label
-                                                    htmlFor="recommended_server"
-                                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                                >
-                                                    Price Status
-                                                </label>
-                                                <p className="text-sm text-muted-foreground">
-                                                    Checking this one will set the price into active state.
-                                                </p>
+                                            <div className="items-top flex space-x-2">
+                                                <Checkbox id="status_" checked={data.status} onCheckedChange={(e) => setData('status',e)}/>
+                                                <div className="grid gap-1.5 leading-none">
+                                                    <label
+                                                        htmlFor="status_"
+                                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                    >
+                                                        Price Status
+                                                    </label>
+                                                    <p className="text-sm text-muted-foreground">
+                                                        Checking this one will set the price into active state.
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                     </div>
                             </CardContent>
                             <CardFooter>

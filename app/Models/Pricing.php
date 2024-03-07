@@ -37,4 +37,25 @@ class Pricing extends Model
         );
     }
 
+    public static $featureLists = [
+        
+    ];
+
+    public static $currencyLists = [
+        'USD' => 'US Dollar',
+        'CAD' => 'Canadian Dollar'
+    ];
+
+    public static $periodLists = [
+        'month' => 'Monthly Period',
+        'year' => 'Yearly Period'
+    ];
+
+    protected function billing(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => self::$periodLists[$value],
+        );
+    }
+
 }
