@@ -20,7 +20,7 @@ class SubscribersController extends Controller
 {
     public function submitSubscription(SubscriptionRequest $request) {
         
-        if(!Carbon::now()->gte(auth()->user()->subscriptionStatus->date_expired)) {
+        if(auth()->user()->subscriptionStatus->date_expired && !Carbon::now()->gte(auth()->user()->subscriptionStatus->date_expired)) {
             return response()->json([
                 'message' => 'Active plan is on-going',
             ]);
