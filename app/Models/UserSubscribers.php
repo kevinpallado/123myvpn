@@ -17,12 +17,18 @@ class UserSubscribers extends Authenticatable
         'name',
         'email',
         'password',
+        'forgot_pw_token',
+        'forgot_pw_requested'
     );
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
+
+    public function subscriptionStatus() {
+        return $this->hasOne(UserSubscriberStatus::class, 'user_subscribers_id');
+    }
 
     protected function updatedAt(): Attribute
     {
