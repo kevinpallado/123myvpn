@@ -22,7 +22,7 @@ const navigation = [
     { name: 'Dashboard', href: route('admin.dashboard.index'), icon: HomeIcon, pathKey: 'admin.dashboard.*' },
     { name: 'Subscribers', href: route('admin.subscribers.index'), icon: UsersIcon, pathKey: 'admin.subscribers.*' },
     { name: 'Pricing', href: route('admin.pricing.index'), icon: FolderIcon, pathKey: 'admin.pricing.*' },
-    { name: 'Servers', href: route('admin.servers.index'), icon: DocumentDuplicateIcon, pathKey: 'admin.servers.*' },
+    // { name: 'Servers', href: route('admin.servers.index'), icon: DocumentDuplicateIcon, pathKey: 'admin.servers.*' },
     { name: 'Users', href: route('admin.users.index'), icon: ChartPieIcon, pathKey: 'admin.users.*' }
 ];
 const userNavigation = [

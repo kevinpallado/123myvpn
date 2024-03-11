@@ -20,7 +20,7 @@ class SubscribersController extends Controller
     public function index(Request $request): Response
     {
         return Inertia::render('admin/subscribers/index')->with([
-            'subscribers' => GeneralResourceCollection::collection(UserSubscribers::with('subscriptions')->paginate(15))
+            'subscribers' => GeneralResourceCollection::collection(UserSubscribers::with('subscriptions','subscriptionStatus')->paginate(15))
         ]);
     }
 
