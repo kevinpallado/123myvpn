@@ -36,7 +36,7 @@ class SubscribersController extends Controller
             ['password' => Hash::make($request->password)]
         ));
 
-        $subscriber->createAsStripeCustomer();
+        // $subscriber->createAsStripeCustomer();
 
         return redirect()->route('admin.subscribers.index');
     }
@@ -50,11 +50,12 @@ class SubscribersController extends Controller
     {
         return Inertia::render('admin/subscribers/components/form')->with([
             'subscriber' => $subscriber,
-            'subscriberPaymentMethods' => $subscriber->paymentMethods(),
+            'subscriptionStatus' => $subscriber->subscriptionStatus
+            // 'subscriberPaymentMethods' => $subscriber->paymentMethods(),
             // 'cancelSubscriptionGracePeriod' => $subscriber->subscription('default_plan')->onGracePeriod(),
             // 'canceledSubscription' => $subscriber->subscription('default_plan')->canceled(),
-            'intent' => $subscriber->createSetupIntent(),
-            'pricing' => Pricing::select('pricing_id','name','price','currency')->where('billing_method','month')->get()
+            // 'intent' => $subscriber->createSetupIntent(),
+            // 'pricing' => Pricing::select('pricing_id','name','price','currency')->where('billing_method','month')->get()
         ]);
     }
 

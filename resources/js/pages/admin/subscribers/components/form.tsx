@@ -1,7 +1,10 @@
 import AdminLayout from '@/layouts/admin'
 import SubscriberInfo from './subscriber-info'
+import { usePage } from '@inertiajs/react'
 
 export default function SubscriberForm() {
+    const { subscriptionStatus } = usePage<any>().props
+
     return (
         <AdminLayout pageTitle='Subscribers Form'>
             <div className="space-y-10 divide-y divide-gray-900/10">

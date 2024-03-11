@@ -5,7 +5,6 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { Button } from "@/components/ui/button"
 import { router } from "@inertiajs/react"
-import axios from 'axios';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.

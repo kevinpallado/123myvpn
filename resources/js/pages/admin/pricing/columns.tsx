@@ -1,5 +1,6 @@
 "use client"
 
+import { Badge } from '@/components/ui/badge';
 import { ColumnDef } from "@tanstack/react-table"
 
 // This type is used to define the shape of our data.
@@ -7,12 +8,14 @@ import { ColumnDef } from "@tanstack/react-table"
 export type PricingInterface = {
     id: string
     name: string
-    pricing_id: string
-    billing_method: string
-    price: number
-    currency: string
-    status: string
-    created_at: string
+    sale_text: string
+    price_initial: number
+    price_per_data: number
+    price_percentage_off: number
+    data_min_gb: number
+    data_max_gb: number
+    data_step_gb: number
+    status: boolean
     updated_at: string
 }
 
@@ -21,39 +24,56 @@ export const columns: ColumnDef<PricingInterface>[] = [
         header: "Package Name",
         cell: ({ row }) => {
             return <div>
-                <div className="text-lg font-semibold">
+                <a href={route('admin.pricing.edit', row.original.id)} className="text-lg font-medium text-primary underline underline-offset-4">
                     {row.original.name}
-                </div>
+                </a><br/>
                 <small className="text-sm font-medium leading-none">
-                    ${row.original.price}
+                    {row.original.sale_text ? row.original.sale_text : 'No Percentage Off'}
+                </small><br/>
+                <small className="text-xs font-medium leading-none">
+                    <i>Date Last Updated: {row.original.updated_at}</i>
                 </small>
-
             </div>
         }
     },
     {
-        header: "Stripe Ref#",
+        header: "Initial Price",
         cell: ({ row }) => {
-            return <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
-                {row.original.pricing_id}
-            </code>
+            return <div>
+                <div className="text-md">
+                    ${row.original.price_initial}
+                </div>
+                <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+                    Price Per ${row.original.price_per_data}/gb
+                </code>
+            </div>
         }
     },
     {
-        accessorKey: "currency",
-        header: "Currency",
+        header: "Min & Max Data Cap",
         cell: ({ row }) => {
-            return (row.original.currency).toUpperCase()
+            return <div>
+                <div className="text-md">
+                    Min {row.original.data_min_gb}gb
+                </div>
+                <div className="text-md">
+                    Max {row.original.data_max_gb ? `${row.original.data_max_gb}gb` : 'Unlimited'}
+                </div>
+            </div>
         }
     },
     {
-        accessorKey: "updated_at",
-        header: "Time Updated",
+        header: "Data Step",
+        cell: ({ row }) => `${row.original.data_step_gb}/gb`
     },
     {
         header: "Status",
         cell: ({ row }) => {
-            return (row.original.status ? 'Active' : 'Inactive')
+            return (row.original.status ? <Badge>
+                Active
+            </Badge> : <Badge variant='destructive'>
+                In-Active
+            </Badge>)
         }
     },
 ]

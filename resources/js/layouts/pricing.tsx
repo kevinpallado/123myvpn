@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import { css } from '@emotion/css';
 import { useState } from 'react';
 import { Minus } from '@/components/ui/minus'
+import { usePage } from '@inertiajs/react';
 
 
 const plans = [
@@ -105,6 +106,7 @@ function Plan({
     initialData: { value: number };
     off: boolean;
 }) {
+    const { activePricing } = usePage<any>().props
     
     const [price, setPrice] = useState(initialPrice.value);
     const [data, setData] = useState(initialData.value);

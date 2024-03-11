@@ -23,4 +23,11 @@ class PlanPricing extends Model
     protected $casts = [
         'status' => 'boolean'
     ];
+
+    protected function updatedAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => date('F j, Y g:iA', strtotime($value)),
+        );
+    }
 }

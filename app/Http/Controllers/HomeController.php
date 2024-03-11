@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-use App\Models\Pricing;
+use App\Models\PlanPricing;
 
 use App\Http\Resources\GeneralResourceCollection;
 
@@ -16,7 +16,7 @@ class HomeController extends Controller
     public function index(Request $request): Response
     {
         return Inertia::render('home')->with([
-            'subscriptionPricing' => GeneralResourceCollection::collection(Pricing::where('status', true)->get())
+            'activePricing' => PlanPricing::where('status', true)->get()
         ]);
     }
 }
