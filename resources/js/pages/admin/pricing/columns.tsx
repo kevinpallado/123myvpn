@@ -2,6 +2,7 @@
 
 import { Badge } from '@/components/ui/badge';
 import { ColumnDef } from "@tanstack/react-table"
+import { router } from '@inertiajs/react';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -24,9 +25,9 @@ export const columns: ColumnDef<PricingInterface>[] = [
         header: "Package Name",
         cell: ({ row }) => {
             return <div>
-                <a href={route('admin.pricing.edit', row.original.id)} className="text-lg font-medium text-primary underline underline-offset-4">
+                <small className="text-lg font-medium text-primary underline underline-offset-4 cursor-pointer" onClick={e => router.visit(route('admin.pricing.edit', row.original.id))}>
                     {row.original.name}
-                </a><br/>
+                </small><br/>
                 <small className="text-sm font-medium leading-none">
                     {row.original.sale_text ? row.original.sale_text : 'No Percentage Off'}
                 </small><br/>

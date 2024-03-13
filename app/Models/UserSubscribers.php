@@ -26,6 +26,10 @@ class UserSubscribers extends Authenticatable
         'remember_token',
     ];
 
+    public function subscriberAccess() {
+        return $this->hasMany(UserSubscriberVPNAccess::class, 'user_subscribers_id');
+    }
+
     public function subscriptionStatus() {
         return $this->hasOne(UserSubscriberStatus::class, 'user_subscribers_id');
     }

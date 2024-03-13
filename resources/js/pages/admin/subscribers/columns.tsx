@@ -42,6 +42,9 @@ export const columns: ColumnDef<PricingInterface>[] = [
         header: "Action",
         cell: ({ row }) => {
             return <>
+                <Button className="mr-2" variant='destructive' onClick={(e) => router.visit(route('admin.subscribers.show', { subscriber: row.original.id, action: 'vpn-access' }))}>
+                    VPN Access
+                </Button>
                 <Button className="mr-2" onClick={(e) => router.visit(route('admin.subscribers.edit', row.original.id))}>
                     Edit
                 </Button>

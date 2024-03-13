@@ -12,6 +12,7 @@ use Stripe\StripeClient;
 // model
 use App\Models\Pricing;
 use App\Models\UserSubscribers;
+use App\Models\UserSubscriberVPNAccess;
 // resource
 use App\Http\Resources\GeneralResourceCollection;
 
@@ -36,14 +37,17 @@ class SubscribersController extends Controller
             ['password' => Hash::make($request->password)]
         ));
 
-        // $subscriber->createAsStripeCustomer();
-
         return redirect()->route('admin.subscribers.index');
     }
 
-    public function show(UserSubscribers $subscriber)
+    public function show(Request $request, UserSubscribers $subscriber)
     {
-        //
+        switch($request->action) {
+            case 'vpn-access':
+                return Inertia::render('admin/subscribers/vpn-list')->with([
+                    'vpnAccess' => $subscriber->subscriberAccess
+                ]);
+        }
     }
 
     public function edit(UserSubscribers $subscriber): Response
@@ -61,21 +65,21 @@ class SubscribersController extends Controller
 
     public function update(Request $request, UserSubscribers $subscriber)
     {
-        switch($request->action) {
-            case 'card-info':
-                $subscriber->newSubscription('default_plan', $request->planSelected)->create($request->setupIntent['payment_method']);
-                break;
-            case 'cancel-subscription':
-                $subscriber->subscription('default_plan')->cancelAt(
-                    now()->addDays(5)
-                );
-                break;
-            default:
-                $subscriber->name = $request->name;
-                $subscriber->email = $request->email;
-                $subscriber->save();
-                break;
-        }
+        // switch($request->action) {
+        //     case 'card-info':
+        //         $subscriber->newSubscription('default_plan', $request->planSelected)->create($request->setupIntent['payment_method']);
+        //         break;
+        //     case 'cancel-subscription':
+        //         $subscriber->subscription('default_plan')->cancelAt(
+        //             now()->addDays(5)
+        //         );
+        //         break;
+        //     default:
+        //         $subscriber->name = $request->name;
+        //         $subscriber->email = $request->email;
+        //         $subscriber->save();
+        //         break;
+        // }
 
         return redirect()->route('admin.subscribers.index');
     }
