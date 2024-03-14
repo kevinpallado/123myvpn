@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { router } from "@inertiajs/react"
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type PricingInterface = {
+export type SubscriberInterface = {
     id: string
     name: string
     email: string
@@ -15,7 +15,7 @@ export type PricingInterface = {
     updated_at: string
 }
 
-export const columns: ColumnDef<PricingInterface>[] = [
+export const columns: ColumnDef<SubscriberInterface>[] = [
     {
         header: "Name",
         cell: ({ row }) => {
