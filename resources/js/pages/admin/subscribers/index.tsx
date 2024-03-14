@@ -5,10 +5,11 @@ import { DataTable } from '@/components/datatable/datatable';
 // local components
 import { columns } from "./columns"
 import { router, usePage } from '@inertiajs/react'
+import { useState } from 'react';
 
 export default function Subscribers() {
     const { subscribers } = usePage<any>().props
-
+    
     return (
         <AdminLayout pageTitle='Subscribers'>
             <div className="container mx-auto py-10">

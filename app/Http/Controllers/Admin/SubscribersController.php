@@ -27,7 +27,7 @@ class SubscribersController extends Controller
 
     public function create(Request $request): Response
     {
-        return Inertia::render('admin/subscribers/components/form');
+        return Inertia::render('admin/subscribers/components/form-info');
     }
 
     public function store(Request $request): RedirectResponse
@@ -52,7 +52,7 @@ class SubscribersController extends Controller
 
     public function edit(UserSubscribers $subscriber): Response
     {
-        return Inertia::render('admin/subscribers/components/form')->with([
+        return Inertia::render('admin/subscribers/components/form-status')->with([
             'subscriber' => $subscriber,
             'subscriptionStatus' => $subscriber->subscriptionStatus
             // 'subscriberPaymentMethods' => $subscriber->paymentMethods(),
