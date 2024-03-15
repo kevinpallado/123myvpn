@@ -15,6 +15,7 @@ use Stripe\Plan;
 use App\Http\Resources\GeneralResourceCollection;
 
 use App\Http\Requests\Admin\Pricing\StoreRequest;
+use App\Http\Requests\Admin\Pricing\UpdateRequest;
 
 class PricingController extends Controller
 {
@@ -27,23 +28,56 @@ class PricingController extends Controller
 
     public function create(Request $request): Response
     {
-        return Inertia::render('admin/pricing/components/form');
+        return Inertia::render('admin/pricing/components/form')->with([
+            'saleList' => array_keys(PlanPricing::$saleList)
+        ]);
     }
 
     public function store(StoreRequest $request): RedirectResponse
     {
-        dd($request->all());
+        $pricing = new PlanPricing;
+        $pricing->name                  = $request->name;
+        $pricing->price_initial         = $request->price_initial;
+        $pricing->price_per_data        = $request->price_per_data;
+        $pricing->price_percentage_off  = $request->price_percentage_off;
+        $pricing->data_min_gb           = $request->data_min_gb;
+        $pricing->data_max_gb           = $request->data_max_gb;
+        $pricing->data_step_gb          = $request->data_step_gb;
+        $pricing->status                = $request->status;
+        $pricing->save();
+
+        return redirect()->intended(route('admin.pricing.index'));
     }
 
     public function edit(Request $request, PlanPricing $pricing)
     {
         return Inertia::render('admin/pricing/components/form')->with([
-            'pricing'
+            'pricing' => $pricing,
+            'saleList' => array_keys(PlanPricing::$saleList)
         ]);
     }
 
-    public function update(Request $request, PlanPricing $pricing)
+    public function update(UpdateRequest $request, PlanPricing $pricing)
     {
-        dd($request->all());
+        $pricing = new PlanPricing;
+        $pricing->name                  = $request->name;
+        $pricing->price_initial         = $request->price_initial;
+        $pricing->price_per_data        = $request->price_per_data;
+        $pricing->price_percentage_off  = $request->price_percentage_off;
+        $pricing->data_min_gb           = $request->data_min_gb;
+        $pricing->data_max_gb           = $request->data_max_gb;
+        $pricing->data_step_gb          = $request->data_step_gb;
+        $pricing->status                = $request->status;
+        $pricing->save();
+
+        return redirect()->intended(route('admin.pricing.index'));
     }
+
+    public function destroy(string $id)
+    {
+        PlanPricing::findOrFail($id)->delete();
+
+        return redirect()->intended(route('admin.pricing.index'));
+    }
+
 }
