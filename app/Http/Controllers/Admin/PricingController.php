@@ -39,6 +39,7 @@ class PricingController extends Controller
         $pricing->name                  = $request->name;
         $pricing->price_initial         = $request->price_initial;
         $pricing->price_per_data        = $request->price_per_data;
+        $pricing->sale_text             = $request->sale_text;
         $pricing->price_percentage_off  = $request->price_percentage_off;
         $pricing->data_min_gb           = $request->data_min_gb;
         $pricing->data_max_gb           = $request->data_max_gb;
@@ -63,11 +64,19 @@ class PricingController extends Controller
         $pricing->name                  = $request->name;
         $pricing->price_initial         = $request->price_initial;
         $pricing->price_per_data        = $request->price_per_data;
+        $pricing->sale_text             = $request->sale_text;
         $pricing->price_percentage_off  = $request->price_percentage_off;
         $pricing->data_min_gb           = $request->data_min_gb;
         $pricing->data_max_gb           = $request->data_max_gb;
         $pricing->data_step_gb          = $request->data_step_gb;
         $pricing->status                = $request->status;
+
+        if ($request->price_percentage_off == 0) {
+            $pricing->sale_text = null;
+        } else {
+            $pricing->sale_text = $request->sale_text;
+        }
+
         $pricing->save();
 
         return redirect()->intended(route('admin.pricing.index'));

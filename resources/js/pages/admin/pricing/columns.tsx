@@ -30,7 +30,7 @@ export const columns: ColumnDef<PricingInterface>[] = [
                     {row.original.name}
                 </small><br/>
                 <small className="text-sm font-medium leading-none">
-                    {row.original.price_percentage_off ? `Save ${row.original.price_percentage_off}%` : 'No Percentage Off'}
+                    {row.original.sale_text ? row.original.sale_text : 'No Percentage Off'}
                 </small><br/>
                 <small className="text-xs font-medium leading-none">
                     <i>Date Last Updated: {row.original.updated_at}</i>

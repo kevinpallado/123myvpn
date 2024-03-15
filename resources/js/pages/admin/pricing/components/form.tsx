@@ -23,9 +23,10 @@ export default function PricingForm() {
 
     const { data, setData, post, put, processing, errors } = useForm({
         name: pricing ? pricing.name : "",
+        sale_text: pricing ? pricing.sale_text : "",
         price_initial: pricing ? pricing.price_initial : "",
         price_per_data: pricing ? pricing.price_per_data : "",
-        price_percentage_off: pricing ? pricing.price_percentage_off : "",
+        price_percentage_off: pricing ? pricing.price_percentage_off : false,
         data_min_gb: pricing ? pricing.data_min_gb : "",
         data_max_gb: pricing ? pricing.data_max_gb : "",
         data_step_gb: pricing ? pricing.data_step_gb : "",
@@ -57,36 +58,53 @@ export default function PricingForm() {
                             </CardHeader>
                             <CardContent>
                                 <div className="grid">
-                                    <div className="col-span-full">
-                                        <Label htmlFor="name">
-                                            Plan Pricing Name <span className='text-red-500 text-xl'>*</span>
-                                        </Label>
-                                        <div className="mt-2">
-                                            <Input
-                                                type="text"
-                                                name="name"
-                                                id="name"
-                                                value={data.name}
-                                                onChange={(e) => setData('name', e.target.value)}
-                                            />
-                                            {errors.name && <span className='text-sm text-red-500 font-medium leading-none'>Name field is required.</span>}
-                                        </div>
                                         <div className="col-span-full">
-                                            <Label htmlFor="price_percentage_off">Price Sale</Label>
+                                            <Label htmlFor="name">
+                                                Plan Pricing Name <span className='text-red-500 text-xl'>*</span>
+                                            </Label>
                                             <div className="mt-2">
-                                                <Select
-                                                    name="price_percentage_off"
-                                                    value={data.price_percentage_off}
-                                                    onValueChange={(e) => setData('price_percentage_off', e)}>
-                                                    <SelectTrigger className="w-full">
-                                                        <SelectValue placeholder="Sale Percentage" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        {saleList.map((value:any, key:number) => <SelectItem key={key} value={value}>{value}</SelectItem>)}
-                                                    </SelectContent>
-                                                </Select>
+                                                <Input
+                                                    type="text"
+                                                    name="name"
+                                                    id="name"
+                                                    value={data.name}
+                                                    onChange={(e) => setData('name', e.target.value)}
+                                                />
+                                                {errors.name && <span className='text-sm text-red-500 font-medium leading-none'>Name field is required.</span>}
                                             </div>
                                         </div>
+                                        <Label className='mt-3' htmlFor="price_initial">
+                                            Sale Text
+                                        </Label>
+                                        <div className="mt-3 flex align-middle col-span-full">
+                                            <div className="flex items-center">
+                                                <Checkbox id="price_percentage_off" checked={data.price_percentage_off} onCheckedChange={e => setData('price_percentage_off', e)} />
+                                                <div className="grid ml-2"> 
+                                                    <label
+                                                        htmlFor="price_percentage_off"
+                                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                    >
+                                                        Sale
+                                                    </label>
+                                                </div>
+                                                <div className="ml-2"> 
+                                                    <Input
+                                                        type="text"
+                                                        name="sale_text"
+                                                        id="sale_text"
+                                                        value={data.sale_text}
+                                                        onChange={(e) => setData('sale_text', e.target.value)}
+                                                        disabled={!data.price_percentage_off}
+                                                    />
+                                                </div>
+                                            </div>
+                                            {data.price_percentage_off == true && (
+                                                <Label className='mt-3 ml-3 text-blue-500' htmlFor="price_initial">
+                                                    Example: Save 5%
+                                                </Label>
+                                            )}
+                                        </div>
+
                                         <Label htmlFor="price_initial">
                                             Initial Price <span className='text-red-500 text-xl'>*</span>
                                         </Label>
@@ -154,10 +172,10 @@ export default function PricingForm() {
                                         </div>
                                         <div className="mt-3 col-span-full">
                                             <div className="items-top flex space-x-2">
-                                                <Checkbox id="recommended_server" checked={data.status} onCheckedChange={e => setData('status',e)} />
+                                                <Checkbox id="status" checked={data.status} onCheckedChange={e => setData('status',e)} />
                                                 <div className="grid gap-1.5 leading-none">
                                                     <label
-                                                        htmlFor="recommended_server"
+                                                        htmlFor="status"
                                                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                                                     >
                                                         Activate
@@ -167,7 +185,6 @@ export default function PricingForm() {
                                                     </p>
                                             </div>
                                         </div>
-                                    </div>
                                     </div>
                                 </div>
                             </CardContent>
