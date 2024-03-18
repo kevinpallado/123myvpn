@@ -78,7 +78,7 @@ export default function PricingForm() {
                                         </Label>
                                         <div className="mt-3 flex align-middle col-span-full">
                                             <div className="flex items-center">
-                                                <Checkbox id="price_percentage_off" checked={data.price_percentage_off} onCheckedChange={e => setData('price_percentage_off', e)} />
+                                                <Checkbox id="price_percentage_off" checked={data.price_percentage_off > 0 || data.price_percentage_off ? true : false} onCheckedChange={e => setData('price_percentage_off', e)} />
                                                 <div className="grid ml-2"> 
                                                     <label
                                                         htmlFor="price_percentage_off"
