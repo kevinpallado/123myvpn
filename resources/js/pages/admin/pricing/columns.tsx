@@ -3,6 +3,7 @@
 import { Badge } from '@/components/ui/badge';
 import { ColumnDef } from "@tanstack/react-table"
 import { router } from '@inertiajs/react';
+import { Button } from "@/components/ui/button"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -75,6 +76,46 @@ export const columns: ColumnDef<PricingInterface>[] = [
             </Badge> : <Badge variant='destructive'>
                 In-Active
             </Badge>)
+        }
+    },
+    {
+        header: "Action",
+        cell: ({ row }) => {
+            return <>
+                <Button className="mr-2" onClick={(e) => router.visit(route('admin.pricing.edit', row.original.id))}>
+                    Edit
+                </Button>
+                <Button variant="destructive" onClick={() => {
+                    if (confirm('Are you sure you want to delete this price?')) {
+                        router.delete(route('admin.pricing.destroy', row.original.id))
+                    }
+                    // if (confirm('Are you sure you want to delete this price?')) {
+                    //     const form = document.createElement('form');
+                    //     form.method = 'POST';
+                    //     form.action = `/admin/pricing/${row.original.id}`;
+                        
+                    //     // Method spoofing for DELETE request
+                    //     const methodInput = document.createElement('input');
+                    //     methodInput.type = 'hidden';
+                    //     methodInput.name = '_method';
+                    //     methodInput.value = 'DELETE';
+                    //     form.appendChild(methodInput);
+                        
+                    //     const csrfTokenElement = document.querySelector('meta[name="csrf-token"]');
+                    //     const csrfToken = csrfTokenElement ? csrfTokenElement.getAttribute('content') : '';
+                    //     const csrfInput = document.createElement('input');
+                    //     csrfInput.type = 'hidden';
+                    //     csrfInput.name = '_token'; 
+                    //     csrfInput.value = csrfToken || ''; 
+                    //     form.appendChild(csrfInput); 
+                                                
+                    //     document.body.appendChild(form);
+                    //     form.submit();
+                    // }
+                }}>
+                    Delete
+                </Button>
+            </>
         }
     },
 ]
