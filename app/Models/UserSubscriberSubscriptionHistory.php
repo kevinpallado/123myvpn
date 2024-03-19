@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
-class UserSubscriberStatus extends Model
+class UserSubscriberSubscriptionHistory extends Model
 {
-    protected $table = 'user_subscriber_status';
+    protected $table = 'user_subscriber_subscription_history';
     protected $primaryKey = 'id';
     protected $fillable = array(
         'user_subscribers_id',
@@ -22,8 +21,4 @@ class UserSubscriberStatus extends Model
     protected $casts = [
         'premium_user' => 'boolean'
     ];
-
-    public function planDetails() {
-        return $this->belongsTo(PlanPricing::class, 'plan_pricing_id');
-    }
 }

@@ -30,7 +30,12 @@ Route::group(['prefix' => 'v1/subscriber', 'middleware' => 'throttle:subscriber'
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('change-password', [SubscribersController::class, 'subscriberChangePassword']);
         Route::post('logout', [LoginController::class, 'logoutAPI']);
+        // subscriber profile
+        Route::group(['prefix' => 'profile'], function () {
+            Route::post('update', [SubscribersController::class, 'updateProfile']);
+        });
         // subscriber data
+        Route::get('subscription-history', [SubscribersController::class, 'subscriberHistory']);
         Route::get('pricing-plan', [SubscribersController::class, 'subscriberPriceListing']);
         Route::get('subscription-status', [SubscribersController::class, 'subscriberDetails']);
         Route::post('subscription-status', [SubscribersController::class, 'submitSubscription']);
