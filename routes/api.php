@@ -18,16 +18,6 @@ use App\Http\Controllers\SubscribersController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::domain('kor.korkhondi.com')->group(function () {
-    Route::get('test', function() {
-        return response()->json(['message' => 'Testing environment']);
-    });
-});
-Route::domain('api.123myvpn.com')->group(function () {
-    Route::get('test', function() {
-        return response()->json(['message' => 'Testing environment']);
-    });
-});
 Route::group(['prefix' => 'v1/subscriber', 'middleware' => 'throttle:subscriber'], function() {
     // authentication
     Route::group(['prefix' => 'auth'], function() {
