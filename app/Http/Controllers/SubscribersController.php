@@ -71,7 +71,7 @@ class SubscribersController extends Controller
         return response()->json([
             'subscriptionUserInfo' => UserSubscribers::select('name','email','active','updated_at')->findOrFail(auth()->user()->id),
             'subscriptionStatusInfo' => auth()->user()->subscriptionStatus,
-            'subscribedPlan' => PlanPricing::where('id', auth()->user()->subscriptionStatus->plan_pricing_id)->first()
+            'subscribedPlan' => auth()->user()->subscriptionStatus ? PlanPricing::where('id', auth()->user()->subscriptionStatus->plan_pricing_id)->first() : null
         ]);
     }
 
