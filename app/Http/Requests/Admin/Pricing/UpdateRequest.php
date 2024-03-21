@@ -24,10 +24,10 @@ class UpdateRequest extends FormRequest
         return [
             'name' => 'string|required|max:255',
             'price_initial' => 'numeric|required|max:255',
-            'price_per_data' => 'numeric|required|max:255',
-            'data_min_gb' => 'integer|required|max:255',
-            'data_max_gb' => 'integer|required|max:255',
-            'data_step_gb' => 'integer|required|max:255',
+            'price_per_data' => 'numeric|required|max:5000',
+            'data_min_gb' => 'numeric|required|max:5000',
+            'data_max_gb' => 'numeric|required|max:5000',
+            'data_step_gb' => 'numeric|required|max:5000',
         ];
     }
 }

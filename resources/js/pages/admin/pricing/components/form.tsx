@@ -48,8 +48,16 @@ export default function PricingForm() {
                         <p className="mt-1 text-sm leading-6 text-gray-600">
                             Setup Pricing Plan Base on Data Consumption
                         </p>
+                        <div className='mt-20'>
+                            {Object.keys(errors).map((key) => (
+                                <div key={key} className="border border-gray-500 rounded p-2 my-4 bg-emerald-400">
+                                    <p className="text-black-500 font-bold leading-none">
+                                        {(errors as any)[key]}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-
                     <form onSubmit={submitForm} className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
                         <Card>
                             <CardHeader>
@@ -70,18 +78,18 @@ export default function PricingForm() {
                                                     value={data.name}
                                                     onChange={(e) => setData('name', e.target.value)}
                                                 />
-                                                {errors.name && <span className='text-sm text-red-500 font-medium leading-none'>Name field is required.</span>}
+                                                {errors.name && <span className='text-sm text-red-500 font-medium leading-none'>This field is required.</span>}
                                             </div>
                                         </div>
-                                        <Label className='mt-3' htmlFor="price_initial">
+                                        <Label className='mt-3' htmlFor="sale_text">
                                             Sale Text
                                         </Label>
                                         <div className="mt-3 flex align-middle col-span-full">
                                             <div className="flex items-center">
-                                                <Checkbox id="price_percentage_off" checked={data.price_percentage_off > 0 || data.price_percentage_off ? true : false} onCheckedChange={e => setData('price_percentage_off', e)} />
+                                                <Checkbox id="sale_text" checked={data.price_percentage_off} onCheckedChange={e => setData('price_percentage_off', e)} />
                                                 <div className="grid ml-2"> 
                                                     <label
-                                                        htmlFor="price_percentage_off"
+                                                        htmlFor="sale_text"
                                                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                                                     >
                                                         Sale
@@ -99,7 +107,7 @@ export default function PricingForm() {
                                                 </div>
                                             </div>
                                             {data.price_percentage_off == true && (
-                                                <Label className='mt-3 ml-3 text-blue-500' htmlFor="price_initial">
+                                                <Label className='mt-3 ml-3 text-blue-500' htmlFor="sale_text">
                                                     Example: Save 5%
                                                 </Label>
                                             )}
@@ -116,7 +124,7 @@ export default function PricingForm() {
                                                 value={data.price_initial}
                                                 onChange={(e) => setData('price_initial', e.target.value)}
                                             />
-                                            {errors.price_initial && <span className='text-sm text-red-500 font-medium leading-none'>Initial Price field is required.</span>}
+                                            {errors.price_initial && <span className='text-sm text-red-500 font-medium leading-none'>This field is required.</span>}
                                         </div>
                                         <Label htmlFor="price_per_data">
                                             Price per Data <span className='text-red-500 text-xl'>*</span>
@@ -129,7 +137,7 @@ export default function PricingForm() {
                                                 value={data.price_per_data}
                                                 onChange={(e) => setData('price_per_data', e.target.value)}
                                             />
-                                            {errors.price_per_data && <span className='text-sm text-red-500 font-medium leading-none'>Price per Data field is required.</span>}
+                                            {errors.price_per_data && <span className='text-sm text-red-500 font-medium leading-none'>This field is required.</span>}
                                         </div>
                                         <Label htmlFor="data_min_gb">
                                             Minimum GB <span className='text-red-500 text-xl'>*</span>
@@ -142,7 +150,7 @@ export default function PricingForm() {
                                                 value={data.data_min_gb}
                                                 onChange={(e) => setData('data_min_gb', e.target.value)}
                                             />
-                                            {errors.data_min_gb && <span className='text-sm text-red-500 font-medium leading-none'>Minimum GB field is required.</span>}
+                                            {errors.data_min_gb && <span className='text-sm text-red-500 font-medium leading-none'>This field is required.</span>}
                                         </div>
                                         <Label htmlFor="data_max_gb">
                                             Maximum GB <span className='text-red-500 text-xl'>*</span>
@@ -155,7 +163,7 @@ export default function PricingForm() {
                                                 value={data.data_max_gb}
                                                 onChange={(e) => setData('data_max_gb', e.target.value)}
                                             />
-                                            {errors.data_max_gb && <span className='text-sm text-red-500 font-medium leading-none'>Maximum GB field is required.</span>}
+                                            {errors.data_max_gb && <span className='text-sm text-red-500 font-medium leading-none'>This field is required.</span>}
                                         </div>
                                         <Label htmlFor="data_step_gb">
                                             Data Step <span className='text-red-500 text-xl'>*</span>
@@ -168,7 +176,7 @@ export default function PricingForm() {
                                                 value={data.data_step_gb}
                                                 onChange={(e) => setData('data_step_gb', e.target.value)}
                                             />
-                                            {errors.data_step_gb && <span className='text-sm text-red-500 font-medium leading-none'>Data Step field is required.</span>}
+                                            {errors.data_step_gb && <span className='text-sm text-red-500 font-medium leading-none'>This field is required.</span>}
                                         </div>
                                         <div className="mt-3 col-span-full">
                                             <div className="items-top flex space-x-2">

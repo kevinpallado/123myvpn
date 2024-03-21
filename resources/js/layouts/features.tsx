@@ -54,7 +54,7 @@ export default function Features() {
                     <h2 className="section-description">Why 123my VPN?</h2>
                 </div>
 
-                <div className="grid grid-cols-3 gap-x-5 gap-y-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-8">
                     {featureList.map((item) => {
                         return (
                             <div

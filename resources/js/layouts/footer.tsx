@@ -106,7 +106,7 @@ export default function Footer() {
                     <h1 className="text-[40px] text-white mb-6">Get our mobile app</h1>
                     <h3 className="text-lg text-gray-400">Available for both iOS and Android</h3>
                 </div>
-                <div className="flex items-center justify-center gap-x-5 mb-20">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-x-5 mb-20">
                     <a href="/" className="block transition-shadow hover:shadow-xl">
                         <img src={appStore} alt="apple store logo" />
                     </a>
@@ -114,7 +114,7 @@ export default function Footer() {
                         <img src={playStore} alt="android play store logo" />
                     </a>
                 </div>
-                <div className="grid grid-cols-4 gap-x-5 mb-20">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-5 mb-20">
                     {footerLinks.map((item, i) => (
                         <div key={i}>
                             <h3 className="text-lg font-bold text-gray-400 mb-10">{item.title}</h3>

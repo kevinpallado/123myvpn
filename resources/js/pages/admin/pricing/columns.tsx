@@ -89,29 +89,29 @@ export const columns: ColumnDef<PricingInterface>[] = [
                     if (confirm('Are you sure you want to delete this price?')) {
                         router.delete(route('admin.pricing.destroy', row.original.id))
                     }
-                    // if (confirm('Are you sure you want to delete this price?')) {
-                    //     const form = document.createElement('form');
-                    //     form.method = 'POST';
-                    //     form.action = `/admin/pricing/${row.original.id}`;
+                    if (confirm('Are you sure you want to delete this price?')) {
+                        const form = document.createElement('form');
+                        form.method = 'POST';
+                        form.action = `/admin/pricing/${row.original.id}`;
                         
-                    //     // Method spoofing for DELETE request
-                    //     const methodInput = document.createElement('input');
-                    //     methodInput.type = 'hidden';
-                    //     methodInput.name = '_method';
-                    //     methodInput.value = 'DELETE';
-                    //     form.appendChild(methodInput);
+                        // Method spoofing for DELETE request
+                        const methodInput = document.createElement('input');
+                        methodInput.type = 'hidden';
+                        methodInput.name = '_method';
+                        methodInput.value = 'DELETE';
+                        form.appendChild(methodInput);
                         
-                    //     const csrfTokenElement = document.querySelector('meta[name="csrf-token"]');
-                    //     const csrfToken = csrfTokenElement ? csrfTokenElement.getAttribute('content') : '';
-                    //     const csrfInput = document.createElement('input');
-                    //     csrfInput.type = 'hidden';
-                    //     csrfInput.name = '_token'; 
-                    //     csrfInput.value = csrfToken || ''; 
-                    //     form.appendChild(csrfInput); 
+                        const csrfTokenElement = document.querySelector('meta[name="csrf-token"]');
+                        const csrfToken = csrfTokenElement ? csrfTokenElement.getAttribute('content') : '';
+                        const csrfInput = document.createElement('input');
+                        csrfInput.type = 'hidden';
+                        csrfInput.name = '_token'; 
+                        csrfInput.value = csrfToken || ''; 
+                        form.appendChild(csrfInput); 
                                                 
-                    //     document.body.appendChild(form);
-                    //     form.submit();
-                    // }
+                        document.body.appendChild(form);
+                        form.submit();
+                    }
                 }}>
                     Delete
                 </Button>
