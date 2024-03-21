@@ -23,7 +23,8 @@ class ProfileRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required|email:rfc,dns'
+            'email' => 'required|email:rfc,dns',
+            'dob' => 'date'
         ];
     }
 }

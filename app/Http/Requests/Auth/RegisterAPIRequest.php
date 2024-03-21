@@ -27,7 +27,8 @@ class RegisterAPIRequest extends FormRequest
             'name' => 'required|string',
             'email' => 'required|string|unique:user_subscribers,email',
             'password' => 'required|string|confirmed',
-            'password_confirmation' => 'required'
+            'password_confirmation' => 'required',
+            'dob' => 'date'
         ];
     }
 }
