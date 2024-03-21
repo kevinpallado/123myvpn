@@ -80,6 +80,8 @@ class LoginController extends Controller
         $subscriber->name = $request->name;
         $subscriber->password = Hash::make($request->password);
         $subscriber->email = $request->email;
+        $subscriber->phone = $request->phone;
+        $subscriber->dob = $request->dob;
         $subscriber->save();
 
         // $subscriber->createAsStripeCustomer();

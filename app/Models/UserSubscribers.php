@@ -18,7 +18,9 @@ class UserSubscribers extends Authenticatable
         'email',
         'password',
         'forgot_pw_token',
-        'forgot_pw_requested'
+        'forgot_pw_requested',
+        'phone',
+        'dob'
     );
 
     protected $hidden = [

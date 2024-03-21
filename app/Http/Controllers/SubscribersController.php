@@ -38,7 +38,9 @@ class SubscribersController extends Controller
                 'date_subscribe' => Carbon::now(),
                 'date_expired' => Carbon::now()->addMonths(1),
                 'data_subscribed' => $request->data_subscribed,
-                'data_remaining' => $request->data_subscribed
+                'data_remaining' => $request->data_subscribed,
+                'transaction_id' => $request->transaction_id,
+                'transaction_type' => $request->transaction_type
             ]
         );
 
@@ -49,7 +51,9 @@ class SubscribersController extends Controller
             'date_subscribe' => Carbon::now(),
             'date_expired' => Carbon::now()->addMonths(1),
             'data_subscribed' => $request->data_subscribed,
-            'data_remaining' => $request->data_subscribed
+            'data_remaining' => $request->data_subscribed,
+            'transaction_id' => $request->transaction_id,
+            'transaction_type' => $request->transaction_type
         ]);
 
         return response()->json([
@@ -69,7 +73,7 @@ class SubscribersController extends Controller
 
     public function subscriberDetails(Request $request) {
         return response()->json([
-            'subscriptionUserInfo' => UserSubscribers::select('name','email','active','updated_at')->findOrFail(auth()->user()->id),
+            'subscriptionUserInfo' => UserSubscribers::select('name','email','active','phone','dob','updated_at')->findOrFail(auth()->user()->id),
             'subscriptionStatusInfo' => auth()->user()->subscriptionStatus,
             'subscribedPlan' => auth()->user()->subscriptionStatus ? PlanPricing::where('id', auth()->user()->subscriptionStatus->plan_pricing_id)->first() : null
         ]);
@@ -86,6 +90,8 @@ class SubscribersController extends Controller
 
         $userSubscriber->name = $request->name;
         $userSubscriber->email = $request->email;
+        $userSubscriber->phone = $request->phone;
+        $userSubscriber->dob = $request->dob;
         $userSubscriber->save();
 
         return response()->json([

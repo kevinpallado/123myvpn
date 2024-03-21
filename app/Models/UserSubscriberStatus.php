@@ -16,7 +16,9 @@ class UserSubscriberStatus extends Model
         'date_subscribe',
         'date_expired',
         'data_subscribed',
-        'data_remaining'
+        'data_remaining',
+        'transaction_id',
+        'transaction_type'
     );
 
     protected $casts = [
