@@ -87,6 +87,9 @@ export const columns: ColumnDef<PricingInterface>[] = [
                 </Button>
                 <Button variant="destructive" onClick={() => {
                     if (confirm('Are you sure you want to delete this price?')) {
+                        router.delete(route('admin.pricing.destroy', row.original.id))
+                    }
+                    if (confirm('Are you sure you want to delete this price?')) {
                         const form = document.createElement('form');
                         form.method = 'POST';
                         form.action = `/admin/pricing/${row.original.id}`;
