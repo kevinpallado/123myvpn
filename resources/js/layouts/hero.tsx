@@ -18,8 +18,8 @@ export default function Hero() {
                 `
             )}>
             <Container>
-                <div className="flex lg:gap-x-10 gap-y-10 sm:gap-y-20">
-                    <div className="w-2/5">
+                <div className="flex flex-col sm:flex-row lg:gap-x-10 gap-y-10 sm:gap-y-20">
+                    <div className="w-full sm:w-2/5">
                         <h1 className="text-[40px] leading-[56px] font-bold tracking-tight text-[#272E36] mb-8">
                             Connect with Confidence
                             <br />
@@ -54,7 +54,7 @@ export default function Hero() {
                             </Button>
                         </div>
                     </div>
-                    <div className="w-3/5">
+                    <div className="w-full sm:w-3/5">
                         <img
                             src={HeroImg}
                             alt="hero image"

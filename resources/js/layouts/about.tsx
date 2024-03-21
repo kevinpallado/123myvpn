@@ -7,12 +7,12 @@ export default function About() {
     return (
         <section id="about" className="py-20 bg-white">
             <Container>
-                <div className="flex gap-x-8 gap-y-4">
-                    <div className="flex flex-col w-2/5">
+                <div className="flex flex-col sm:flex-row gap-x-8 gap-y-4">
+                    <div className="w-full sm:w-2/5">
                         <h3 className="section-title">Apps</h3>
                         <h2 className="section-description mb-10">Protect all your Devices</h2>
                         <p className="text-[#7A7A7A] font-regular">
-                        Protect your Windows, Mac, iOS, and Android. And you can secure up to 5 devices for the ultimate safeguard against any malicious threats.
+                            Protect your Windows, Mac, iOS, and Android. And you can secure up to 5 devices for the ultimate safeguard against any malicious threats.
                         </p>
 
                         <div className="flex items-center justify-between mt-auto pb-6">

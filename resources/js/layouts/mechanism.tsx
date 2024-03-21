@@ -38,7 +38,7 @@ export default function Mechanism() {
                     <h2 className="section-description">Fell the simplicity</h2>
                 </div>
 
-                <div className="grid grid-cols-3 gap-6 mb-28">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-28">
                     {steps.map((step, index) => (
                         <div className="flex items-center gap-6">
                             <div
@@ -60,8 +60,8 @@ export default function Mechanism() {
                         </div>
                     ))}
                 </div>
-                <div className="flex items-center rounded-3xl shadow-[0_4px_12px_0_rgba(0,0,0,0.06)] pt-10 pb-14 px-14">
-                    <div className="flex-1 min-w-0 text-left">
+                <div className="flex flex-col sm:flex-row items-center rounded-3xl shadow-[0_4px_12px_0_rgba(0,0,0,0.06)] pt-10 pb-14 px-14">
+                    <div className="flex-1 min-w-0 text-left sm:mb-0 mb-5">
                         <h2 className="text-[40px] leading-[50px] text-[#272e36] font-bold mb-5">Get 123MyVPN</h2>
                         <h5 className="text-xl">Download to get private & secure Internet</h5>
                     </div>

@@ -45,9 +45,15 @@ class PricingController extends Controller
         $pricing->data_max_gb           = $request->data_max_gb;
         $pricing->data_step_gb          = $request->data_step_gb;
         $pricing->status                = $request->status;
-        $pricing->save();
 
-        return redirect()->intended(route('admin.pricing.index'));
+        
+
+        if($pricing->status == 1 && PlanPricing::where('status', 1)->count() >= 4){
+            return redirect()->back()->withErrors(['status' => 'You cannot add more than 4 active pricing.']);
+        }else{
+            $pricing->save();
+            return redirect()->intended(route('admin.pricing.index'));
+        }
     }
 
     public function edit(Request $request, PlanPricing $pricing)
@@ -60,7 +66,6 @@ class PricingController extends Controller
 
     public function update(UpdateRequest $request, PlanPricing $pricing)
     {
-        $pricing = new PlanPricing;
         $pricing->name                  = $request->name;
         $pricing->price_initial         = $request->price_initial;
         $pricing->price_per_data        = $request->price_per_data;
@@ -76,10 +81,15 @@ class PricingController extends Controller
         } else {
             $pricing->sale_text = $request->sale_text;
         }
+        
+        if($pricing->status == 1 && PlanPricing::where('status', 1)->count() >= 4){
+            return redirect()->back()->withErrors(['status' => 'You cannot have more than 4 active plans.']);
+        }else{
+            $pricing->save();
+            return redirect()->intended(route('admin.pricing.index'));    
+        }
 
-        $pricing->save();
-
-        return redirect()->intended(route('admin.pricing.index'));
+        
     }
 
     public function destroy(string $id)
