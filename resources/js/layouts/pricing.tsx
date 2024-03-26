@@ -85,151 +85,168 @@ function CheckIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
 }
 
 function Plan({
-    name,
-    featured = false,
-    initialPrice,
-    description,
-    discount,
-    button,
-    initialData,
-    off = false
+    dataPlan
+    // name,
+    // featured = false,
+    // price_initial,
+    // description,
+    // discount,
+    // button,
+    // initialData,
+    // off = false
 }: {
-    name: string;
-    featured: boolean;
-    initialPrice: { value: number };
-    description: string;
-    discount: number;
-    button: {
-        label: string;
-        href: string;
-    };
-    initialData: { value: number };
-    off: boolean;
+    dataPlan: any
+    // name: string;
+    // featured: boolean;
+    // price_initial: number;
+    // description: string;
+    // discount: number;
+    // button: {
+    //     label: string;
+    //     href: string;
+    // };
+    // // initialData: { value: number };
+    // off: boolean;
 }) {
-    const { activePricing } = usePage<any>().props
-    
-    const [price, setPrice] = useState(initialPrice.value);
-    const [data, setData] = useState(initialData.value);
+    const [price, setPrice] = useState(dataPlan.price_initial);
+    const [dataGB, setDataGB] = useState(dataPlan.data_min_gb);
 
-    const handleIncrement = () => {
-        if (name === 'Starts from 10 GB') {
-            setPrice((prevPrice) => {
-                const incrementedPrice = prevPrice + 1;
-                const newPrice = incrementedPrice <= 3 ? incrementedPrice : 3;
-                return parseFloat(newPrice.toFixed(2));
-            });
-            setData((prevData) => {
-                const incrementedData = prevData + 10;
-                const newData = incrementedData <= 30 ? incrementedData : 30;
-                return newData;
-            });
+    const handleAddData = () => {
+        let dataPricing = price
+        let dataPlanGB = dataGB
+        dataPlanGB += dataPlan.data_step_gb
+        if(dataPlanGB > dataPlan.data_max_gb) {
+            return
         }
-        if (name === 'Starts from 40 GB') {
-            setPrice((prevPrice) => {
-                const incrementedPrice = prevPrice + 1*0.95;
-                const newPrice = incrementedPrice <= 7*0.95 ? incrementedPrice : 7*0.95;
-                return parseFloat(newPrice.toFixed(2));
-            });
-            setData((prevData) => {
-                const incrementedData = prevData + 10;
-                const newData = incrementedData <= 70 ? incrementedData : 70;
-                return newData;
-            });
+        if(dataPlan.price_percentage_off > 0) {
+            dataPricing += (dataPlan.price_per_data * (dataPlan.price_percentage_off/100))
+        } else {
+            dataPricing += (dataPlan.price_per_data)
         }
-        if (name === 'Starts from 80 GB') {
-            setPrice((prevPrice) => {
-                const incrementedPrice = prevPrice + 1*0.90;
-                const newPrice = incrementedPrice <= 11*0.90 ? incrementedPrice : 11*0.90;
-                return parseFloat(newPrice.toFixed(2));
-            });
-            setData((prevData) => {
-                const incrementedData = prevData + 10;
-                const newData = incrementedData <= 110 ? incrementedData : 110;
-                return newData;
-            });
-        }
-        if (name === 'Starts from 120 GB') {
-            setPrice((prevPrice) => {
-                const incrementedPrice = prevPrice + 1*0.85;
-                return parseFloat(incrementedPrice.toFixed(2));
-            });
-            setData((prevData) => {
-                const incrementedData = prevData + 10;
-                return incrementedData;
-            });
-        }
-      };
+        // dataPricing = Math.round(parseFloat(dataPricing) * 100) / 100
+        setDataGB(dataPlanGB)
+        setPrice(dataPricing)
+    }
+    // const handleIncrement = () => {
+    //     if (name === 'Starts from 10 GB') {
+    //         setPrice((prevPrice) => {
+    //             const incrementedPrice = prevPrice + 1;
+    //             const newPrice = incrementedPrice <= 3 ? incrementedPrice : 3;
+    //             return parseFloat(newPrice.toFixed(2));
+    //         });
+    //         setData((prevData) => {
+    //             const incrementedData = prevData + 10;
+    //             const newData = incrementedData <= 30 ? incrementedData : 30;
+    //             return newData;
+    //         });
+    //     }
+    //     if (name === 'Starts from 40 GB') {
+    //         setPrice((prevPrice) => {
+    //             const incrementedPrice = prevPrice + 1*0.95;
+    //             const newPrice = incrementedPrice <= 7*0.95 ? incrementedPrice : 7*0.95;
+    //             return parseFloat(newPrice.toFixed(2));
+    //         });
+    //         setData((prevData) => {
+    //             const incrementedData = prevData + 10;
+    //             const newData = incrementedData <= 70 ? incrementedData : 70;
+    //             return newData;
+    //         });
+    //     }
+    //     if (name === 'Starts from 80 GB') {
+    //         setPrice((prevPrice) => {
+    //             const incrementedPrice = prevPrice + 1*0.90;
+    //             const newPrice = incrementedPrice <= 11*0.90 ? incrementedPrice : 11*0.90;
+    //             return parseFloat(newPrice.toFixed(2));
+    //         });
+    //         setData((prevData) => {
+    //             const incrementedData = prevData + 10;
+    //             const newData = incrementedData <= 110 ? incrementedData : 110;
+    //             return newData;
+    //         });
+    //     }
+    //     if (name === 'Starts from 120 GB') {
+    //         setPrice((prevPrice) => {
+    //             const incrementedPrice = prevPrice + 1*0.85;
+    //             return parseFloat(incrementedPrice.toFixed(2));
+    //         });
+    //         setData((prevData) => {
+    //             const incrementedData = prevData + 10;
+    //             return incrementedData;
+    //         });
+    //     }
+    //   };
 
       
-    const handleMinusClick = () => {
-        if (name === 'Starts from 10 GB') {
-            setPrice((prevPrice) => {
-                const decrementedPrice = prevPrice - 1;
-                const newPrice = decrementedPrice >= 1 ? decrementedPrice : 1;
-                return newPrice;
-            });
-            setData((prevData) => {
-                const decrementedData = prevData - 10;
-                const newData = decrementedData >= 10 ? decrementedData : 10;
-                return newData;
-            });
-        }
-        if (name === 'Starts from 40 GB') {
-            setPrice((prevPrice) => {
-                const decrementedPrice = prevPrice - 1*0.95;
-                const newPrice = decrementedPrice >= 4*0.95 ? decrementedPrice : 4*0.95;
-                return parseFloat(newPrice.toFixed(2));
-            });
-            setData((prevData) => {
-                const decrementedData = prevData - 10;
-                const newData = decrementedData >= 40 ? decrementedData : 40;
-                return newData;
-            });
-        }
-        if (name === 'Starts from 80 GB') {
-            setPrice((prevPrice) => {
-                const decrementedPrice = prevPrice - 1*0.95;
-                const newPrice = decrementedPrice >= 8*0.90 ? decrementedPrice : 8*0.90;
-                return parseFloat(newPrice.toFixed(2));
-            });
-            setData((prevData) => {
-                const decrementedData = prevData - 10;
-                const newData = decrementedData >= 80 ? decrementedData : 80;
-                return newData;
-            });
-        }
-        if (name === 'Starts from 120 GB') {
-            setPrice((prevPrice) => {
-                const decrementedPrice = prevPrice - 1*0.90;
-                const newPrice = decrementedPrice >= 12*0.90 ? decrementedPrice : 12*0.90;
-                return parseFloat(newPrice.toFixed(2));
-            });
-            setData((prevData) => {
-                const decrementedData = prevData - 10;
-                const newData = decrementedData >= 120 ? decrementedData : 120;
-                return newData;
-            });
-        }
-      };
+    // const handleMinusClick = () => {
+    //     if (name === 'Starts from 10 GB') {
+    //         setPrice((prevPrice) => {
+    //             const decrementedPrice = prevPrice - 1;
+    //             const newPrice = decrementedPrice >= 1 ? decrementedPrice : 1;
+    //             return newPrice;
+    //         });
+    //         setData((prevData) => {
+    //             const decrementedData = prevData - 10;
+    //             const newData = decrementedData >= 10 ? decrementedData : 10;
+    //             return newData;
+    //         });
+    //     }
+    //     if (name === 'Starts from 40 GB') {
+    //         setPrice((prevPrice) => {
+    //             const decrementedPrice = prevPrice - 1*0.95;
+    //             const newPrice = decrementedPrice >= 4*0.95 ? decrementedPrice : 4*0.95;
+    //             return parseFloat(newPrice.toFixed(2));
+    //         });
+    //         setData((prevData) => {
+    //             const decrementedData = prevData - 10;
+    //             const newData = decrementedData >= 40 ? decrementedData : 40;
+    //             return newData;
+    //         });
+    //     }
+    //     if (name === 'Starts from 80 GB') {
+    //         setPrice((prevPrice) => {
+    //             const decrementedPrice = prevPrice - 1*0.95;
+    //             const newPrice = decrementedPrice >= 8*0.90 ? decrementedPrice : 8*0.90;
+    //             return parseFloat(newPrice.toFixed(2));
+    //         });
+    //         setData((prevData) => {
+    //             const decrementedData = prevData - 10;
+    //             const newData = decrementedData >= 80 ? decrementedData : 80;
+    //             return newData;
+    //         });
+    //     }
+    //     if (name === 'Starts from 120 GB') {
+    //         setPrice((prevPrice) => {
+    //             const decrementedPrice = prevPrice - 1*0.90;
+    //             const newPrice = decrementedPrice >= 12*0.90 ? decrementedPrice : 12*0.90;
+    //             return parseFloat(newPrice.toFixed(2));
+    //         });
+    //         setData((prevData) => {
+    //             const decrementedData = prevData - 10;
+    //             const newData = decrementedData >= 120 ? decrementedData : 120;
+    //             return newData;
+    //         });
+    //     }
+    //   };
       
-    
+    console.log(dataPlan)
     return (
         <div
             className={clsx(
                 'flex flex-col items-center justify-center overflow-hidden rounded-3xl px-8 py-12 shadow-[0_4px_12px_0_rgba(0,0,0,0.06)] hover:shadow-[0_4px_16px_0_rgba(0,0,0,0.16)]',
-                featured ? 'order-first bg-gray-900 lg:order-none' : 'bg-white',
+                // featured ? 'order-first bg-gray-900 lg:order-none' : 'bg-white',
                 css`
                     transition: box-shadow 0.3s;
                 `
             )}>
-            <h3 className={clsx('flex items-center text-lg font-semibold mb-6', featured ? 'text-white' : 'text-[#272E36]')}>
-                {name}
+                {/* , featured ? 'text-white' : 'text-[#272E36]' */}
+            <h3 className={clsx('flex items-center text-lg font-semibold mb-6')}>
+                {dataPlan.name}
             </h3>
-            <div className={clsx('mb-6', off ? 'order-first text-white lg:order-none' : 'text-red-500' )}>Save {discount}%</div>
+            <div className={clsx('mb-6', dataPlan.price_percentage_off == 0 ? 'order-first text-white lg:order-none' : 'text-red-500' )}>Save {dataPlan.price_percentage_off}%</div>
             <span
                 className={clsx(
                     'flex items-center gap-x-1.5 font-bold text-[25px] mb-4',
-                    featured ? 'text-white' : 'text-[#272E36]'
+                    // featured ? 'text-white' : 'text-[#272E36]'
                 )}>
                 {' '}
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className="w-3.5 h-3.5">
@@ -238,23 +255,24 @@ function Plan({
                         d="M438.6 105.4C451.1 117.9 451.1 138.1 438.6 150.6L182.6 406.6C170.1 419.1 149.9 419.1 137.4 406.6L9.372 278.6C-3.124 266.1-3.124 245.9 9.372 233.4C21.87 220.9 42.13 220.9 54.63 233.4L159.1 338.7L393.4 105.4C405.9 92.88 426.1 92.88 438.6 105.4H438.6z"
                     />
                 </svg>
-                {data} GB
+                {dataGB} GB
                 <span className='ml-4'>
-                    <Minus className="custom-class" onClick={handleIncrement} >+</Minus>
+                    <Minus className="custom-class" onClick={handleAddData}>+</Minus>
                     <div>&nbsp;</div>
-                    <Minus className="custom-class" onClick={handleMinusClick} >-</Minus>
+                    <Minus className="custom-class">-</Minus>
                 </span>
             </span>
             
             <p className='relative flex text-[40px] font-semibold tracking-tight leading-none mb-2 mt-2 text-cyan-500'>${price}</p>
             
-            <p className={clsx('mb-8', featured ? 'text-white' : 'text-[#272E36]')}>{description}</p>
+            {/* , featured ? 'text-white' : 'text-[#272E36]' */}
+            {/* <p className={clsx('mb-8')}>{description}</p> */}
             
             <a href='/subscription'>
                 <button
                     className={clsx(
                         'btn-gradient',
-                        featured ? 'cyan' : 'gray',
+                        // featured ? 'cyan' : 'gray',
                         css`
                             font-size: 14px;
                             line-height: 16px;
@@ -273,9 +291,10 @@ function Plan({
                             }
                         `
                     )}
-                    aria-label={`Get started with the ${name} plan for ${price}`}>
+                    // aria-label={`Get started with the ${name} plan for ${price}`}
+                    >
                     <div className="btn-gradient-overlay"></div>
-                    <span className="btn-gradient-text">{button.label}</span>
+                    <span className="btn-gradient-text">Subscribe</span>
                 </button>
             </a>
         </div>
@@ -283,7 +302,7 @@ function Plan({
 }
 
 export default function Pricing() {
-    
+    const { activePricing } = usePage<any>().props
     return (
         <section id="pricing" aria-labelledby="pricing-title" className="py-24 bg-[#f8faff]">
             <Container className="text-center">
@@ -293,8 +312,8 @@ export default function Pricing() {
                 </div>
 
                 <div className="grid max-w-2xl grid-cols-1 items-start gap-x-5 gap-y-10 sm:mt-20 lg:max-w-none lg:grid-cols-4">
-                    {plans.map((plan) => (
-                        <Plan key={plan.name} {...plan} />
+                    {activePricing.map((plan: number, key: any) => (
+                        <Plan key={key} dataPlan={plan} />
                     ))}
                 </div>
             </Container>
