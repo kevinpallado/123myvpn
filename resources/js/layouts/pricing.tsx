@@ -134,9 +134,6 @@ function Plan({
         let dataPricing = price
         let dataPlanGB = dataGB
         dataPlanGB -= dataPlan.data_step_gb
-        if(dataPlanGB > dataPlan.data_max_gb) {
-            return
-        }
         if(dataPlanGB < dataPlan.data_min_gb) {
             return
         }
