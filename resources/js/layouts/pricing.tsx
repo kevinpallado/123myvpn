@@ -10,79 +10,79 @@ import { Minus } from '@/components/ui/minus'
 import { usePage } from '@inertiajs/react';
 
 
-const plans = [
-    {
-        name: 'Starts from 10 GB',
-        featured: false,
-        initialPrice: { value: 1 },
-        description: null,
-        discount: '',
-        button: {
-            label: 'Subscribe',
-            href: '/subscription'
-        },
-        off: true,
-        initialData: { value: 10 }
-    },
-    {
-        name: 'Starts from 40 GB',
-        featured: false,
-        initialPrice: { value: 4*0.95 },
-        description: null,
-        discount: 5,
-        button: {
-            label: 'Subscribe',
-            href: '/subscription',
-            // onClick: (_e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => (window as any).router.get(route('subscription'))
-        },
-        initialData: { value: 40 }
-    },
-    {
-        name: 'Starts from 80 GB',
-        featured: false,
-        initialPrice: { value: 8*0.90 },
-        description: null,
-        discount: 10 ,
-        button: {
-            label: 'Subscribe',
-            href: '/subscription'
-        },
-        initialData: { value: 80 }
-    },
-    {
-        name: 'Starts from 120 GB',
-        featured: false,
-        initialPrice: { value: 12*0.85 },
-        description: null,
-        discount: 15,
-        button: {
-            label: 'Subscribe',
-            href: '/subscription'
-        },
-        initialData: { value: 120 }
-    }
-];
+// const plans = [
+//     {
+//         name: 'Starts from 10 GB',
+//         featured: false,
+//         initialPrice: { value: 1 },
+//         description: null,
+//         discount: '',
+//         button: {
+//             label: 'Subscribe',
+//             href: '/subscription'
+//         },
+//         off: true,
+//         initialData: { value: 10 }
+//     },
+//     {
+//         name: 'Starts from 40 GB',
+//         featured: false,
+//         initialPrice: { value: 4*0.95 },
+//         description: null,
+//         discount: 5,
+//         button: {
+//             label: 'Subscribe',
+//             href: '/subscription',
+//             // onClick: (_e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => (window as any).router.get(route('subscription'))
+//         },
+//         initialData: { value: 40 }
+//     },
+//     {
+//         name: 'Starts from 80 GB',
+//         featured: false,
+//         initialPrice: { value: 8*0.90 },
+//         description: null,
+//         discount: 10 ,
+//         button: {
+//             label: 'Subscribe',
+//             href: '/subscription'
+//         },
+//         initialData: { value: 80 }
+//     },
+//     {
+//         name: 'Starts from 120 GB',
+//         featured: false,
+//         initialPrice: { value: 12*0.85 },
+//         description: null,
+//         discount: 15,
+//         button: {
+//             label: 'Subscribe',
+//             href: '/subscription'
+//         },
+//         initialData: { value: 120 }
+//     }
+// ];
 
-function CheckIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
-    return (
-        <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
-            <path
-                d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
-                fill="currentColor"
-            />
-            <circle
-                cx="12"
-                cy="12"
-                r="8.25"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-        </svg>
-    );
-}
+// function CheckIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+//     return (
+//         <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
+//             <path
+//                 d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
+//                 fill="currentColor"
+//             />
+//             <circle
+//                 cx="12"
+//                 cy="12"
+//                 r="8.25"
+//                 fill="none"
+//                 stroke="currentColor"
+//                 strokeWidth="1.5"
+//                 strokeLinecap="round"
+//                 strokeLinejoin="round"
+//             />
+//         </svg>
+//     );
+// }
 
 function Plan({
     dataPlan
@@ -119,9 +119,31 @@ function Plan({
             return
         }
         if(dataPlan.price_percentage_off > 0) {
-            dataPricing += (dataPlan.price_per_data * (dataPlan.price_percentage_off/100))
+            var discount = dataPlan.price_per_data * (1-(dataPlan.price_percentage_off / 100));
+            dataPricing += discount;
+            dataPricing = parseFloat(dataPricing.toFixed(2));
         } else {
             dataPricing += (dataPlan.price_per_data)
+        }
+        // dataPricing = Math.round(parseFloat(dataPricing) * 100) / 100
+        setDataGB(dataPlanGB)
+        setPrice(dataPricing)
+    }
+
+    const handleMinusData = () => {
+        let dataPricing = price
+        let dataPlanGB = dataGB
+        dataPlanGB -= dataPlan.data_step_gb
+        if(dataPlanGB < dataPlan.data_min_gb) {
+            return
+        }
+        if (dataPlan.price_percentage_off > 0) {
+            var discount = dataPlan.price_per_data * (1-(dataPlan.price_percentage_off / 100));
+            dataPricing -= discount;
+            dataPricing = parseFloat(dataPricing.toFixed(2)); // Convert back to number
+        }        
+        else {
+            dataPricing -= (dataPlan.price_per_data)
         }
         // dataPricing = Math.round(parseFloat(dataPricing) * 100) / 100
         setDataGB(dataPlanGB)
@@ -259,7 +281,7 @@ function Plan({
                 <span className='ml-4'>
                     <Minus className="custom-class" onClick={handleAddData}>+</Minus>
                     <div>&nbsp;</div>
-                    <Minus className="custom-class">-</Minus>
+                    <Minus className="custom-class" onClick={handleMinusData}>-</Minus>
                 </span>
             </span>
             

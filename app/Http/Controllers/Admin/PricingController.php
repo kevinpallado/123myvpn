@@ -48,7 +48,7 @@ class PricingController extends Controller
 
         
 
-        if($pricing->status == 1 && PlanPricing::where('status', 1)->count() >= 4){
+        if($pricing->status == 1 && PlanPricing::where('status', 1)->count() > 4){
             return redirect()->back()->withErrors(['status' => 'You cannot add more than 4 active pricing.']);
         }else{
             $pricing->save();
@@ -82,7 +82,7 @@ class PricingController extends Controller
             $pricing->sale_text = $request->sale_text;
         }
         
-        if($pricing->status == 1 && PlanPricing::where('status', 1)->count() >= 4){
+        if($pricing->status == 1 && PlanPricing::where('status', 1)->count() > 4){
             return redirect()->back()->withErrors(['status' => 'You cannot have more than 4 active plans.']);
         }else{
             $pricing->save();
